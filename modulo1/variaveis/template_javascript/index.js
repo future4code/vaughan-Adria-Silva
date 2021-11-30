@@ -62,8 +62,8 @@
 
 /*  Desafio   */
 
-const num1 = prompt("Digite um número qualquer:")
-const num2 = prompt("Digite outro número qualquer:")
+const num1 = Number(prompt("Digite um número qualquer:"));
+const num2 = Number(prompt("Digite outro número qualquer:"));
 
-console.log("O primeiro número somado ao segundo número resulta em:", num1 + num2, ".")
-console.log("O primeiro número multiplicado pelo segundo número resulta em:", num1 * num2, ".")
+console.log("O primeiro número somado ao segundo número resulta em:", num1 + num2, ".");
+console.log("O primeiro número multiplicado pelo segundo número resulta em:", num1 * num2, ".");
