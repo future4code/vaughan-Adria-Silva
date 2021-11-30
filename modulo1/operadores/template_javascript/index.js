@@ -69,3 +69,84 @@
         console.log("O primeiro numero é igual ao segundo?", comparacao2);
         console.log("O primeiro numero é divisível pelo segundo?", comparacao3);
         console.log("O segundo numero é divisível pelo primeiro?", comparacao4);
+
+/* DESAFIOS */
+
+    //Questão 1.
+        //Item a.
+            let temp = 37;
+            let farenheitParaKelvin = (temp - 32) * (5 / 9) + 273.15;
+            console.log("77°F equivale à", farenheitParaKelvin, "K.");
+
+        //Item b.
+            temp = 80
+            let celsiusParaFarenheit = temp * (9 / 5) + 32;
+            console.log("80°C equivale à", celsiusParaFarenheit, "°F.");
+
+        //Item c.
+            temp = 30
+            celsiusParaFarenheit = temp * (9 / 5) + 32;
+            console.log("30°C equivale à", celsiusParaFarenheit, "°F.");
+
+            temp = celsiusParaFarenheit //temp está em °F
+            farenheitParaKelvin = (temp - 32) * (5 / 9) + 273.15;
+            console.log("30°C equivale à", farenheitParaKelvin, "K.");
+        //Item d.
+            temp = Number(prompt("Insira uma temperatura em °C que você deseja saber quanto é em °F e em K:"))
+            celsiusParaFarenheit = temp * (9 / 5) + 32;
+            console.log( temp, "°C equivale à", celsiusParaFarenheit, "°F.");
+
+            const tempF = celsiusParaFarenheit
+            farenheitParaKelvin = (tempF - 32) * (5 / 9) + 273.15;
+            console.log(temp, "°C equivale à", farenheitParaKelvin, "K.");
+    
+    //Questão 2.
+        //Item a.
+            const custoKwh = 0.05;
+            let consumoKwh = 280;
+
+            let contaMensal = custoKwh * consumoKwh * 30;
+            console.log("Uma residência que consome", consumoKwh, "KWh paga R$", contaMensal, "por mês.");
+        
+        //Item b.
+            let contaMensalDesconto = contaMensal * 85 / 100;
+            console.log("Com 15% de desconto, a residência pagará R$", contaMensalDesconto);
+
+    //Questão 3.
+        //Item a.
+            const pesoLb = 20;
+            const lbParaKg = pesoLb * 0.453592;
+            
+            console.log(pesoLb, "lb equivalem a", lbParaKg, "kg");
+        
+        //Item b.
+            const pesoOz = 10;
+            const ozParaKg = pesoOz * 0.0283495;
+        
+            console.log(pesoOz, "oz equivalem a", ozParaKg, "kg");
+        //Item c.
+            const distanciaMilha = 100;
+            const miParaM = distanciaMilha * 1609.34;
+            
+            console.log(distanciaMilha, "mi equivalem a", miParaM , "m");
+        
+        //Item d.
+            const distanciaFt = 50;
+            const ftParaM = distanciaFt * 0.3048;
+            
+            console.log(distanciaFt, "ft equivalem a", ftParaM , "m");
+
+        //Item e.
+        const volumeGal = 103.56;
+        const galParaL = volumeGal * 3.78541;
+        
+        console.log(volumeGal, "gal equivalem a", galParaL , "L");
+
+        //Item f.
+        const volumeXic = 450;
+        const xicParaL = volumeXic * 0.16667;
+        
+        console.log(volumeXic, "xic equivalem a", xicParaL , "L");
+
+
+
