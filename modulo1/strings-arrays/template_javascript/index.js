@@ -93,12 +93,7 @@
 
         const listaFrutas = ["Banana", "Morango", "Abacaxi", "Laranja", "Ameixa"];
         
-        const posicaopineapples = listaFrutas.findIndex(checkPineapple);
-
-        function checkPineapple(fruta){
-            return fruta === "Abacaxi";
-        }
-        
+        const checkPineapple = listaFrutas.indexOf("Abacaxi");       
         const tamanhoListaFrutas = listaFrutas.length;
         
-        console.log(`O array tem ${tamanhoListaFrutas} elementos, onde Abacaxi está na posição ${posicaopineapples}.`)
+        console.log(`O array tem ${tamanhoListaFrutas} elementos, onde Abacaxi está na posição ${checkPineapple}.`);
