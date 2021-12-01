@@ -78,3 +78,27 @@
 
                 console.log(listaDeTarefas);
 
+/** DESAFIOS */
+
+
+
+    // Questão 1.
+
+        const frase = prompt("Por favor, digite uma frase:");
+        const meuArray = frase.split(" ");
+        
+        console.log(meuArray);
+
+    // Questão 2.
+
+        const listaFrutas = ["Banana", "Morango", "Abacaxi", "Laranja", "Ameixa"];
+        
+        const posicaopineapples = listaFrutas.findIndex(checkPineapple);
+
+        function checkPineapple(fruta){
+            return fruta === "Abacaxi";
+        }
+        
+        const tamanhoListaFrutas = listaFrutas.length;
+        
+        console.log(`O array tem ${tamanhoListaFrutas} elementos, onde Abacaxi está na posição ${posicaopineapples}.`)
