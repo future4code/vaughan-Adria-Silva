@@ -101,3 +101,29 @@
         console.log(`Diferença: ${subtrair(num1, num2)}`);
         console.log(`Multiplicação: ${multiplicar(num1, num2)}`);
         console.log(`Divisão: ${dividir(num1, num2)}`);
+
+/** DESAFIOS */
+
+    // Questão 1.
+
+        // Item a.
+            
+            const minhaFlecha = parametro => console.log(parametro);
+            //minhaFlecha(2)
+
+        // Item b.
+
+            const myArrow = (valor1, valor2) => {
+                const somatorio = valor1 + valor2;
+                minhaFlecha(somatorio);
+            }
+            //myArrow(2, 2);
+
+    // Questão 2.
+
+        const calcularHipotenusa = (cateto1, cateto2) => {
+            const somaCatetosQuadrados = Math.pow(cateto1, 2) + Math.pow(cateto2, 2);
+            return Math.sqrt(somaCatetosQuadrados);
+        }
+
+        console.log(calcularHipotenusa(4, 5));
