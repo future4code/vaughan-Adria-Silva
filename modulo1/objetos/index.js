@@ -146,6 +146,38 @@
 
             console.log(carrinho);
 
-            
 
+/* DESAFIOS */
 
+    // Questão 1.
+
+        const cliente = () => {
+            const user = {
+                nome: prompt("Por favor: informe seu nome:"),
+                idade: prompt("Por favor: informe sua idade:"),
+                job: prompt("Por favor: informe sua profissão")
+            }
+
+            console.log(user);
+            console.log(typeof user);
+        }
+
+        cliente();
+
+    // Questão 2.
+
+        const filme = (filme1, filme2) => {
+            const lancadoPrimeiro = filme1.ano_de_lancamento < filme2.ano_de_lancamento;
+            const lancadoIgual = filme1.ano_de_lancamento === filme2.ano_de_lancamento;
+
+            const frases = `O primeiro filme foi lançado antes do segundo? ${lancadoPrimeiro} \nO primeiro filme foi lançado no mesmo ano do segundo? ${lancadoIgual}`
+
+            return frases
+        }
+
+    // Questão 3.
+
+        const controlarSacolao = fruta => {
+            fruta.disponibilidade = !fruta.disponibilidade;
+            return fruta;
+        }
