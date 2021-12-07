@@ -170,9 +170,9 @@
             const lancadoPrimeiro = filme1.ano_de_lancamento < filme2.ano_de_lancamento;
             const lancadoIgual = filme1.ano_de_lancamento === filme2.ano_de_lancamento;
 
-            const frases = `O primeiro filme foi lançado antes do segundo? ${lancadoPrimeiro} \nO primeiro filme foi lançado no mesmo ano do segundo? ${lancadoIgual}`
+            const frases = `O primeiro filme foi lançado antes do segundo? ${lancadoPrimeiro} \nO primeiro filme foi lançado no mesmo ano do segundo? ${lancadoIgual}`;
 
-            return frases
+            return frases;
         }
 
     // Questão 3.
