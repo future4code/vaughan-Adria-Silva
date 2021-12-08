@@ -70,32 +70,32 @@
 
     // Questão 2.
 
-            const arrayOriginal = [80, 30, 130, 40, 60, 21, 70, 120, 90, 103, 110, 55];
+            //const arrayOriginal = [80, 30, 130, 40, 60, 21, 70, 120, 90, 103, 110, 55];
         
         // Item a.
             
-            const imprimirTodosValores = arrayOrigin => {
-                for(let numero of arrayOrigin){
+            const imprimirTodosValores = arrayRecebido => {
+                for(let numero of arrayRecebido){
                     console.log(numero);
                 }
             }
-            imprimirTodosValores(arrayOriginal);
+            //imprimirTodosValores(arrayOriginal);
         
         // Item b.
 
-            const imprimirTodosDivididos = arrayOrigin => {
-                for(let i of arrayOrigin){
+            const imprimirTodosDivididos = arrayRecebido => {
+                for(let i of arrayRecebido){
                     console.log(i / 10);
                 }
             }
-            imprimirTodosDivididos(arrayOriginal);
+            //imprimirTodosDivididos(arrayOriginal);
 
         // Item c.
 
-            const imprimirTodosPares = arrayOrigin => {
+            const imprimirTodosPares = arrayRecebido => {
                 let somentePares = [];
                
-                for(let i of arrayOrigin){
+                for(let i of arrayRecebido){
                     if(i % 2 === 0){
                         somentePares.push(i);
                     }
@@ -103,43 +103,92 @@
                 console.log(somentePares);
             }
 
-            imprimirTodosPares(arrayOriginal);
+            //imprimirTodosPares(arrayOriginal);
 
         // Item d.
 
-            const imprimirTodosString = arrayOrigin => {
+            const imprimirTodosString = arrayRecebido => {
                 let arrayStrings = [];
                 let frase = "";
                 
-                for(let i = 0; i < arrayOrigin.length; i++){
-                    frase = `O elemento do índex ${i} é: ${arrayOrigin[i]}`;
+                for(let i = 0; i < arrayRecebido.length; i++){
+                    frase = `O elemento do índex ${i} é: ${arrayRecebido[i]}`;
                     arrayStrings.push(frase);                  
                 }
                 console.log(arrayStrings);
             }
             
-            imprimirTodosString(arrayOriginal);
+            //imprimirTodosString(arrayOriginal);
 
         // Item e.
             
-            const imprimirMaiorMenor = arrayOrigin =>{
-                let maiorNumero = -100000000;
-                let menorNumero = 1000000000;
+            const imprimirMaiorMenor = arrayRecebido =>{
+                let maiorNumero = Number.NEGATIVE_INFINITY;
+                let menorNumero = Number.POSITIVE_INFINITY;
 
-                for(i = 0; i < arrayOrigin.length; i++){
-                    if(arrayOrigin[i] > maiorNumero){
-                        maiorNumero = arrayOrigin[i];
+                for(i = 0; i < arrayRecebido.length; i++){
+                    if(arrayRecebido[i] > maiorNumero){
+                        maiorNumero = arrayRecebido[i];
                     }
                 }
-                for(j = 0; j < arrayOrigin.length; j++){
-                    if(arrayOrigin[j] < menorNumero){
-                        menorNumero = arrayOrigin[j];
+                for(j = 0; j < arrayRecebido.length; j++){
+                    if(arrayRecebido[j] < menorNumero){
+                        menorNumero = arrayRecebido[j];
                     }
                 }
                 console.log(`O maior número é ${maiorNumero} e o menor é ${menorNumero}`);
             }
 
-            imprimirMaiorMenor(arrayOriginal);
+            //imprimirMaiorMenor(arrayOriginal);
             
             
+/* DESAFIOS */
+
+    // Questão 1.
+
+        let numeroParaAdvinhar = Number(prompt("Player 1, digite um número inteiro qualquer:"));
+        console.log("Vamos jogar!");
+
+        let numeroTentativas = 1;
+        let numeroChutado = Number(prompt("Player 2, chute um número inteiro qualquer:"));;
+
+        while(numeroChutado !== numeroParaAdvinhar){
         
+            if(numeroChutado < numeroParaAdvinhar){
+                console.log("O número chutado foi: " + numeroChutado);
+                console.log("Errrou, o número escolhido pelo Player 1 é maior");
+            }else if(numeroChutado > numeroParaAdvinhar){
+                console.log("O número chutado foi: " + numeroChutado);
+                console.log("Errrou, o número escolhido pelo Player 1 é menor");
+            }
+        
+            numeroChutado = Number(prompt("Segundo jogador, chute um número inteiro qualquer:"));
+            numeroTentativas += 1;
+        }
+
+        console.log("Acertou!!");
+        console.log(`O número de tentativas foi: ${numeroTentativas}`);
+
+    // Questão 2.
+            
+    numeroParaAdvinhar = Math.floor((Math.random() * 100) + 1);
+
+    numeroTentativas = 1;
+    numeroChutado = Number(prompt("Player, chute um número inteiro qualquer:"));;
+
+    while(numeroChutado !== numeroParaAdvinhar){
+    
+        if(numeroChutado < numeroParaAdvinhar){
+            console.log("O número chutado foi: " + numeroChutado);
+            console.log("Errrou, o número escolhido pelo computador é maior");
+        }else if(numeroChutado > numeroParaAdvinhar){
+            console.log("O número chutado foi: " + numeroChutado);
+            console.log("Errrou, o número escolhido pelo computador é menor");
+        }
+    
+        numeroChutado = Number(prompt("Player, chute um número inteiro qualquer:"));
+        numeroTentativas += 1;
+    }
+
+    console.log("Acertou!!");
+    console.log(`O número de tentativas foi: ${numeroTentativas}`);
