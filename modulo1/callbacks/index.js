@@ -97,7 +97,7 @@
         // Item b.
 
             const nomePrecoTodosProdutos = produtos.map( (produtos) => {
-                return {nome: produtos.nome, preco: produtos.preco};
+                return {nome: produtos.nome, preco: (produtos.preco - produtos.preco * 5/100).toFixed(2)};
             })
 
             //console.log(nomePrecoTodosProdutos);
@@ -124,6 +124,44 @@
                 return `Compre ${produtosYpe.nome} por ${produtosYpe.preco}`;
             })
 
-            console.log(venderYpe);
+            //console.log(venderYpe);
+
+/* DESAFIO */
+
+    // Questão 1.
+
+            const pokemons = [
+                { nome: "Bulbasaur", tipo: "grama" },
+                { nome: "Bellsprout", tipo: "grama" },
+                { nome: "Charmander", tipo: "fogo" },
+                { nome: "Vulpix", tipo: "fogo" },
+                { nome: "Squirtle", tipo: "água" },
+                { nome: "Psyduck", tipo: "água" },
+            ]
+        
+        // Item a.
+
+            const nomesTodosPokemons = pokemons.map( (pokemons) => {
+                return pokemons.nome;
+            })
+
+            //console.log(nomesTodosPokemons);
+
+            const nomesPkemonsOrdenados = nomesTodosPokemons.sort();
+
+            //console.log(nomesPkemonsOrdenados);
+
+        // Item b.
+
+            const tiposTodosPokemons = pokemons.map( (pokemons) => {
+                return pokemons.tipo;
+            })
+
+            const cadaTipoExistentePokemons = tiposTodosPokemons.filter( (elemento, indice, tiposTodosPokemons) => {
+                return tiposTodosPokemons.indexOf(elemento) === indice;
+            })
+
+            //console.log(cadaTipoExistentePokemons);
+
 
             
