@@ -147,12 +147,18 @@ function retornaPessoaAnonimizada(pessoa) {
 
 // EXERCÍCIO 13A
 function retornaPessoasAutorizadas(pessoas) {
-   
+    const entradaPermitida = pessoas.filter( (elemento) => {
+        return elemento.altura >= 1.50 && elemento.idade > 14 && elemento.idade < 60;
+    })
+    return entradaPermitida;
 }
 
 // EXERCÍCIO 13B
 function retornaPessoasNaoAutorizadas(pessoas) {
-  
+    const entradaProibida = pessoas.filter( (elemento) => {
+        return elemento.altura < 1.50 || elemento.idade <= 14 || elemento.idade > 60;
+    })
+    return entradaProibida;
 }
 
 // EXERCÍCIO 14
