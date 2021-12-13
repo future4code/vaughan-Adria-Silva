@@ -109,8 +109,15 @@ function classificaTriangulo(ladoA, ladoB, ladoC) {
 
 // EXERCÍCIO 10
 function retornaSegundoMaiorESegundoMenor(array) {
-  
+
+    arrayOrdenado = retornaArrayOrdenado(array);
+
+    arraySegundoMaiorMenor = [arrayOrdenado[arrayOrdenado.length - 2], arrayOrdenado[1]];
+
+    return arraySegundoMaiorMenor;
 }
+
+//console.log(retornaSegundoMaiorESegundoMenor([8, 4, 9, 3, 2, 10]));
 
 // EXERCÍCIO 11
 function retornaChamadaDeFilme(filme) {
