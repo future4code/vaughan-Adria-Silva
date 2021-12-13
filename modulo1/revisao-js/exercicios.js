@@ -121,7 +121,20 @@ function retornaSegundoMaiorESegundoMenor(array) {
 
 // EXERCÍCIO 11
 function retornaChamadaDeFilme(filme) {
-   
+
+    let listaAtores = "";
+
+    for(let i = 0; i < filme.atores.length; i++){
+        if(i === filme.atores.length - 1){
+            listaAtores = listaAtores + filme.atores[i];
+        }else{
+            listaAtores = listaAtores + filme.atores[i] + ", ";
+        }       
+    }
+
+    const frase = `Venha assistir ao filme ${filme.nome}, de ${filme.ano}, dirigido por ${filme.diretor} e estrelado por ${listaAtores}.`
+    
+    return frase;
 }
 
 // EXERCÍCIO 12
