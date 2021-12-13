@@ -44,7 +44,7 @@ function firstRound(){
 
    let playerInitialHand = [comprarCarta(), comprarCarta()];
 
-   while(playerInitialHand[0] === 11 && playerInitialHand[1] === 11){
+   while(playerInitialHand[0].valor === 11 && playerInitialHand[1].valor === 11){
       playerInitialHand = [comprarCarta(), comprarCarta()];
    }
 
