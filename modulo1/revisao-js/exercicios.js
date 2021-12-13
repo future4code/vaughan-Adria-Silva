@@ -19,12 +19,28 @@ function retornaArrayInvertido(array) {
     return arrayInvertido;
 }
 
-//console.log(retornaArrayInvertido([0, 1, 2, 3, 4, 5]));
-
 // EXERCÍCIO 03
 function retornaArrayOrdenado(array) {
-    return array.sort((a, b) => a - b);
+    //return array.sort((a, b) => a - b);
+    let menorNumero = Number.POSITIVE_INFINITY;
+    const arrayCrescente = []
+    let indiceMenorNumero = 0;
+
+    while(array.length !== 0){
+        for(let j = 0; j < array.length; j++){
+            if(array[j] < menorNumero){
+                indiceMenorNumero = j;
+                menorNumero = array[j];
+            }
+        }
+        arrayCrescente.push(menorNumero);
+        array.splice(indiceMenorNumero, 1);
+        menorNumero = Number.POSITIVE_INFINITY;
+    }
+    return arrayCrescente;
 }
+
+//console.log(retornaArrayOrdenado([4, 8, 3, 5, 1]));
 
 // EXERCÍCIO 04
 function retornaNumerosPares(array) {
