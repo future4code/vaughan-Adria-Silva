@@ -50,7 +50,30 @@ function retornaMaiorNumero(array) {
 
 // EXERCÍCIO 07
 function retornaObjetoEntreDoisNumeros(num1, num2) {
+    let maiorNumero = 0;
+    let menorNumero = 0;
 
+    if (num1 > num2){
+        maiorNumero = num1;
+        menorNumero = num2;
+    }else if(num1 < num2){
+        maiorNumero = num2;
+        menorNumero = num1;
+    }else{ //caso num1 e num 2 sejam iguais
+        maiorNumero = num1;
+        menorNumero = num2;
+    }
+
+    const ehDivisivel = maiorNumero % menorNumero === 0;
+    const diferenca = maiorNumero - menorNumero;
+
+    const objeto = {
+        maiorNumero: maiorNumero,
+        maiorDivisivelPorMenor: ehDivisivel,
+        diferenca: diferenca
+    };
+
+    return objeto;    
 }
 
 // EXERCÍCIO 08
