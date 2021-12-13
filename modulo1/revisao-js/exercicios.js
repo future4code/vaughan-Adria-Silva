@@ -121,8 +121,6 @@ function retornaNPrimeirosPares(n) {
     return arrayNPares;  
 }
 
-//console.log(retornaNPrimeirosPares(4));
-
 // EXERCÍCIO 09
 function classificaTriangulo(ladoA, ladoB, ladoC) {
 
@@ -145,8 +143,6 @@ function retornaSegundoMaiorESegundoMenor(array) {
 
     return arraySegundoMaiorMenor;
 }
-
-//console.log(retornaSegundoMaiorESegundoMenor([8, 4, 9, 3, 2, 10]));
 
 // EXERCÍCIO 11
 function retornaChamadaDeFilme(filme) {
