@@ -15,12 +15,15 @@ function retornaArrayInvertido(array) {
 
 // EXERCÍCIO 03
 function retornaArrayOrdenado(array) {
-  
+
 }
 
 // EXERCÍCIO 04
 function retornaNumerosPares(array) {
-  
+    const apenasPares = array.filter( (elemento) => {
+        return elemento % 2 === 0;
+    });
+    return apenasPares;
 }
 
 // EXERCÍCIO 05
