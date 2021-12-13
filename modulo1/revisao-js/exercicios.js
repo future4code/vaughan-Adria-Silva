@@ -23,7 +23,7 @@ function retornaArrayInvertido(array) {
 function retornaArrayOrdenado(array) {
     //return array.sort((a, b) => a - b);
     let menorNumero = Number.POSITIVE_INFINITY;
-    const arrayCrescente = []
+    const arrayCrescente = [];
     let indiceMenorNumero = 0;
 
     while(array.length !== 0){
@@ -40,14 +40,19 @@ function retornaArrayOrdenado(array) {
     return arrayCrescente;
 }
 
-//console.log(retornaArrayOrdenado([4, 8, 3, 5, 1]));
-
 // EXERCÍCIO 04
 function retornaNumerosPares(array) {
-    const apenasPares = array.filter( (elemento) => {
-        return elemento % 2 === 0;
-    });
-    return apenasPares;
+    //const apenasPares = array.filter( (elemento) => {
+    //    return elemento % 2 === 0;
+    //});
+    //return apenasPares;
+    const arrayDePares = [];
+    for(let i = 0; i < array.length; i++){
+        if(array[i] % 2 === 0){
+            arrayDePares.push(array[i]);
+        }
+    }
+    return arrayDePares;
 }
 
 // EXERCÍCIO 05
