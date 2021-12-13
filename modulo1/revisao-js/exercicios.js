@@ -28,7 +28,11 @@ function retornaNumerosPares(array) {
 
 // EXERCÍCIO 05
 function retornaNumerosParesElevadosADois(array) {
- 
+    const numerosPrares = retornaNumerosPares(array);
+    const paresQuadrado = numerosPrares.map( (elemento) => {
+        return Math.pow(elemento, 2);
+    })
+    return paresQuadrado;
 }
 
 // EXERCÍCIO 06
