@@ -10,8 +10,16 @@ function retornaTamanhoArray(array) {
 
 // EXERCÍCIO 02
 function retornaArrayInvertido(array) {
-    return array.reverse();
+    //return array.reverse();
+    const arrayInvertido = []
+    
+    for(let j = array.length - 1; j >= 0; j-= 1){
+        arrayInvertido.push(array[j]);
+    }
+    return arrayInvertido;
 }
+
+//console.log(retornaArrayInvertido([0, 1, 2, 3, 4, 5]));
 
 // EXERCÍCIO 03
 function retornaArrayOrdenado(array) {
@@ -88,11 +96,11 @@ function retornaNPrimeirosPares(n) {
         }
         i++;
     }
-
+    console.log(n)
     return arrayNPares;  
 }
 
-//console.log(retornaNPrimeirosPares(5));
+//console.log(retornaNPrimeirosPares(4));
 
 // EXERCÍCIO 09
 function classificaTriangulo(ladoA, ladoB, ladoC) {
