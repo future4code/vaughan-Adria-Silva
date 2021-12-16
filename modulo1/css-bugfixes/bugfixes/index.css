@@ -69,6 +69,13 @@ table img {
     width: 15px;
 }
 
+.icone:hover{
+    opacity: 0.5;
+}
+
+.icone:active{
+    opacity: 1;
+}
 
 /** 
   *
@@ -86,8 +93,8 @@ table img {
 }
 
 #container-de-descricao>p {
-    margin-right: 380px;
-    margin-left: 380px;
+    margin-right: 845px;
+    margin-left: 845px;
     padding: 100px 0px 0px;
 }
 
