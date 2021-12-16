@@ -76,6 +76,8 @@ div img {
 }
 
 #container-de-descricao>p {
+    margin-right: 380px;
+    margin-left: 380px;
     padding: 100px 0px 0px;
 }
 
