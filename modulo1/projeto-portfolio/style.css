@@ -1,0 +1,41 @@
+*{
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: 'Roboto', sans-serif;
+}
+
+ul{
+    list-style: none;
+}
+
+.nav-top ul {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    width:100%;
+    padding: 30px;
+    background-color: #868C8F;
+    color: #FFFFFF;
+    font-weight: 900;
+    
+}
+
+.nav-top a{
+    padding: 16px;
+    margin: auto;
+    text-decoration: none;
+    padding-top: 30px;
+    padding-bottom: 30px;
+}
+
+.nav-top a:hover{
+    background-color: #FFFAEE;
+    color: #868C8F;
+}
+
+#home-apresentacao {
+    padding: 30px;
+}
