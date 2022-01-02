@@ -157,18 +157,18 @@ footer {
     padding-bottom: 9px;
 }
 
-/* Projeto Blackjack */
-.sobre-bj {
+/* Sites dos projetos */
+.sobre-projeto {
     padding: 30px;
     margin: auto;
     width: 65%;
     text-align: justify;
 }
-.sobre-bj h1{
+.sobre-projeto h1{
     text-align: center;  
 }
 
-.sobre-bj h3{
+.sobre-projeto h3{
     padding-top: 12px;
     padding-bottom: 12px;;
 }
@@ -178,7 +178,7 @@ footer {
     margin: auto;
     border: thin solid black;
     border-radius: 8px;
-    padding: 0.5rem 0px; 
+    padding: 0.5rem 0px;
 }
 
 .tecnologia figure{
@@ -192,6 +192,13 @@ footer {
     border-bottom: thin solid black;
 }
 
+.tecnologias {
+    display: flex;
+    flex-direction: row;
+    width: 50%;
+    margin: auto;
+}
+
 .lista-regras-bj {
     list-style: square inside;
     padding: 6px 0px;
@@ -201,12 +208,16 @@ footer {
     padding: 6px 0px;
 }
 
-.pagina-bj {
+.paginas {
     text-align: center;
     margin-bottom: 1rem;
 }
 
-.site-bj {
+.img-subir {
+    margin-top: -30px;
+}
+
+.site {
     display: block;
     padding: 1rem;
     width: 100px;
@@ -218,7 +229,7 @@ footer {
     background-color: #5387a3;
 }
 
-.site-bj:hover {
+.site:hover {
     border: thick solid #5387a3;
     color: #5387a3;
     background-color: white;
