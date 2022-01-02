@@ -124,3 +124,36 @@ footer {
     border: thin solid black;
     border-radius: 10px;
 }
+
+/* Projetos */
+
+#projetos {
+    padding: 30px;
+}
+
+#projetos ul {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+
+#projetos a {
+    color: black;
+    text-align: center;
+    position: relative;
+}
+#projetos a:hover {
+    top: -3px;
+}
+
+.meus-projetos {
+    margin: 1rem;
+    padding: 6px;
+    border: thick solid #868C8F;
+    border-radius: 10px;
+}
+
+.img-maior-bj {
+    padding-top: 9px;
+    padding-bottom: 9px;
+}
