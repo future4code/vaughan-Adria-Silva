@@ -53,7 +53,16 @@ a:visited {
 /* Sessão Apresentação*/
 
 #home-apresentacao {
-    padding: 30px;
+    padding-top: 60px;
+    padding-bottom: 12px;
+    text-align: center;
+    font-size: 32px;
+    font-style: normal;
+    font-weight: 500;
+}
+
+.font-menor {
+    font-size: 20px;
 }
 
 /* Sessão Formação */
