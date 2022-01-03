@@ -1,0 +1,89 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+
+.icon {
+    width: 20px;
+    height: 20px;
+}
+
+.cake {
+    width: 350px;
+    height: 350px;
+}
+
+figure {
+    box-shadow: 2px 2px 0.5em 0px darkgray;
+    width: 350px;
+    text-align: center;
+}
+figure figcaption {
+    padding: 6px;
+}
+
+
+body {
+    height: 100vh;
+    display: grid;
+    grid-template-rows: 70px 1fr 70px;
+    grid-template-columns: 1fr 4fr;
+    justify-items: stretch;
+}
+
+nav {
+    padding: 16px;
+    grid-column: 1 / 4;
+    background-color: mediumvioletred;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+button {
+    padding: 2px 8px;
+    border-style: none;
+    border-radius: 0;
+}
+
+aside {
+    grid-row: 2 span 1;
+    grid-column: 1 span 1;
+    background-color: #f2d0e0;
+    padding: 16px;
+    
+}
+
+.opcao-menu{
+    padding-bottom: 16px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.icon-title{
+    display: flex;
+    align-items: center;
+}
+
+.icon-title p, h1 {
+    padding-left: 16px;
+}
+
+main {
+    padding: 16px;
+    height: inherit;
+    display: grid;
+    grid-template-rows: 1fr 1fr;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    row-gap: 16px;
+}
+
+footer {
+    grid-row: 3 span 1;
+    grid-column: 1 / 4;
+    background-color: mediumvioletred;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
