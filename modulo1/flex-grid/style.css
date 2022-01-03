@@ -18,6 +18,7 @@ figure {
     width: 350px;
     text-align: center;
 }
+
 figure figcaption {
     padding: 6px;
 }
@@ -28,7 +29,6 @@ body {
     display: grid;
     grid-template-rows: 70px 1fr 70px;
     grid-template-columns: 1fr 4fr;
-    justify-items: stretch;
 }
 
 nav {
@@ -72,11 +72,11 @@ aside {
 
 main {
     padding: 16px;
-    height: inherit;
     display: grid;
     grid-template-rows: 1fr 1fr;
     grid-template-columns: 1fr 1fr 1fr 1fr;
     row-gap: 16px;
+    column-gap: 16px;
 }
 
 footer {
