@@ -233,13 +233,47 @@ footer {
     margin: auto;
     text-align: center;
     border-radius: 10px;
-    border: thick solid #5387a3;
-    color: black;
-    background-color: #5387a3;
+    border: thick solid #868C8F;
+    background-color: #868C8F;
+    color: #f1f1ef;
+    /*color: black;
+    background-color: #5387a3*/;
 }
 
 .site:hover {
-    border: thick solid #5387a3;
-    color: #5387a3;
-    background-color: white;
+    border: thick solid #868C8F;
+    color: #868C8F;
+    background-color: #f1f1ef;
+}
+
+/* Habilidades */
+
+#habilidades {
+    padding: 30px;
+}
+.skills {
+    width: 65%;
+    margin: auto;
+}
+
+.skills p {
+    text-align: justify;
+    padding: 6px 12px;
+}
+
+.skills ul{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    margin: 1rem;
+}
+
+.skills li {
+    padding: 1rem;
+    margin: 0 1rem;
+    border: thin solid #868C8F;
+    border-radius: 16px;
+    background-color: #868C8F;
+    color: #f1f1ef;
+    font-weight: bolder;
 }
