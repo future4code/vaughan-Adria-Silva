@@ -15,6 +15,6 @@ function criarArrayNomesAnimais() {
   const animalsName = animais.map( elemento => {
     return elemento.nome;
   })
-  return animalsName
+  return animalsName;
 }
 ```
