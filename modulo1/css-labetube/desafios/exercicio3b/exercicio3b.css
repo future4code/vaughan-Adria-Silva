@@ -34,3 +34,37 @@ body {
 .purple-background {
     background-color: purple;
 }
+
+#top-container {
+    display: grid;
+    grid-template-columns: 1fr 4fr;
+    grid-template-rows: 1fr;
+}
+
+#middle-container {
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr;
+    grid-template-rows: 1fr 1fr;
+}
+
+#content2 {
+    grid-row: 1 / -1;
+    justify-self: center;
+    align-self: center;
+}
+
+#vertical-middle-container {
+    grid-row: 1 / -1;
+}
+
+#blank {
+    border: thick solid black;
+    grid-row: 1 / -1;
+}
+
+#main-container {
+    height: 100%;
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: 1fr 7fr 3fr 1fr;
+}
