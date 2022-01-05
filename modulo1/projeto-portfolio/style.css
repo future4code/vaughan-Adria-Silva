@@ -1,0 +1,279 @@
+*{
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: 'Roboto', sans-serif;
+}
+
+ul{
+    list-style: none;
+}
+
+a{
+    text-decoration: none;
+}
+
+a:visited {
+    text-decoration: none;
+  }
+
+/* Barra de navegação */
+
+.nav-top ul {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    width:100%;
+    padding: 30px;
+    background-color: #868C8F;
+    font-weight: 900;
+}
+
+.nav-top a{
+    padding: 16px;
+    margin: auto;
+    text-decoration: none;
+    padding-top: 30px;
+    padding-bottom: 30px;
+    color: #FFFFFF;
+}
+
+.nav-top a:hover{
+    background-color: #FFFAEE;
+    color: #868C8F;
+}
+
+.section-title {
+    padding-top: 12px;
+    padding-bottom: 12px;
+}
+
+/* Sessão Apresentação*/
+
+#home-apresentacao {
+    padding-top: 60px;
+    padding-bottom: 12px;
+    text-align: center;
+    font-size: 32px;
+    font-style: normal;
+    font-weight: 500;
+}
+
+.font-menor {
+    font-size: 20px;
+}
+
+/* Sessão Formação */
+
+#formacao {
+    padding: 30px;
+}
+
+.logo-center {
+    text-align: center;
+}
+
+.info-formacao {
+    font-size: large;
+    margin: auto;
+}
+
+.lista-formacao {
+    padding: 12px;
+}
+
+.info-formacao td {
+    border: thick solid #868C8F;
+}
+
+/* Sessão Formulário */
+
+#contato {
+    padding: 30px;
+}
+
+fieldset{
+    width: 50%;
+    margin:auto;
+    padding: 16px;
+    border: solid #868C8F;
+}
+
+input, textarea {
+    display: block;
+    width: 100%;
+    margin-bottom: 12px;
+    padding: 6px 2px;
+}
+
+/* Footer */
+
+footer {
+    padding: 30px;
+    background-color: #f1f1ef;
+}
+
+.lista-redes {
+    margin: auto;
+    text-align: center;
+    width: 245px;
+}
+
+.lista-redes a {
+    color: black;
+}
+
+.redes{
+    margin-top: 0.5rem;
+    padding-top: 6px;
+    padding-bottom: 6px;
+    border: thin solid black;
+    border-radius: 10px;
+}
+
+/* Projetos */
+
+#projetos {
+    padding: 30px;
+}
+
+#projetos ul {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+
+#projetos a {
+    color: black;
+    text-align: center;
+    position: relative;
+}
+#projetos a:hover {
+    top: -3px;
+}
+
+.meus-projetos {
+    margin: 1rem;
+    padding: 6px;
+    border: thick solid #868C8F;
+    border-radius: 10px;
+}
+
+.img-maior-bj {
+    padding-top: 9px;
+    padding-bottom: 9px;
+}
+
+/* Sites dos projetos */
+.sobre-projeto {
+    padding: 30px;
+    margin: auto;
+    width: 65%;
+    text-align: justify;
+}
+.sobre-projeto h1{
+    text-align: center;  
+}
+
+.sobre-projeto h3{
+    padding-top: 12px;
+    padding-bottom: 12px;;
+}
+
+.tecnologia {
+    width: 80px;
+    margin: auto;
+    border: thin solid black;
+    border-radius: 8px;
+    padding: 0.5rem 0px;
+}
+
+.tecnologia figure{
+    text-align: center;
+}
+
+.tecnologia span{
+    display: block;
+    width: inherit;
+    text-align: center;
+    border-bottom: thin solid black;
+}
+
+.tecnologias {
+    display: flex;
+    flex-direction: row;
+    width: 50%;
+    margin: auto;
+}
+
+.lista-regras-bj {
+    list-style: square inside;
+    padding: 6px 0px;
+}
+
+.lista-regras-bj li {
+    padding: 6px 0px;
+}
+
+.paginas {
+    text-align: center;
+    margin-bottom: 1rem;
+}
+
+.img-subir {
+    margin-top: -30px;
+}
+
+.site {
+    display: block;
+    padding: 1rem;
+    width: 100px;
+    margin: auto;
+    text-align: center;
+    border-radius: 10px;
+    border: thick solid #868C8F;
+    background-color: #868C8F;
+    color: #f1f1ef;
+    /*color: black;
+    background-color: #5387a3*/;
+}
+
+.site:hover {
+    border: thick solid #868C8F;
+    color: #868C8F;
+    background-color: #f1f1ef;
+}
+
+/* Habilidades */
+
+#habilidades {
+    padding: 30px;
+}
+.skills {
+    width: 65%;
+    margin: auto;
+}
+
+.skills p {
+    text-align: justify;
+    padding: 6px 12px;
+}
+
+.skills ul{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    margin: 1rem;
+}
+
+.skills li {
+    padding: 1rem;
+    margin: 0 1rem;
+    border: thin solid #868C8F;
+    border-radius: 16px;
+    background-color: #868C8F;
+    color: #f1f1ef;
+    font-weight: bolder;
+}
