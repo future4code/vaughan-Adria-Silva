@@ -212,7 +212,14 @@ body {
         grid-template-columns: 1fr;
         gap: 10px 10px;
     }
-}
 
+    /* Página Interna */
+
+    .play-video video {
+        width: 350px;
+        height: 200px;
+    }
+
+}
 
 
