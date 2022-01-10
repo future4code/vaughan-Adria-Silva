@@ -17,7 +17,19 @@ header {
   align-items: center;
   justify-content: space-between;
   padding: 0 50px;
-  height: 10%;
+  height: 12%;
+}
+
+header h1 {
+  font-size: xx-large;
+  font-family: 'Pacifico', cursive;
+}
+
+header input {
+  height: 50%;
+  width: 30%;
+  border-radius: 20px;
+  font-size: 21px;
 }
 
 main {
@@ -33,15 +45,39 @@ main {
 
 .botoes-meunu-vertical {
   list-style-type: none;
+  display: grid;
+  grid-template-columns: 3fr 5fr;
+  grid-template-rows: 1fr;
+  justify-items: center;
+  align-items: center;
+  border: solid 1px;
+  border-radius: 25px;
+  margin-bottom: 1rem;
+  margin-right: 1rem;
+}
+
+.botoes-meunu-vertical:hover {
+  background-color: lightgray;
+}
+
+.botoes-meunu-vertical img {
+  width: 32px;
+  height: 32px;
+}
+
+.botoes-meunu-vertical p {
+  font-weight: 900;
+  justify-self: start;
 }
 
 .painel-de-videos {
-  padding-left: 20px;
-  padding-top: 20px;
-  flex-grow: 1;
+  padding: 20px;
+  margin-left: 20px;
+  flex-grow: 0.8;
   display: grid;
   grid-template-columns: repeat(4, 24.8% 0.2%);
   grid-template-rows: repeat(4, 270px 20px);
+  gap: 20px;
 }
 
 .media1 {
@@ -84,6 +120,12 @@ main {
   grid-row-start: 3;
 }
 
+.media1:hover, .media2:hover, .media3:hover, .media4:hover, .media5:hover, .media6:hover, .media7:hover, .media8:hover  {
+  position: relative;
+  top: -3px;
+  right: -2px
+}
+
 
 .box-pagina-principal {
   display: grid;
@@ -102,7 +144,9 @@ footer {
   margin: 0;
   padding: 0;
   display: flex;
+  justify-content: center;
   align-items: center;
+  
 }
 
 .box-pagina-principal > img {
@@ -112,5 +156,9 @@ footer {
 
 h4 {
   margin-left: 20px;
+}
+
+hr {
+  margin: 1rem 1rem 1rem 0;
 }
 

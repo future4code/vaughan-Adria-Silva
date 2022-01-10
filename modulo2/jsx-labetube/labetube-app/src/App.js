@@ -1,10 +1,16 @@
 import logo from './logo.svg';
+import user from './img/user.png'
+import foguinho from './img/trending.png'
+import inscricao from './img/subscribe.png'
+import originals from './img/letra-l.png'
+import history from './img/despertador.png'
+import home from './img/botao-home.png'
 import './App.css';
 
 function App() {
   const tituloPrincipal = "Lab Tube"
   const tituloVideo = "Título do vídeo"
-  const textoFooter = "Oi! Eu moro no footer!"
+  const textoFooter = "Os melhores vídeos!"
 
   function reproduzVideo() {
     alert("O vídeo está sendo reproduzido")
@@ -14,18 +20,35 @@ function App() {
       <div className="tela-inteira">
         <header>
             <h1>{tituloPrincipal}</h1>
-            <input type="text" placeholder="Busca" id="campoDeBusca"/>
+            <input type="text" placeholder="Pesquisar" id="campoDeBusca"/>
+            <img src={user} alt="Ícone de login deusuário"/>
         </header>
 
         <main>
             <nav className="menu-vertical">
                 <ul>
-                    <li className="botoes-meunu-vertical">Início</li>
-                    <li className="botoes-meunu-vertical">Em alta</li>
-                    <li className="botoes-meunu-vertical">Inscrições</li>
+                    <li className="botoes-meunu-vertical">
+                      <img src={home} alt="Ícone de casa"/>
+                      <p>Início</p>
+                    </li>
+                    <li className="botoes-meunu-vertical">
+                      <img src={foguinho} alt="Ícone de fogo"/>
+                      <p>Em alta</p>
+                    </li>
+                    <li className="botoes-meunu-vertical">
+                      <img src={inscricao} alt="Ícone de inscrição com sininho"/>
+                      <p>Inscrições</p>
+                    </li>
                     <hr/>
-                    <li className="botoes-meunu-vertical">Originais</li>
-                    <li className="botoes-meunu-vertical">Histórico</li>
+                    <hr/>
+                    <li className="botoes-meunu-vertical">
+                      <img src={originals} alt="Ícone com L para vídeos originais do Labtube"/>
+                      <p>Originais</p>
+                    </li>
+                    <li className="botoes-meunu-vertical">
+                      <img src={history} alt="Ícone de relígio"/>
+                      <p>Histórico</p>
+                    </li>
                 </ul>
             </nav>
 
