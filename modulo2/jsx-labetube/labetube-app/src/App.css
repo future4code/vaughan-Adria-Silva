@@ -1,0 +1,164 @@
+body {
+  width: 100%;
+  padding: 0;
+  margin: 0;
+}
+
+
+.tela-inteira {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+header {
+  background-color: orange;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 50px;
+  height: 12%;
+}
+
+header h1 {
+  font-size: xx-large;
+  font-family: 'Pacifico', cursive;
+}
+
+header input {
+  height: 50%;
+  width: 30%;
+  border-radius: 20px;
+  font-size: 21px;
+}
+
+main {
+  min-height: 80%;
+  display: flex;
+}
+
+.menu-vertical {
+  flex-basis: 200px;
+  border-right-style: solid;
+  border-right-width: thin;
+}
+
+.botoes-meunu-vertical {
+  list-style-type: none;
+  display: grid;
+  grid-template-columns: 3fr 5fr;
+  grid-template-rows: 1fr;
+  justify-items: center;
+  align-items: center;
+  border: solid 1px;
+  border-radius: 25px;
+  margin-bottom: 1rem;
+  margin-right: 1rem;
+}
+
+.botoes-meunu-vertical:hover {
+  background-color: lightgray;
+}
+
+.botoes-meunu-vertical img {
+  width: 32px;
+  height: 32px;
+}
+
+.botoes-meunu-vertical p {
+  font-weight: 900;
+  justify-self: start;
+}
+
+.painel-de-videos {
+  padding: 20px;
+  margin-left: 20px;
+  flex-grow: 0.8;
+  display: grid;
+  grid-template-columns: repeat(4, 24.8% 0.2%);
+  grid-template-rows: repeat(4, 270px 20px);
+  gap: 20px;
+}
+
+.media1 {
+  grid-column-start: 1;
+  grid-row-start: 1;
+}
+
+.media2 {
+  grid-column-start: 3;
+  grid-row-start: 1;
+}
+
+.media3 {
+  grid-column-start: 5;
+  grid-row-start: 1;
+}
+
+.media4 {
+  grid-column-start: 7;
+  grid-row-start: 1;
+}
+
+.media5 {
+  grid-column-start: 1;
+  grid-row-start: 3;
+}
+
+.media6 {
+  grid-column-start: 3;
+  grid-row-start: 3;
+}
+
+.media7 {
+  grid-column-start: 5;
+  grid-row-start: 3;
+}
+
+.media8 {
+  grid-column-start: 7;
+  grid-row-start: 3;
+}
+
+.media1:hover, .media2:hover, .media3:hover, .media4:hover, .media5:hover, .media6:hover, .media7:hover, .media8:hover  {
+  position: relative;
+  top: -3px;
+  right: -2px
+}
+
+
+.box-pagina-principal {
+  display: grid;
+  grid-template-rows: 3fr 1fr;
+  grid-template-columns: 1fr;
+  border-style: solid;
+  border-width: thin; 
+  align-items: start;
+  justify-items: stretch;
+}
+
+
+footer {
+  height: 10%;
+  background-color: grey;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  
+}
+
+.box-pagina-principal > img {
+  width: 100%;
+  height: 200px;
+}
+
+h4 {
+  margin-left: 20px;
+}
+
+hr {
+  margin: 1rem 1rem 1rem 0;
+}
+
