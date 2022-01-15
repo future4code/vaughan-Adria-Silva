@@ -1,5 +1,5 @@
 import React from "react";
-import './App.css';
+// import './App.css';;s
 import styled from "styled-components";
 
 const DialogBox = styled.div`
