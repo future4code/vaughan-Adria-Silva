@@ -89,6 +89,12 @@ class App extends React.Component {
       });
     };
 
+    onKeyPressEnter = (event) => {
+      if (event.key === 'Enter') {
+        this.onClickSend();
+      }
+    };
+
   render() {
 
     const historic = this.state.messageHistory.map( (messageSent) => {
@@ -108,15 +114,20 @@ class App extends React.Component {
         <InputsArea>
           <InputName
             onChange={this.onChangeName}
+            onKeyPress={this.onKeyPressEnter}
             value={this.state.inputUserName} 
             placeholder="Nome do usuário"
           />
           <InputMessage
             onChange={this.onChangeMessage}
+            onKeyPress={this.onKeyPressEnter}
             value={this.state.inputUserMessage} 
             placeholder="Mensagem"
           />
-          <ButtonSent onClick={this.onClickSend}>Enviar</ButtonSent>
+          <ButtonSent 
+            onClick={this.onClickSend}
+            type="submit"
+          >Enviar</ButtonSent>
         </InputsArea>
       </DialogBox>
     );
