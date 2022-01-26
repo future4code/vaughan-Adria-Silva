@@ -166,6 +166,7 @@ export default class App extends React.Component {
           return (
             <DetalheUsuario
               idValue={this.state.selectedUser}
+              onClickSeeList={this.onClickToList}
             />
           );
       }

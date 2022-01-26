@@ -27,6 +27,7 @@ export const Button = styled.button`
     padding: 8px;
     font-size: 14px;
     border-radius: 15px;
+    width: 150px;
 `
 
 export const Register = styled.div`
@@ -70,4 +71,29 @@ export const ListContainer = styled.div`
     flex-direction: column;
     justify-content: center;
     align-items: center;
+`
+
+//Estilo do DetalheUsuário.js
+
+export const DetailsUserContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  div {
+      width: 270px;
+      height: 100px;
+      padding: 0 16px;
+      border: 1px solid;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+
+      p {
+          margin: 0;
+          padding: 8px 0;
+      }
+}
 `

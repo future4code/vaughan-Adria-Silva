@@ -1,6 +1,9 @@
 import axios from "axios";
 import React from "react";
 
+import { DetailsUserContainer } from "../styles";
+import { Button } from "../styles";
+
 export default class DetalheUsuario extends React.Component{
 
     state = {
@@ -34,13 +37,14 @@ export default class DetalheUsuario extends React.Component{
 
     render () {
         return (
-            <div>
+            <DetailsUserContainer>
                 <h2>Detalhes de usuário (a)</h2>
                 <div>
-                    <p>{this.state.name}</p>
-                    <p>{this.state.email}</p>
+                    <p><strong>Nome:  </strong>{this.state.name}</p>
+                    <p><strong>E-mail:  </strong>{this.state.email}</p>
                 </div>
-            </div>
+                <Button onClick={this.props.onClickSeeList} >Voltar</Button>
+            </DetailsUserContainer>
         );
     };
 };
