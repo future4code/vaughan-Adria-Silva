@@ -14,6 +14,10 @@ export const CardUsuario = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
+
+  @media(max-width: 375px) {
+    width: 300px;
+  }
 `
 
 //Estilos do Cadastro.js
@@ -43,7 +47,7 @@ margin-top: 10px;
   }
   
   input {
-    font-size: 14px;
+    font-size: 16px;
     margin-bottom: 16px;
   }
 
@@ -52,6 +56,10 @@ margin-top: 10px;
     margin-top: 16px;
     padding: 8px 12px;
     font-size: 14px;
+  }
+
+  @media(max-width: 375px) {
+    width: 300px;
   }
 `
 
