@@ -14,6 +14,7 @@ export default class App extends React.Component {
 
   componentDidMount(){
     this.getAllUsers();
+    console.log("Did mount")
   }
 
   onClicktoList = () => {
@@ -86,30 +87,31 @@ export default class App extends React.Component {
     });
   }
 
-  // deleteUser = (id) => {
-  //   const url = `https://us-central1-labenu-apis.cloudfunctions.net/labenusers/users/${id}`
-  //   const axiosConfig = {
-  //     headers:{Authorization: "adria-silva-vaughan"}
-  //   };
-  //   axios
-  //   .delete(url, axiosConfig)
-  //   .then( (response) => {
-  //     console.log(response.data)
-  //     alert("Atenção: Usuário deletado com sucesso!");
-  //   })
-  //   .catch( (error) => {
-  //     console.log(error.response)
-  //     alert("Algo deu errado! Não foi possível deletar o usuário solicitado");
-  //   }
-  //   );
-  // }
+  deleteUser = (id) => {
+    const url = `https://us-central1-labenu-apis.cloudfunctions.net/labenusers/users/${id}`
+    const axiosConfig = {
+      headers:{Authorization: "adria-silva-vaughan"}
+    };
+    axios
+    .delete(url, axiosConfig)
+    .then( (response) => {
+      console.log(response.data)
+      alert("Atenção: Usuário deletado com sucesso!");
+      this.getAllUsers();
+    })
+    .catch( (error) => {
+      console.log(error.response)
+      alert("Algo deu errado! Não foi possível deletar o usuário solicitado");
+    }
+    );
+  }
 
   render () {
     const allUsersList = this.state.allUsers.map( (users) => {
       return (
         <div key={users.id}>
             <span>{users.name}</span>
-            <button /*onClick={() => this.deleteUser(users.id)}*/>Deletar usuário</button>
+            <button onClick={() => this.deleteUser(users.id)}>Deletar usuário</button>
         </div>
       )
     });
