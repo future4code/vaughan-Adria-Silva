@@ -5,13 +5,15 @@ import Listagem from './components/Listagem';
 
 import { Titulo } from './styles';
 import { CardUsuario } from './styles';
+import DetalheUsuario from './components/DetalheUsuario';
 
 export default class App extends React.Component {
   state = {
     allUsers: [],
     inputName: "",
     inputEmail: "",
-    screen: 1
+    screen: 1,
+    selectedUser: ""
   };
 
   componentDidMount() {
@@ -29,6 +31,13 @@ export default class App extends React.Component {
   onClickToRegistration = () => {
     this.setState({
       screen: 1
+    });
+  };
+
+  onClickToDetailsUser = (id) => {
+    this.setState({
+      screen: 3,
+      selectedUser: id
     });
   };
 
@@ -98,7 +107,12 @@ export default class App extends React.Component {
       headers: { Authorization: "adria-silva-vaughan" }
     };
 
-    axios
+    const deleteConfirmation = "Tem certeza de que deseja deletar?"
+
+    if (window.confirm(deleteConfirmation) === true) {
+    	console.log("usuário quis deletar alguém da lista");
+
+      axios
       .delete(url, axiosConfig)
       .then((response) => {
         console.log(response.data);
@@ -109,14 +123,18 @@ export default class App extends React.Component {
         console.log(error.response.data);
         alert("Algo deu errado! Não foi possível deletar o usuário solicitado");
       }
-      );
+      );  
+    } else {
+      console.log("usuário não quis deletar alguém da lista");
+    }
   }
 
   render() {
     const allUsersList = this.state.allUsers.map((users) => {
       return (
         <CardUsuario key={users.id}>
-          <span>{users.name}</span>
+          {/* <span title='Ver mais' onClick={this.onClickToDetailsUser}>{users.name}</span> */}
+          <span title='Ver mais' onClick={() => this.onClickToDetailsUser(users.id)}>{users.name}</span>
           <button onClick={() => this.deleteUser(users.id)} title='Deletar'>X</button>
         </CardUsuario>
       )
@@ -125,24 +143,31 @@ export default class App extends React.Component {
     console.log(this.state);
 
     const renderScreen = () => {
-      if (this.state.screen === 1) {
-        return (
-          <Cadastro
-            valueName={this.state.inputName}
-            valueEmail={this.state.inputEmail}
-            onChangeName={this.handleInputName}
-            onChangeEmail={this.handleInputEmail}
-            onClickCreate={this.createUser}
-            onClickSeeList={this.onClickToList}
-          />
-        )
-      } else {
-        return (
-          <Listagem
-            list={allUsersList}
-            onClickSeeRegistration={this.onClickToRegistration}
-          />
-        )
+      switch (this.state.screen) {
+        case 1:
+          return (
+            <Cadastro
+              valueName={this.state.inputName}
+              valueEmail={this.state.inputEmail}
+              onChangeName={this.handleInputName}
+              onChangeEmail={this.handleInputEmail}
+              onClickCreate={this.createUser}
+              onClickSeeList={this.onClickToList}
+            />
+          );
+        case 2:
+          return (
+            <Listagem
+              list={allUsersList}
+              onClickSeeRegistration={this.onClickToRegistration}
+            />
+          );
+        case 3:
+          return (
+            <DetalheUsuario
+              idValue={this.state.selectedUser}
+            />
+          );
       }
     }
 
