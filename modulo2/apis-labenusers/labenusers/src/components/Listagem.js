@@ -1,16 +1,15 @@
 import React from "react";
+import { ListContainer } from "../styles";
+import { Button } from "../styles";
 
 export default class Listagem extends React.Component {
     render () {
-        return <div>
-        
-            <h2>Lista de Usuários</h2>
-            <div>
+        return (
+            <ListContainer>
+                <h2>Lista de Usuários</h2>
                 {this.props.list}
-            </div>
-
-            <button onClick={this.props.onClickSeeRegistration}>Ir para cadastro</button>
-
-        </div>
+                <Button onClick={this.props.onClickSeeRegistration}>Ir para cadastro</Button>
+            </ListContainer>
+        )
     };
 };
