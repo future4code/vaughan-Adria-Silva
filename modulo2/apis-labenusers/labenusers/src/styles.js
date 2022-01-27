@@ -15,6 +15,10 @@ export const CardUsuario = styled.div`
   justify-content: space-between;
   align-items: center;
 
+  span {
+    cursor: pointer;
+  }
+
   @media(max-width: 375px) {
     width: 300px;
   }

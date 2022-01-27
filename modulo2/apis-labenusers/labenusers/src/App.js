@@ -133,7 +133,6 @@ export default class App extends React.Component {
     const allUsersList = this.state.allUsers.map((users) => {
       return (
         <CardUsuario key={users.id}>
-          {/* <span title='Ver mais' onClick={this.onClickToDetailsUser}>{users.name}</span> */}
           <span title='Ver mais' onClick={() => this.onClickToDetailsUser(users.id)}>{users.name}</span>
           <button onClick={() => this.deleteUser(users.id)} title='Deletar'>X</button>
         </CardUsuario>
