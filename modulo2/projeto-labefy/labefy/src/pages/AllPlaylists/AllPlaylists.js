@@ -2,6 +2,8 @@ import axios from "axios";
 import React from "react";
 import { axiosConfig } from "../../constants/headers";
 import { BASE_URL } from "../../constants/urls";
+import imgDelete from "./img/delete.png";
+import imgPlaylist from "./img/playlist.png"
 
 export default class AllPlaylists extends React.Component {
     state = {
@@ -35,6 +37,7 @@ export default class AllPlaylists extends React.Component {
             const response = await axios.post(BASE_URL, body, axiosConfig);
             alert("Nova playlist criada!");
             this.setState({ playListName: "" });
+            this.getAllPlaylists();
         } catch (err) {
             alert(`Opa, não foi possível criar essa playlist. O erro foi:\n${err.response.data.message}`)
         };
@@ -63,11 +66,18 @@ export default class AllPlaylists extends React.Component {
 
     render() {
         console.log(this.state);
+        
         const playlists = this.state.playlistsList.map( (list) => {
             return (
-                <div key={list.id}>
+                <div 
+                    key={list.id}
+                    onClick={() => this.props.goToAllSongsPage(list.id, list.name)}
+                >
+                    <img src={imgPlaylist} alt="Ícone de playlist de música" />
                     {list.name}
-                    <button onClick={() => this.deletePlaylist(list.id)}>X</button>
+                    <button onClick={() => this.deletePlaylist(list.id)}>
+                        <img src={imgDelete} alt="Ícone de lixeira" />
+                    </button>
                 </div>
             );
         });
