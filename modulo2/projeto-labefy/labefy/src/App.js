@@ -2,10 +2,22 @@ import React from "react";
 import AllPlaylists from "./pages/AllPlaylists/AllPlaylists";
 import SelectedPlaylist from "./pages/SelectedPlaylist/SelectedPlaylist";
 
+import vinyl from "./img/vinyl.png"
+import githug from "./img/github.png"
+import linkedin from "./img/linkedin.png"
+
+import { Body } from "./Styles";
+import { Header } from "./Styles";
+import { Footer } from "./Styles";
+import { FooterTitle } from "./Styles";
+import { FooterAuthorInfo } from "./Styles";
+import { SocialMedia } from "./Styles";
+
+
+
 class App extends React.Component {
   state = {
     currentScreen: "allPlaylist",
-    // clickedPlaylist: "",
     clickedPlaylist: {
       idPlaylist: "",
       namePlaylist: ""
@@ -22,7 +34,6 @@ class App extends React.Component {
   goToAllSongsPage = (id, name) => {
     this.setState({ 
       currentScreen: "allSongsPlaylist",
-      // clickedPlaylist: id,
       clickedPlaylist: {
         idPlaylist: id,
         namePlaylist: name 
@@ -30,10 +41,6 @@ class App extends React.Component {
       
     });
 
-  };
-
-  goToSongPage = () => {
-    this.setState({ currentScreen: "song" });
   };
 
   screen = () => {
@@ -51,10 +58,9 @@ class App extends React.Component {
             // idPlaylist={this.state.clickedPlaylist}
             idPlaylist={this.state.clickedPlaylist.idPlaylist}
             namePlaylist={this.state.clickedPlaylist.namePlaylist}
+            goToPlaylistsPage={this.goToPlaylistsPage}
           />
         );
-      case "song":
-        return <p>Música</p>
       default:
         return (
           <AllPlaylists 
@@ -66,10 +72,41 @@ class App extends React.Component {
 
   render() {
     return (
-      <div>
-        <h1>Labefy</h1>
-        {this.screen()}
-      </div>
+      <Body>
+        <Header>
+          <img src={vinyl}/>
+          <h1>Labefy</h1>
+        </Header>
+
+        <div>{this.screen()}</div>
+
+        <Footer>        
+          <FooterTitle>
+              <h2>Labefy</h2>
+              <h3>todas as suas músicas em um só lugar</h3>
+          </FooterTitle>
+
+          <FooterAuthorInfo>
+              <p>Página criada por Ádria Tavares como exercício de React</p>
+              <SocialMedia>
+                  <a href="https://github.com/adriatls">
+                      <figure>
+                          <img src={linkedin} alt="Ícone do Linkedin" />
+                          <figcaption >Linkedin</figcaption>
+                      </figure>
+                  </a>
+
+                  <a href="https://github.com/adriatls">
+                      <figure>
+                          <img src={githug} alt="Ícone do GitHub" />
+                          <figcaption >GitHub</figcaption>
+                      </figure>
+                  </a>
+
+              </SocialMedia>
+          </FooterAuthorInfo>
+        </Footer>
+      </Body>
     );
   };
 }
