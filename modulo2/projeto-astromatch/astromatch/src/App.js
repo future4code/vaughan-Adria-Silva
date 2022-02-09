@@ -7,7 +7,7 @@ import Home from "./pages/Home/Home.js"
 import MyMatches from "./pages/MyMatches/MyMatches.js"
 
 function App() {
-  const [matchesList, setMatchesList] = useState([]);
+  // const [matchesList, setMatchesList] = useState([]);
   const [screen, setScreen] = useState("home");
 
   const changeScreen = () => {
@@ -32,19 +32,18 @@ function App() {
     };
   };
 
-  const getMatches = async () => {
-    try {
-      const response = await axios.get(`${baseUrl}/matches`)
-      setMatchesList(response.data.matches)
-      // console.log(matchesList);
-    } catch (err) {
-      console.log(err)
-    };
-  };
+  // const getMatches = async () => {
+  //   try {
+  //     const response = await axios.get(`${baseUrl}/matches`)
+  //     setMatchesList(response.data.matches)
+  //     // console.log(matchesList);
+  //   } catch (err) {
+  //     console.log(err)
+  //   };
+  // };
 
   return (
     <div>
-      {/* <button onClick={() => getMatches()}>Ver meus matches</button> */}
       <Header 
         screen={screen}
         onClickChangeScreen={() => onClickChangeScreen()}

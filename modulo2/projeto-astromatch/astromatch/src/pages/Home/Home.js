@@ -40,7 +40,7 @@ export default function Home (props) {
             <div>
               <h3>{profileToChoose.name}, {profileToChoose.age}</h3>
               <p>{profileToChoose.bio}</p>
-              <img src={profileToChoose.photo} alt="Foto de perfil" />
+              <img src={profileToChoose.photo} alt="Foto do perfil" />
             </div>
       
             <button onClick={() => postChoosePerson(profileToChoose.id, false)}>
