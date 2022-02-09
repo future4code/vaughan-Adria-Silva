@@ -5,9 +5,9 @@ import { useEffect, useState } from "react";
 import Header from "./components/header/Header.js"
 import Home from "./pages/Home/Home.js"
 import MyMatches from "./pages/MyMatches/MyMatches.js"
+import Footer from "./components/footer/Footer.js"
 
 function App() {
-  // const [matchesList, setMatchesList] = useState([]);
   const [screen, setScreen] = useState("home");
 
   const changeScreen = () => {
@@ -32,16 +32,6 @@ function App() {
     };
   };
 
-  // const getMatches = async () => {
-  //   try {
-  //     const response = await axios.get(`${baseUrl}/matches`)
-  //     setMatchesList(response.data.matches)
-  //     // console.log(matchesList);
-  //   } catch (err) {
-  //     console.log(err)
-  //   };
-  // };
-
   return (
     <div>
       <Header 
@@ -51,6 +41,7 @@ function App() {
 
       {changeScreen()}
 
+    <Footer />
     </div>
   );
 }
