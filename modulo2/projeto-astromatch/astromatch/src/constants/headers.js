@@ -1,3 +1,3 @@
 export const headersConfig = {
-    headers: { ContentType: "application/json" }
+    headers: { "Content-Type": "application/json" }
 }
