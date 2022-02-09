@@ -1,5 +1,4 @@
 import { baseUrl } from "./../../constants/base_url.js";
-import { headersConfig } from "./../../constants/headers.js";
 import axios from "axios";
 import { useEffect, useState } from "react";
 
@@ -31,7 +30,13 @@ export default function MyMatches () {
     return (
         <div>
             <h2>My matches</h2>
-            {matches}
+            {matchesList.length === 0
+            ? (<div>
+              <p>Sem matches por enquanto</p>
+              <p>Constinue dando likes nos perfis que você gosta para aumentar as suas chances de ter matches!</p>
+            </div>)
+            : <div>{matches}</div>         
+            }
         </div>        
     );
 };
