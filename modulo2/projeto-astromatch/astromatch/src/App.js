@@ -2,10 +2,25 @@ import { baseUrl } from "./constants/base_url.js";
 import { headersConfig } from "./constants/headers.js";
 import axios from "axios";
 import { useEffect, useState } from "react";
+import Header from "./components/header/Header.js"
+import Home from "./pages/Home/Home.js"
+import MyMatches from "./pages/MyMatches/MyMatches.js"
 
 function App() {
   const [profileToChoose, setProfileToChoose] = useState({});
   const [matchesList, setMatchesList] = useState([]);
+  const [screen, setScreen] = useState("home");
+
+  const changeScreen = () => {
+    switch (screen) {
+      case "home":
+        return (<Home/>);
+      case "my matches":
+        return (<MyMatches />);
+      default:
+        return (<Home/>);
+    }
+  };
 
   useEffect(() => {
     getProfileToChoose();
@@ -15,7 +30,7 @@ function App() {
     try {
       const response = await axios.get(`${baseUrl}/person`);
       setProfileToChoose(response.data.profile);
-      console.log("profile", profileToChoose);
+      // console.log("profile", profileToChoose);
     } catch (err) {
       console.log(err);
     };
@@ -29,7 +44,7 @@ function App() {
     try {
       const response = await axios.post(`${baseUrl}/choose-person`, body, headersConfig);
       getProfileToChoose();
-      console.log(response);
+      // console.log(response);
     } catch (err) {
       console.log(err);
     };
@@ -39,7 +54,7 @@ function App() {
     try {
       const response = await axios.get(`${baseUrl}/matches`)
       setMatchesList(response.data.matches)
-      console.log(matchesList);
+      // console.log(matchesList);
     } catch (err) {
       console.log(err)
     };
@@ -47,8 +62,10 @@ function App() {
 
   return (
     <div>
-      <h1>AstroMatch</h1>
-      <button onClick={() => getMatches()}>Ver meus matches</button>
+      {/* <button onClick={() => getMatches()}>Ver meus matches</button> */}
+      <Header 
+        screen={screen}
+      />
 
       <div>
         <h3>{profileToChoose.name}, {profileToChoose.age}</h3>
