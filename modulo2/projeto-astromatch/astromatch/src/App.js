@@ -1,23 +1,49 @@
-import logo from './logo.svg';
-import './App.css';
+import { baseUrl } from "./constants/base_url.js";
+import { headersConfig } from "./constants/headers.js";
+import axios from "axios";
+import { useEffect, useState } from "react";
 
 function App() {
+  const [profileToChoose, setProfileToChoose] = useState({});
+
+  useEffect(() => {
+    getProfileToChoose();
+  }, []);
+
+  const getProfileToChoose = async () => {
+    try {
+      const response = await axios.get(`${baseUrl}/person`);
+      setProfileToChoose(response.data.profile);
+      console.log("profile", profileToChoose);
+    } catch (err) {
+      console.log(err);
+    };
+  };
+
+  // const postChoosePerson = async (currentId, userChoice) => {
+  //   const body = {
+  //     id: currentId
+  //     choice: userChoice
+  //   }
+  //   try {
+  //     const response = await axios.post(`${baseUrl}`, body, headersConfig);
+  //   } catch (err) {
+  //     console.log(err)
+  //   };
+  // };
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+      <h1>AstroMatch</h1>
+      <button>Ver meus matches</button>
+
+      <div>
+        <h3>{profileToChoose.name}, {profileToChoose.age}</h3>
+        <p>{profileToChoose.bio}</p>
+        <img src={profileToChoose.photo} alt="Foto de perfil" />
+      </div>
+      
+      {/* <button onClick={() => postChoosePerson(profileToChoose.id, false)}>Não Quero</button> */}
+      {/* <button onClick={() => postChoosePerson(profileToChoose.id, true)}>Quero</button> */}
     </div>
   );
 }
