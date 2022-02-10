@@ -13,7 +13,6 @@ export const CardProfile = styled.div`
     height: 100%;
     object-fit: contain;
   }
-
 `
 export const ProfileInfo = styled.div`
   margin-left: 0.5rem;

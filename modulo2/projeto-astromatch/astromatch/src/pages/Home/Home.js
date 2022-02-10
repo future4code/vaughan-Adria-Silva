@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import LikeButtons from "../../components/likeButtons/LikeButtons";
-import { CardProfile, ProfileInfo } from "./styles";
+import { CardProfile, ProfileInfo } from "./Styles.js";
 
 export default function Home (props) {
 
