@@ -6,14 +6,15 @@ import axios from "axios";
 import { baseUrl } from "./../../constants/base_url"
 import { headersConfig } from "../../constants/headers";
 
-export default function Footer () {
+export default function Footer (props) {
 
     const putClear = async () => {
         const deleteConfirmation = "Tem certeza de que deseja deletar todos seus matches e histórico de perfis avaliados?"
         if (window.confirm(deleteConfirmation) === true) {
             try {
                 const response = await axios.put(`${baseUrl}/clear`, headersConfig);
-                console.log(response);
+                props.getProfileToChoose();
+                props.getMatches();
             } catch (err) {
                 console.log(err);
             };
@@ -22,6 +23,10 @@ export default function Footer () {
 
     return (
         <footer>
+            <button onClick={putClear}>
+                <img src={reset} alt="Ícone de reset" />
+            </button>
+
             <div>
                 <h3>AstroMatch</h3>
                 <p>Um lugar para encontrar as melhores pessoas ou seres que combinam com você</p>
@@ -41,9 +46,6 @@ export default function Footer () {
                     </a>
                 </div>
             </div>
-            <button onClick={putClear}>
-                <img src={reset} alt="Ícone de reset" />
-            </button>
         </footer>
     );
 };

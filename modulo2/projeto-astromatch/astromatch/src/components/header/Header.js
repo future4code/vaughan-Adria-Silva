@@ -26,6 +26,7 @@ export default function Header(props) {
             {props.screen === "home"
             ? (<Button title="Ver meus matches" onClick={props.onClickChangeScreen} >
                     <img src={fireHeart} alt="Ícone de coração em chamas" />
+                    {props.matchesList.length}
                </Button>)
             : (<Button title="Voltar para os perfis" onClick={props.onClickChangeScreen} >
                     <img src={searchHeart} alt="Íconde de lupa com coração" />

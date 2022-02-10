@@ -3,24 +3,13 @@ import dislike from "./../../images/cancel.png";
 import { baseUrl } from "./../../constants/base_url.js";
 import { headersConfig } from "./../../constants/headers.js";
 import axios from "axios";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 
 export default function Home (props) {
-    const [profileToChoose, setProfileToChoose] = useState({});
 
     useEffect(() => {
-        getProfileToChoose();
+        props.getProfileToChoose();
       }, []);
-    
-    const getProfileToChoose = async () => {
-      try {
-        const response = await axios.get(`${baseUrl}/person`);
-        setProfileToChoose(response.data.profile);
-        // console.log("profile", profileToChoose);
-      } catch (err) {
-        console.log(err);
-      };
-    };
 
     const postChoosePerson = async (currentId, userChoice) => {
         const body = {
@@ -29,7 +18,7 @@ export default function Home (props) {
         }
         try {
           const response = await axios.post(`${baseUrl}/choose-person`, body, headersConfig);
-          getProfileToChoose();
+          props.getProfileToChoose();
         } catch (err) {
           console.log(err);
         };
@@ -38,16 +27,16 @@ export default function Home (props) {
     return (
         <main>
             <div>
-              <h3>{profileToChoose.name}, {profileToChoose.age}</h3>
-              <p>{profileToChoose.bio}</p>
-              <img src={profileToChoose.photo} alt="Foto do perfil" />
+              <h3>{props.profileToChoose.name}, {props.profileToChoose.age}</h3>
+              <p>{props.profileToChoose.bio}</p>
+              <img src={props.profileToChoose.photo} alt="Foto do perfil" />
             </div>
       
-            <button onClick={() => postChoosePerson(profileToChoose.id, false)}>
+            <button onClick={() => postChoosePerson(props.profileToChoose.id, false)}>
                 <img src={dislike} alt="Ícone de descurtir" />
             </button>
 
-            <button onClick={() => postChoosePerson(profileToChoose.id, true)}>
+            <button onClick={() => postChoosePerson(props.profileToChoose.id, true)}>
                 <img src={like} alt="Ícone de curtir" />
             </button>
         </main>
