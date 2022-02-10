@@ -6,6 +6,22 @@ import axios from "axios";
 import { baseUrl } from "./../../constants/base_url"
 import { headersConfig } from "../../constants/headers";
 
+import { FooterPages, Button, Slogan } from "./Styles.js"
+
+const Authorship = styled.div`
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+
+    div {
+        img {
+            width: 40px;
+            margin: auto 8px;
+        }
+    }
+`
+
 export default function Footer (props) {
 
     const putClear = async () => {
@@ -22,17 +38,17 @@ export default function Footer (props) {
     };
 
     return (
-        <footer>
-            <button onClick={putClear}>
+        <FooterPages>
+            <Button onClick={putClear} title="Apagar histórico">
                 <img src={reset} alt="Ícone de reset" />
-            </button>
+            </Button>
 
-            <div>
+            <Slogan>
                 <h3>AstroMatch</h3>
-                <p>Um lugar para encontrar as melhores pessoas ou seres que combinam com você</p>
-            </div>
+                <p>Um espaço para encontrar as melhores pessoas ou seres que combinam com você</p>
+            </Slogan>
 
-            <div>
+            <Authorship>
                 <p>Página criada por Ádria Tavares como projeto de fixação de React</p>
                 <div>
                     <a href="https://www.linkedin.com/in/adria-tavares/" target="_blank" title="Vamos nos conectar">
@@ -45,7 +61,7 @@ export default function Footer (props) {
                         <img src={email} alt="Logotipo genérico para email" />
                     </a>
                 </div>
-            </div>
-        </footer>
+            </Authorship>
+        </FooterPages>
     );
 };
