@@ -21,6 +21,8 @@ export const Button = styled.button`
 `
 
 export const Slogan = styled.div`
+    margin: auto 2rem;
+
     h3 {
         font-size: 2rem;
     }
@@ -34,5 +36,19 @@ export const Slogan = styled.div`
 
     @media(max-width: 375px) {
         margin: 0.4rem auto;
+    }
+`
+
+export const Authorship = styled.div`
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+
+    div {
+        img {
+            width: 40px;
+            margin: auto 8px;
+        }
     }
 `

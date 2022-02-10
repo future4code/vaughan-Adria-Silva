@@ -15,7 +15,7 @@ export default function MyMatches (props) {
       });
     return (
         <div>
-            <h2>My matches</h2>
+            <h2>Seus matches</h2>
             {props.matchesList.length === 0
             ? (<div>
               <p>Sem matches por enquanto</p>

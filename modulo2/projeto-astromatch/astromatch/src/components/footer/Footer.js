@@ -6,21 +6,7 @@ import axios from "axios";
 import { baseUrl } from "./../../constants/base_url"
 import { headersConfig } from "../../constants/headers";
 
-import { FooterPages, Button, Slogan } from "./Styles.js"
-
-const Authorship = styled.div`
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    text-align: center;
-
-    div {
-        img {
-            width: 40px;
-            margin: auto 8px;
-        }
-    }
-`
+import { FooterPages, Button, Slogan, Authorship } from "./Styles.js"
 
 export default function Footer (props) {
 
