@@ -1,5 +1,5 @@
 import logo from "./../../images/love.png";
-import fireHeart from "./../../images/heart.png"
+import fire from "./../../images/fire.png"
 import searchHeart from "./../../images/search.png"
 import { HeaderPages, Slogan, Button } from "./Styles";
 
@@ -13,7 +13,7 @@ export default function Header(props) {
     
             {props.screen === "home"
             ? (<Button title="Ver meus matches" onClick={props.onClickChangeScreen} >
-                    <img src={fireHeart} alt="Ícone de coração em chamas" />
+                    <img src={fire} alt="Ícone de coração em chamas" />
                     <span>{props.matchesList.length}</span>
                </Button>)
             : (<Button title="Voltar para os perfis" onClick={props.onClickChangeScreen} >

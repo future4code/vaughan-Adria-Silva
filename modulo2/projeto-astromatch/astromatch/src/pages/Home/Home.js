@@ -1,5 +1,6 @@
 import { useEffect } from "react";
 import LikeButtons from "../../components/likeButtons/LikeButtons";
+import { CardProfile, ProfileInfo } from "./styles";
 
 export default function Home (props) {
 
@@ -9,11 +10,19 @@ export default function Home (props) {
 
     return (
         <main>
-            <div>
-              <h3>{props.profileToChoose.name}, {props.profileToChoose.age}</h3>
-              <p>{props.profileToChoose.bio}</p>
+            <CardProfile
+              style={{
+                backgroundImage: `url(${props.profileToChoose.photo})`,
+                // filter: blur(8),
+                
+              }}
+            >
               <img src={props.profileToChoose.photo} alt="Foto do perfil" />
-            </div>
+              <ProfileInfo>
+                <h3>{props.profileToChoose.name}, {props.profileToChoose.age}</h3>
+                <p>{props.profileToChoose.bio}</p>
+              </ProfileInfo>
+            </CardProfile>
 
             <LikeButtons 
               profileToChooseId={props.profileToChoose.id}

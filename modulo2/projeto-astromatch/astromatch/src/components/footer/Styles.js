@@ -4,7 +4,7 @@ export const FooterPages = styled.footer`
     display: flex;
     justify-content: space-around;
     align-items: center;
-    background-color: #edb1ba;
+    background-color: #ffe8eb;
     padding: 2rem;
 
     @media(max-width: 375px) {
