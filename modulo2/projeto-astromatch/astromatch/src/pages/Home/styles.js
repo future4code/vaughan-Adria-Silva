@@ -1,10 +1,10 @@
 import styled from "styled-components";
 
 export const CardProfile = styled.div`
-  margin: 1rem auto;
+  margin: 2rem auto 1rem;
   width: 320px;
   height: 450px;
-  box-shadow: 5px 4px 1rem #3f7196;
+  box-shadow: 5px 4px 1rem #9E441F;
   padding: 0.5rem;
   border-radius: 1rem;
 
@@ -31,4 +31,10 @@ export const ProfileInfo = styled.div`
     margin: 0;
     font-size: 18px;
   }
+`
+
+export const Main = styled.main`
+  @media(max-width: 375px) {
+        min-height: calc(100vh - 60px);
+    }
 `

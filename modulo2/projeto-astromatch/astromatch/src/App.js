@@ -1,10 +1,11 @@
 import { baseUrl } from "./constants/base_url.js";
 import axios from "axios";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Header from "./components/header/Header.js"
 import Home from "./pages/Home/Home.js"
 import MyMatches from "./pages/MyMatches/MyMatches.js"
 import Footer from "./components/footer/Footer.js"
+import { MainContiner, PageContainer } from "./Styles.js"
 
 function App() {
   const [screen, setScreen] = useState("home");
@@ -60,20 +61,20 @@ function App() {
   };
 
   return (
-    <div>
+    <PageContainer>
       <Header 
         screen={screen}
         onClickChangeScreen={() => onClickChangeScreen()}
         matchesList={matchesList}
       />
 
-      {changeScreen()}
+      <MainContiner>{changeScreen()}</MainContiner>
 
     <Footer 
       getProfileToChoose={getProfileToChoose}
       getMatches={getMatches}
     />
-    </div>
+    </PageContainer>
   );
 }
 

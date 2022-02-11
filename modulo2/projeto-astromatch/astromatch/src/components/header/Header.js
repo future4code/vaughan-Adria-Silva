@@ -1,6 +1,6 @@
 import logo from "./../../images/love.png";
 import fire from "./../../images/fire.png"
-import searchHeart from "./../../images/search.png"
+import home from "./../../images/homepage.png"
 import { HeaderPages, Slogan, Button } from "./Styles";
 
 export default function Header(props) {
@@ -17,8 +17,14 @@ export default function Header(props) {
                     <span>{props.matchesList.length}</span>
                </Button>)
             : (<Button title="Voltar para os perfis" onClick={props.onClickChangeScreen} >
-                    <img src={searchHeart} alt="Íconde de lupa com coração" />
-                    <span> </span>
+                    <img 
+                        src={home} 
+                        alt="Íconde de homepage"
+                        style={{
+                            filter: "invert(61%) sepia(77%) saturate(5696%) hue-rotate(325deg) brightness(99%) contrast(109%)",
+                            width: "36px"
+                        }}
+                    />
                </Button>
             )}
         </HeaderPages>

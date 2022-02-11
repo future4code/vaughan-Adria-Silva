@@ -23,11 +23,11 @@ export default function LikeButtons (props) {
     return (
         <ButtonsContainer>
             <Button onClick={() => postChoosePerson(props.profileToChooseId, false)}>
-                <img src={dislike} alt="Ícone de descurtir" />
+                <img src={dislike} alt="Ícone de descurtir" title="Não gostei" />
             </Button>
 
             <Button onClick={() => postChoosePerson(props.profileToChooseId, true)}>
-                <img src={like} alt="Ícone de curtir" />
+                <img src={like} alt="Ícone de curtir" title="Gostei" />
             </Button>
         </ButtonsContainer>
     );

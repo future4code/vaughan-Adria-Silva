@@ -14,9 +14,11 @@ export const Slogan = styled.div`
     align-items: center;
 
     img {
-        width: 52px;
-        height: 52px;
+        width: 58px;
         margin-right: 1rem;
+        @media(max-width: 375px) {
+            margin-right: 0.5rem;
+        }
     }
     h1 {
         color: #ec5569;
@@ -25,13 +27,14 @@ export const Slogan = styled.div`
 
 export const Button = styled.button`
     border-radius: 32px;
-    border: thin solid grey;
+    border: none;
     display: flex;
     justify-content: center;
     align-items: center;
     width: 64px;
     height: 48px;
     margin-right: 0.5rem;
+    cursor: pointer;
     img {
         width: 40px;
     }

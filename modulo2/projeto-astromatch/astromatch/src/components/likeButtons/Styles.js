@@ -14,12 +14,21 @@ export const ButtonsContainer = styled.div`
 
 export const Button = styled.button`
     display: flex;
-    justify-content: center;
+    /* justify-content: center; */
     align-items: center;
-    border: thin solid grey;
+    border: none;
+    background-color: white;
     border-radius: 24px;
     margin: 1rem 2rem;
     img {
         width: 40px;
+    }
+
+    &:hover {
+        img {
+            width: 50px;
+        }
+        margin: 0.5rem 2rem;
+        cursor: pointer;
     }
 `
