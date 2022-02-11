@@ -1,70 +1,29 @@
-# Getting Started with Create React App
+## Projeto AstroMatch
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+### O que funciona
+* Tela Inicial: 
+     A aplicação inicia na tela Home, onde o usuário é capaz de ver uma opção de perfil (com foto, nome e bio). O usuário pode dar deslike ou like no perfil a partir de dois botões localizados abaixo deles. No header dessa tela, existe um botão para ir para tela de matches. Esse botão também notifica o número de matches ao usuário.
 
-## Available Scripts
+* Tela de matches:
+     Nessa tela, o usuário pode visualizar todos os perfis que deram match. Há um botão no header para voltar a tela Home.
 
-In the project directory, you can run:
+* Possibilidade de resetar em qualquer tela:
+     No componente do footer, foi incluído um botão de reset para apagar o histórico de perfis vistos e lista de matches. Antes de apagar, é exibido um alert para o usuário confirmar que quer fazer esta ação.
 
-### `npm start`
+* Foi feito responsividade apenas para iphone 6/7/8.
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+### O que não funciona
+* Gostaria de salvar a lista de matches no localStorage, mas não sabia como fazer isso usando useEffect. Então não fiz.
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+### Link Surge 
+http://courageous-cow.surge.sh/
 
-### `npm test`
+### Imagens do site
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+![homeDesktop](https://user-images.githubusercontent.com/71045022/153662144-1496154d-5dd3-4d03-a6d2-a6536138057a.JPG)
 
-### `npm run build`
+![matchesDesktop](https://user-images.githubusercontent.com/71045022/153662132-1bad2751-3db8-4474-abec-22e1de74c727.JPG)
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+![homeIphone](https://user-images.githubusercontent.com/71045022/153662134-a36f3591-1a9f-4291-8c6b-a421664a6bc9.JPG)
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
-
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+![matchesIphone](https://user-images.githubusercontent.com/71045022/153662141-61138d29-d52d-4994-aecc-75e25eea0648.JPG)
