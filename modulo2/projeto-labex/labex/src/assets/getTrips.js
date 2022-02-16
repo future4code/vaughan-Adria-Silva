@@ -10,7 +10,7 @@ export const useTripsListRequest = () => {
     const getTrips = async () => {
         setIsLoading(true);
         try {
-          const response = await axios.get(URL_BASE);
+          const response = await axios.get(`${URL_BASE}/trips`);
           setTripsList(response.data.trips);
           setIsLoading(false);
 

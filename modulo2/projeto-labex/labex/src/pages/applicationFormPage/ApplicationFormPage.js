@@ -27,7 +27,7 @@ export default function ApplicationFormPage () {
 
     const selectTrip = trips && trips.map((trip) => {
         return <option key={trip.id} onClick={() => {handleOnClickTripName(trip.id)}}>
-                {trip.name}
+            {trip.name}
         </option>
     });
 
@@ -45,11 +45,9 @@ export default function ApplicationFormPage () {
         };
 
         try {
-            const response = await axios.post(`${URL_BASE}/${id}/apply`, body, headersConfig);
-            // console.log(response)
+            const response = await axios.post(`${URL_BASE}/trips/${id}/apply`, body, headersConfig);
             alert("Sua candidatura foi registrada com sucesso")
         } catch (error) {
-            // console.log(error);
             alert("Desculpe-nos! Ocorreu um erro com a sua candidatura. Por favor, tente novamente mais tarde.")
         };
     };

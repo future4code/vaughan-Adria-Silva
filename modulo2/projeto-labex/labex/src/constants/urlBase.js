@@ -1,1 +1,1 @@
-export const URL_BASE = "https://us-central1-labenu-apis.cloudfunctions.net/labeX/adria-vaughan/trips";
+export const URL_BASE = "https://us-central1-labenu-apis.cloudfunctions.net/labeX/adria-vaughan";
