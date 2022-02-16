@@ -1,12 +1,14 @@
 import axios from "axios";
 import React, { useState } from "react";
 import { useInput } from "../../hooks/handleInput.js";
-import { useTripsListRequest } from "./../../assets/getTrips.js"
+import { useTripsListRequest } from "./../../assets/getTrips.js";
 import { URL_BASE } from "../../constants/urlBase.js";
-import { contentType } from "../../constants/headers.js"
-import SelectCountries from "../../components/selectCountries/SelectCountries.js"
+import { contentType } from "../../constants/headers.js";
+import SelectCountries from "../../components/selectCountries/SelectCountries.js";
+import { useNavigate } from "react-router-dom";
 
 export default function ApplicationFormPage () {
+    const navigate = useNavigate();
     const [trips, isLoadingTrips, errorTrips] = useTripsListRequest();
     const [name, inputName] = useInput("text", "Nome completo");
     const [age, inputAge] = useInput("number", "00");
@@ -63,6 +65,7 @@ export default function ApplicationFormPage () {
                 {selectTrip}
             </select>
             {inputApplicationText}
+            <button onClick={() => navigate(-1)}>Voltar</button>
             <button onClick={applyToTrip} >Enviar</button>
         </div>
     );
