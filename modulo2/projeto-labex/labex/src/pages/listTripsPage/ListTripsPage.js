@@ -1,6 +1,7 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
 import { useTripsListRequest } from "../../assets/getTrips";
+import ButtonBackPage from "../../components/buttonBackPage/ButtonBackPage";
 
 export default function ListTripsPage () {
     const [trips, isLoadingTrips, errorTrips] = useTripsListRequest();
@@ -31,7 +32,7 @@ export default function ListTripsPage () {
             {!isLoadingTrips && errorTrips && <p>Desculpe-nos, ocorreu um erro inesperado. Por favor, tente novamente mais tarde.</p>}
             {!isLoadingTrips && trips && trips.length === 0 && <p>Não há destinos disponíveis</p>} 
             {!isLoadingTrips && trips && <>{tripsList}</>}
-            <button onClick={() => navigate(-1)}>Voltar</button>
+            <ButtonBackPage />
             <button onClick={goToApplicationFormPage} >Inscrever-se</button>
         </div>
     );

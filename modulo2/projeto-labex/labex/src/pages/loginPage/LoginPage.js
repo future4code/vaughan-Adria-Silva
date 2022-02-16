@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { contentType } from "../../constants/headers";
 import { URL_BASE } from "../../constants/urlBase";
+import ButtonBackPage from "../../components/buttonBackPage/ButtonBackPage";
 
 export default function LoginPage () {
     const navigate = useNavigate();
@@ -33,6 +34,7 @@ export default function LoginPage () {
         <div>LoginPage
             {inputEmail}
             {inputPassword}
+            <ButtonBackPage />
             <button onClick={login}>Entrar</button>
         </div>
     );

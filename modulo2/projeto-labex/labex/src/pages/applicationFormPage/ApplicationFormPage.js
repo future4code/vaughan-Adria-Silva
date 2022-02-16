@@ -6,6 +6,7 @@ import { URL_BASE } from "../../constants/urlBase.js";
 import { contentType } from "../../constants/headers.js";
 import SelectCountries from "../../components/selectCountries/SelectCountries.js";
 import { useNavigate } from "react-router-dom";
+import ButtonBackPage from "../../components/buttonBackPage/ButtonBackPage.js";
 
 export default function ApplicationFormPage () {
     const navigate = useNavigate();
@@ -63,7 +64,7 @@ export default function ApplicationFormPage () {
                 {selectTrip}
             </select>
             {inputApplicationText}
-            <button onClick={() => navigate(-1)}>Voltar</button>
+            <ButtonBackPage />
             <button onClick={applyToTrip} >Enviar</button>
         </div>
     );
