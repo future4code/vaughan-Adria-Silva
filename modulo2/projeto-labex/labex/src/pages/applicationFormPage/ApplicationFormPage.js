@@ -18,13 +18,10 @@ export default function ApplicationFormPage () {
     const [id, setId] = useState("");
     const [country, setCountry] = useState("");
 
-    const handleOnClickTripName = (id) => {
-        setId(id);
-    }
+    const handleOnClickTripName = (id) => setId(id);
 
-    const handleOnChangeCountry = (event) => {
-        setCountry(event.target.value);
-    }
+    const handleOnChangeCountry = (event) => setCountry(event.target.value);
+    
 
     const selectTrip = trips && trips.map((trip) => {
         return <option key={trip.id} onClick={() => {handleOnClickTripName(trip.id)}}>

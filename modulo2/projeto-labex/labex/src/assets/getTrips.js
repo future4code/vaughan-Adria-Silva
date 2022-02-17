@@ -6,6 +6,7 @@ export const useTripsListRequest = () => {
     const [tripsList, setTripsList] = useState(undefined);
     const [isLoading, setIsLoading] = useState(false);
     const [error, setError] = useState("");
+    const [rechargeList, setRechargeList] = useState(false);
 
     const getTrips = async () => {
         setIsLoading(true);
@@ -21,9 +22,11 @@ export const useTripsListRequest = () => {
         };
     };
 
+    const listReoadController = () => setRechargeList(!rechargeList);
+
     useEffect(() => {
         getTrips();
-    }, []);
+    }, [rechargeList]);
 
-    return [tripsList, isLoading, error];
+    return [tripsList, isLoading, error, listReoadController];
 };

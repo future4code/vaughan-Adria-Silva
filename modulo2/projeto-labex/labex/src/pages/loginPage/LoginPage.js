@@ -24,7 +24,7 @@ export default function LoginPage () {
         try {
             const response = await axios.post(`${URL_BASE}/login`, body, headersConfig);
             localStorage.setItem("token", response.data.token);
-            console.log(localStorage.getItem("token"));
+            navigate("/admin/trips/list");           
         } catch (error) {
             console.log(error);
         };

@@ -6,10 +6,6 @@ import ButtonBackPage from "../../components/buttonBackPage/ButtonBackPage";
 export default function ListTripsPage () {
     const [trips, isLoadingTrips, errorTrips] = useTripsListRequest();
     const navigate = useNavigate();
-
-    // console.log("trips", trips);
-    // console.log("loading", i);
-    // console.log("error", errorTrips);
     
     const tripsList = trips && trips.map((trip) => {
         return (
@@ -22,9 +18,7 @@ export default function ListTripsPage () {
             </div>);
     });
 
-    const goToApplicationFormPage = () => {
-        navigate("/trips/application")
-    }
+    const goToApplicationFormPage = () => navigate("/trips/application");
 
     return (
         <div>ListTripsPage
