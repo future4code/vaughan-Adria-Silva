@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useInput } from "../../hooks/handleInput";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
@@ -10,7 +10,15 @@ export default function LoginPage () {
     const navigate = useNavigate();
     const [email, inputEmail] = useInput("text", "seuemail@exemplo.com" );
     const [password, inputPassword] = useInput("password", "senha" );
+    let token = localStorage.getItem("token")
+    console.log(token);
 
+    useEffect(() => {
+        if (token) {
+            navigate("/admin/trips/list");
+        }
+    }, [token]);
+    
     const login = async () => {
         const headersConfig = {
             headers: contentType
@@ -23,18 +31,20 @@ export default function LoginPage () {
 
         try {
             const response = await axios.post(`${URL_BASE}/login`, body, headersConfig);
-            localStorage.setItem("token", response.data.token);
+            token = localStorage.setItem("token", response.data.token);
             navigate("/admin/trips/list");           
         } catch (error) {
             console.log(error);
         };
     }
 
+    const goToHomePage = () => navigate("/");
+
     return (
         <div>LoginPage
             {inputEmail}
             {inputPassword}
-            <ButtonBackPage />
+            <button onClick={goToHomePage}>Voltar</button>
             <button onClick={login}>Entrar</button>
         </div>
     );

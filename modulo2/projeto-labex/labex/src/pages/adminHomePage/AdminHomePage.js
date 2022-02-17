@@ -45,6 +45,8 @@ export default function AdminHomePage () {
 
     const goToCreateTripPage = () => navigate("/admin/trips/create");
 
+    const goToHomePage = () => navigate("/");
+
     const logout = () => {
         localStorage.removeItem("token");
         navigate("/login");
@@ -56,7 +58,7 @@ export default function AdminHomePage () {
             {!isLoadingTrips && errorTrips && <p>Desculpe-nos, ocorreu um erro inesperado. Por favor, tente novamente mais tarde.</p>}
             {!isLoadingTrips && trips && trips.length === 0 && <p>Lista de destinos indisponíveis</p>} 
             {!isLoadingTrips && trips && <ul>{tripsList}</ul>}
-            <ButtonBackPage />
+            <button onClick={goToHomePage}>Voltar</button>
             <button onClick={goToCreateTripPage}>Criar novo destino</button>
             <button onClick={logout}>Logout</button>
         </div>
