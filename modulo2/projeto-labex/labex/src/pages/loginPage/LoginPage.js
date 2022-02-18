@@ -1,40 +1,40 @@
 import React, { useEffect } from "react";
-import { useInput } from "../../hooks/handleInput";
+import { useForm } from "../../hooks/handleInput";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { contentType } from "../../constants/headers";
 import { URL_BASE } from "../../constants/urlBase";
-import ButtonBackPage from "../../components/buttonBackPage/ButtonBackPage";
 
 export default function LoginPage () {
     const navigate = useNavigate();
-    const [email, inputEmail] = useInput("text", "seuemail@exemplo.com" );
-    const [password, inputPassword] = useInput("password", "senha" );
-    let token = localStorage.getItem("token")
-    console.log(token);
+    const { form, onChangeForm, cleanFields } = useForm(
+        {
+            email: "",
+            password: ""        
+        }
+    );
 
+    let token = localStorage.getItem("token");
     useEffect(() => {
         if (token) {
             navigate("/admin/trips/list");
         }
     }, [token]);
     
-    const login = async () => {
+    const login = async (event) => {
+        event.preventDefault();
+
         const headersConfig = {
             headers: contentType
         };
 
-        const body = {
-            email: email,
-            password: password
-        }
-
         try {
-            const response = await axios.post(`${URL_BASE}/login`, body, headersConfig);
+            const response = await axios.post(`${URL_BASE}/login`, form, headersConfig);
             token = localStorage.setItem("token", response.data.token);
-            navigate("/admin/trips/list");           
+            // console.log(token)
+            cleanFields();           
         } catch (error) {
-            console.log(error);
+            alert("Desculpe-nos! Ocorreu um erro com o seu login. Por favor, tente novamente mais tarde.")
         };
     }
 
@@ -42,10 +42,29 @@ export default function LoginPage () {
 
     return (
         <div>LoginPage
-            {inputEmail}
-            {inputPassword}
+            <form onSubmit={login}>
+                <input
+                    name={"email"}
+                    value={form.email}
+                    onChange={onChangeForm}
+                    placeholder="seuemail@exemplo.com"
+                    type={"email"}
+                    pattern={"[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$"}
+                    required                
+                />
+                <input
+                    name={"password"}
+                    value={form.password}
+                    onChange={onChangeForm}
+                    placeholder="senha"
+                    type={"password"}
+                    pattern={"^.{3,}"}
+                    title={"Sua senha deve ter no mínimo 3 caracteres"}
+                    required                
+                />
+                <button>Entrar</button>
+            </form>
             <button onClick={goToHomePage}>Voltar</button>
-            <button onClick={login}>Entrar</button>
         </div>
     );
 };
