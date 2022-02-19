@@ -1,6 +1,5 @@
 import React from "react";
 import { useTripsListRequest } from "../../assets/getTrips";
-import ButtonBackPage from "../../components/buttonBackPage/ButtonBackPage";
 import { useNavigate } from "react-router-dom";
 import { useProtectedPage } from "../../hooks/protectedPage";
 import axios from "axios";
