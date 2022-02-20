@@ -2,7 +2,7 @@ export default function SelectCountries (props) {
     
     return (
         <select id="country" name="country" onChange={props.handleOnChangeCountry} required>
-            <option>Selecione seu país de origem</option>
+            <option value="Selecione seu país de origem">Selecione seu país de origem</option>
             <option value="Afganistan">Afghanistan</option>
             <option value="Albania">Albania</option>
             <option value="Algeria">Algeria</option>

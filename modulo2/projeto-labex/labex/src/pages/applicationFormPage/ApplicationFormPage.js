@@ -13,7 +13,7 @@ export default function ApplicationFormPage () {
     const { form, onChangeForm, cleanFields } = useForm(
         {
             name: "",
-            age: 0,
+            age: "",
             applicationText: "",
             profession: ""
         }
@@ -39,11 +39,12 @@ export default function ApplicationFormPage () {
 
     const applyToTrip = async (event) => {
         event.preventDefault();
+        
         const headersConfig = {
             headers: contentType
         };
 
-        const body = {...form, country: country}
+        const body = {...form, age: Number(form.age), country: country}
         console.log(body)
 
         try {
@@ -71,6 +72,7 @@ export default function ApplicationFormPage () {
                     name={"age"}
                     value={form.age}
                     onChange={onChangeForm}
+                    placeholder="Idade"
                     type={"number"}
                     min={18}
                     required                
@@ -86,7 +88,7 @@ export default function ApplicationFormPage () {
                 />
                 <SelectCountries handleOnChangeCountry={handleOnChangeCountry} />
                 <select required>
-                    <option>Selecione seu destino</option>
+                    <option >Selecione seu destino</option>
                     {selectTrip}
                 </select>
                 <input
