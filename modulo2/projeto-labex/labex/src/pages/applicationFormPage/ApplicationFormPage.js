@@ -6,6 +6,8 @@ import { URL_BASE } from "../../constants/urlBase.js";
 import { contentType } from "../../constants/headers.js";
 import SelectCountries from "../../components/selectCountries/SelectCountries.js";
 import ButtonBackPage from "../../components/buttonBackPage/ButtonBackPage.js";
+import { MainContainer, InputType, Form, SubmitButton, TextApplicationArea } from "./Styles.js";
+
 
 export default function ApplicationFormPage () {
     const [trips] = useTripsListRequest();
@@ -57,27 +59,35 @@ export default function ApplicationFormPage () {
     };
 
     return (
-        <div>ApplicationFormPage
-            <form onSubmit={applyToTrip}>
-                <input
+        <MainContainer>
+            <h2>Inscreva-se para uma viagem</h2>
+            <Form onSubmit={applyToTrip}>
+                <fieldset>
+                <label for="name">Nome:</label>
+                <InputType
+                    id="name"
                     name={"name"}
                     value={form.name}
                     onChange={onChangeForm}
-                    placeholder="Nome"
+                    placeholder="Nome completo"
                     pattern={"^[a-zA-Z\u00C0-\u00FF ]{3,}$"}
                     title={"Mínimo 3 caracteres"}
                     required                
                 />
-                <input
+                <label for="age">Idade:</label>
+                <InputType
+                    id="age"
                     name={"age"}
                     value={form.age}
                     onChange={onChangeForm}
-                    placeholder="Idade"
+                    placeholder="00"
                     type={"number"}
                     min={18}
                     required                
                 />
-                <input
+                <label for="job">Profissão:</label>
+                <InputType
+                    id="job"
                     name={"profession"}
                     value={form.profession}
                     onChange={onChangeForm}
@@ -86,12 +96,18 @@ export default function ApplicationFormPage () {
                     title={"Mínimo 10 caracteres"}
                     required                
                 />
+                <label for="country">Nacionalidade:</label>
                 <SelectCountries handleOnChangeCountry={handleOnChangeCountry} />
-                <select required>
+                <label for="trip">Viagem:</label>
+                <select id="trip" required>
                     <option >Selecione seu destino</option>
                     {selectTrip}
                 </select>
-                <input
+                <label for="textApplication">Texto de Candidatura:</label>
+                <TextApplicationArea
+                    rows={"5"}
+                    cols={"20"}
+                    id="textApplication"
                     name={"applicationText"}
                     value={form.applicationText}
                     onChange={onChangeForm}
@@ -100,9 +116,10 @@ export default function ApplicationFormPage () {
                     title={"Mínimo 30 caracteres"}
                     required                
                 />
-                <button>Enviar</button>
-            </form>
+                <SubmitButton>Enviar</SubmitButton>
+                </fieldset>
+            </Form>
             <ButtonBackPage />
-        </div>
+        </MainContainer>
     );
 };

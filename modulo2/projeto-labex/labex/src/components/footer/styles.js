@@ -1,16 +1,16 @@
 import styled from "styled-components";
 
 export const FooterContainer = styled.footer`
-    background-color: #0a121f;
-    padding: 16px 32px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-
-    @media(max-width: 480px) {
-        flex-direction: column;
-        padding: 16px;
-    }
+  background-color: #0a121f;
+  padding: 16px 32px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 32px;
+  @media(max-width: 480px) {
+      flex-direction: column;
+      padding: 16px;
+  }
 `
 
 export const FooterTitle = styled.div`
