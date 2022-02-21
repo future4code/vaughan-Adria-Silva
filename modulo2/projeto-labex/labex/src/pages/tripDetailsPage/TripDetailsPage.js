@@ -4,7 +4,14 @@ import { useParams } from "react-router-dom";
 import { URL_BASE } from "../../constants/urlBase.js";
 import { contentType } from "../../constants/headers.js";
 import { useProtectedPage } from "../../hooks/protectedPage";
-
+import planet from "../../assets/planet.png";
+import hourglass from "../../assets/hourglass.png";
+import calendar from "../../assets/calendar.png";
+import label from "../../assets/label.png";
+import description from "../../assets/description.png";
+import candidates from "../../assets/candidates.png";
+import { MainContainer, CardInfo, CandidateTitle, CandidatesArea, CandidatesCard, DetailCard, ButtonsContainer, Message } from "./Styles.js";
+import ButtonBackPage from "../../components/buttonBackPage/ButtonBackPage.js"
 
 export default function TripDetailsPage () {
     useProtectedPage();
@@ -30,7 +37,7 @@ export default function TripDetailsPage () {
             setIsLoading(false);
         } catch (error) {
             setIsLoading(false);
-            console.log(error);
+            alert("Desculpe-nos. Algum erro ocorreu ao acessar os detalhes da viagem. Por favor, tente novamente mais tarde.")
         };
     };
 
@@ -59,21 +66,22 @@ export default function TripDetailsPage () {
             } else {
                 alert("Desculpe-nos! Algum problema ocorreu ao reprovar o candidato. Por favor, tente novamente mais tarde.");
             };
-            console.log(error)
         }
     }
 
     const pendingCandidatesList = detailedTrip.candidates && detailedTrip.candidates.map((candidate) => {
         return (
-            <li key={candidate.id}>
-                <p>Nome: {candidate.name}</p>
-                <p>Idade: {candidate.age}</p>
-                <p>Nacionalidade: {candidate.country}</p>
-                <p>Profissão: {candidate.profession}</p>
-                <p>Texto de candidatura: {candidate.applicationText}</p>
-                <button onClick={() => decideCandidate(candidate.id, false)}>Reprovar</button>
-                <button onClick={() => decideCandidate(candidate.id, true)}>Aprovar</button>
-            </li>
+            <CandidatesCard key={candidate.id}>
+                <p><strong>Nome:</strong> {candidate.name}</p>
+                <p><strong>Idade:</strong> {candidate.age}</p>
+                <p><strong>Nacionalidade:</strong> {candidate.country}</p>
+                <p><strong>Profissão:</strong> {candidate.profession}</p>
+                <p><strong>Texto de candidatura:</strong> {candidate.applicationText}</p>
+                <ButtonsContainer>
+                    <button onClick={() => decideCandidate(candidate.id, false)}>Reprovar</button>
+                    <button onClick={() => decideCandidate(candidate.id, true)}>Aprovar</button>
+                </ButtonsContainer>
+            </CandidatesCard>
         );
     });
 
@@ -82,28 +90,59 @@ export default function TripDetailsPage () {
     });
 
     return (
-        <div>TripDetailsPage
+        <MainContainer>
             {isLoading 
-            ? <p>Carregando detalhes do destino ...</p>
+            ? <Message>Carregando detalhes do destino ...</Message>
             : (<div>
                 <h2>{detailedTrip.name}</h2>
-                <p>Descrição: {detailedTrip.description}</p>
-                <p>Planeta de destino: {detailedTrip.planet}</p>
-                <p>Duração da viagem: {detailedTrip.durationInDays} dias</p>
-                <p>Disponível até: {detailedTrip.date}</p>
-                <p><strong>Candidatos pendentes:</strong></p>
+                <DetailCard>
+                <CardInfo>
+                    <img src={label} alt="Ícone de rótulo" />
+                    <p><strong>Título do destino:</strong> {detailedTrip.name}</p>
+                </CardInfo>
+                <CardInfo>
+                    <img src={description} alt="Ícone de descrição"/>
+                    <p><strong>Descrição:</strong> {detailedTrip.description}</p>
+                </CardInfo>
+                <CardInfo>
+                    <img src={planet} alt="Ícone de planeta" />
+                    <p><strong>Planeta de destino:</strong> {detailedTrip.planet}</p>
+                </CardInfo>
+                <CardInfo>
+                    <img src={calendar} alt="Ícone de planeta" />
+                    <p><strong>Duração da viagem:</strong> {detailedTrip.durationInDays} dias</p>
+                </CardInfo>
+                <CardInfo>
+                    <img src={hourglass} alt="Ícone de planeta" />
+                    <p><strong>Disponível até:</strong> {detailedTrip.date}</p>
+                </CardInfo>
+                </DetailCard>
+                
+                <CandidatesArea>
+                    <CandidateTitle>
+                        <img src={candidates} alt="Ícone de escolha de candidatos "/>
+                        <h3>Candidatos pendentes</h3>
+                    </CandidateTitle>
+                    {detailedTrip.candidates.length
+                    ? pendingCandidatesList
+                    : <p>Não há candidatos pendentes para este destino</p>
+                    }
 
-                {detailedTrip.candidates.length
-                ? <div>{pendingCandidatesList}</div>
-                : <p>Não há candidatos pendentes para este destino</p>
-                }
-                <p><strong>Candidatos Aprovados:</strong></p>
-                {detailedTrip.approved.length
-                ? <div>{approvedCandidatesList}</div>
-                : <p>Não há candidatos aprovados para este destino</p>
-                }
+                    <CandidateTitle>
+                        <img src={candidates} alt="Ícone de escolha de candidatos "/>                       
+                        <h3>Candidatos Aprovados</h3>
+                    </CandidateTitle>
+
+                    <CandidatesCard>
+                    {detailedTrip.approved.length
+                    ? <ul>{approvedCandidatesList}</ul>
+                    : <p>Não há candidatos aprovados para este destino</p>
+                    }
+                    </CandidatesCard>
+                </CandidatesArea>
                 </div>)
             }
-        </div>
+            <ButtonBackPage />
+        </MainContainer>
     );
 };
