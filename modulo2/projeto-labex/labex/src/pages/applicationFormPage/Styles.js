@@ -92,7 +92,7 @@ export const SubmitButton = styled.button`
     font-size: larger;
     font-weight: bold;
     width: 200px;
-    height: 50px;
+    height: 40px;
     margin: 0 auto;
     border: solid white;
     border-radius: 24px;

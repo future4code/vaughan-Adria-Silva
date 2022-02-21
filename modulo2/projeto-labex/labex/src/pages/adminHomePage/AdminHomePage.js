@@ -35,7 +35,7 @@ export default function AdminHomePage () {
                 const response = await axios.delete(`${URL_BASE}/trips/${id}`, headersConfig);
                 listReloader();
             } catch (error) {
-                console.log(error);
+                alert("Desculpe-nos! Ocorreu um erro ao deletar este destino. Por favor, tente novamente mais tarde.");
             };
         }
     }
