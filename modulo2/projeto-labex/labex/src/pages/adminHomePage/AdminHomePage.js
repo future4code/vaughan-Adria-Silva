@@ -1,10 +1,13 @@
 import React from "react";
-import { useTripsListRequest } from "../../assets/getTrips";
+import { useTripsListRequest } from "../../hooks/getTrips";
 import { useNavigate } from "react-router-dom";
 import { useProtectedPage } from "../../hooks/protectedPage";
 import axios from "axios";
 import { URL_BASE } from "../../constants/urlBase";
 import { contentType } from "../../constants/headers.js";
+import { Button } from "../../components/buttonBackPage/style.js";
+import cancel from "../../assets/delete.png";
+import { MainContainer, CardsContainer, CardTrip, ButtonsContainer, Message } from "./Styles";
 
 export default function AdminHomePage () {
     useProtectedPage();
@@ -13,10 +16,12 @@ export default function AdminHomePage () {
 
     const tripsList = trips && trips.map((trip) => {
         return (
-            <li key={trip.id}>
+            <CardTrip key={trip.id}>
                 <h3 onClick={() => goToDetailsTrip(trip.id)}>{trip.name}</h3>
-                <button onClick={() => deleteTrip(trip.id)}>Delete</button>
-            </li>
+                <button onClick={() => deleteTrip(trip.id)}>
+                    <img src={cancel} alt="Botão de deletar distino da lista"/>
+                </button>
+            </CardTrip>
         );
     });
 
@@ -52,14 +57,19 @@ export default function AdminHomePage () {
     }
 
     return (
-        <div>AdminHomePage
-            {isLoadingTrips && <p>Carregando destinos ...</p>}
-            {!isLoadingTrips && errorTrips && <p>Desculpe-nos, ocorreu um erro inesperado. Por favor, tente novamente mais tarde.</p>}
-            {!isLoadingTrips && trips && trips.length === 0 && <p>Lista de destinos indisponíveis</p>} 
-            {!isLoadingTrips && trips && <ul>{tripsList}</ul>}
-            <button onClick={goToHomePage}>Voltar</button>
-            <button onClick={goToCreateTripPage}>Criar novo destino</button>
-            <button onClick={logout}>Logout</button>
-        </div>
+        <MainContainer>
+            <h2>Painel Administrativo</h2>
+            <CardsContainer>
+                {isLoadingTrips && <Message>Carregando destinos ...</Message>}
+                {!isLoadingTrips && errorTrips && <Message>Desculpe-nos, ocorreu um erro inesperado. Por favor, tente novamente mais tarde.</Message>}
+                {!isLoadingTrips && trips && trips.length === 0 && <Message>Lista de destinos indisponíveis</Message>} 
+                {!isLoadingTrips && trips && tripsList}
+            </CardsContainer>
+            <ButtonsContainer>
+                <button onClick={goToCreateTripPage}>Criar novo destino</button>
+                <button id="logout" onClick={logout}>Logout</button>
+            </ButtonsContainer>
+            <Button onClick={goToHomePage}>Voltar</Button>
+        </MainContainer>
     );
 };

@@ -1,7 +1,7 @@
 import axios from "axios";
 import React, { useState } from "react";
 import { useForm } from "../../hooks/handleInput.js";
-import { useTripsListRequest } from "./../../assets/getTrips.js";
+import { useTripsListRequest } from "./../../hooks/getTrips.js";
 import { URL_BASE } from "../../constants/urlBase.js";
 import { contentType } from "../../constants/headers.js";
 import SelectCountries from "../../components/selectCountries/SelectCountries.js";

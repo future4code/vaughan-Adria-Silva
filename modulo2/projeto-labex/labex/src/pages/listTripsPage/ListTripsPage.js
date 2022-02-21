@@ -1,6 +1,6 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
-import { useTripsListRequest } from "../../assets/getTrips";
+import { useTripsListRequest } from "../../hooks/getTrips";
 import planet from "../../assets/planet.png";
 import hourglass from "../../assets/hourglass.png";
 import calendar from "../../assets/calendar.png";
