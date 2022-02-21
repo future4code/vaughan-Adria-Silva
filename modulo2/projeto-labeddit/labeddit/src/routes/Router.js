@@ -4,10 +4,12 @@ import FeedPage from "../pages/feedPage/FeedPage";
 import LoginPage from "../pages/loginPage/LoginPage";
 import PostPage from "../pages/postPage/PostPage";
 import ErrorPage from "../pages/errorPage/ErrorPage";
+import Header from "../components/header/header";
 
 const Router = () => {
     return (
         <BrowserRouter>
+            <Header />
             <Routes>
 		        <Route path="/" element={<FeedPage />} />
 		        <Route path="/post/:id" element={<PostPage />} />
