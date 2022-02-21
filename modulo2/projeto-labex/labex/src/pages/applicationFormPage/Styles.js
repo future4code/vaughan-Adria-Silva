@@ -60,7 +60,6 @@ export const Form = styled.form`
         font-size: 18px;
         border-radius: 16px;
         border: none;
-        color: #747474;
     }
 
     @media(max-width: 480px) {
