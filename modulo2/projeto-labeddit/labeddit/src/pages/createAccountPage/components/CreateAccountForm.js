@@ -1,9 +1,11 @@
-import useForm from "../../../hooks/useForm.js";
-import { Button, TextField } from "@material-ui/core";
+import { TextField, Button } from "@material-ui/core";
+import React from "react";
+import useForm from "../../../hooks/useForm";
 
-const LoginForm = () => {
+const CreateAccountForm = () => {
     const { form, onChangeForm, cleanFields } = useForm(
         {
+            username: "",
             email:"",
             password: ""
         }
@@ -12,8 +14,19 @@ const LoginForm = () => {
     const onSubmitForm = event => {
         event.preventDefault();
     };
+
     return (
-        <form onSubmit={onSubmitForm}>
+            <form onSubmit={onSubmitForm}>
+                <TextField
+                    name={"username"}
+                    type={"username"}
+                    value={form.username}
+                    onChange={onChangeForm}
+                    label={"Nome de usuário(a)"}
+                    variant={"outlined"}
+                    autoFocus
+                    required
+                />
                 <TextField
                     name={"email"}
                     type={"email"}
@@ -22,7 +35,6 @@ const LoginForm = () => {
                     label={"E-mail"}
                     variant={"outlined"}
                     pattern={"[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$"}
-                    autoFocus
                     required
                 />
                 <TextField
@@ -39,10 +51,10 @@ const LoginForm = () => {
                     variant={"contained"}
                     color={"primary"}
                 >
-                    Entrar
+                    Criar conta
                 </Button>
             </form>
     );
 };
 
-export default LoginForm;
+export default CreateAccountForm;

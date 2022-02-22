@@ -15,9 +15,10 @@ const LoginPage = () => {
                     variant={"text"}
                     color={"primary"}
                 >
-                    Ainda não possui conta? Cadastre-se
+                    Ainda não possui conta? Crie uma conta
                 </Button>
-        </div>);
+        </div>
+    );
 };
 
 export default LoginPage;
