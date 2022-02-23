@@ -2,7 +2,8 @@ import React from "react";
 import useProtectedPage from "../../hooks/useProtectedPage";
 import useRequestData from "../../hooks/usRequestData";
 import { URL_BASE } from "../../constants/url.js"
-import { CardsPostContainer, PostCard } from "./styles";
+import { CardsPostContainer, NewPostCard, PostCard, MainContainer } from "./styles";
+import NewPostForm from "./components/NewPostForm";
 
 const FeedPage = () => {
     useProtectedPage();
@@ -18,9 +19,12 @@ const FeedPage = () => {
     });
 
     return (
-        <main> 
+        <MainContainer>
+            <NewPostCard>
+                <NewPostForm />
+            </NewPostCard>
             <CardsPostContainer>{postsListFormated}</CardsPostContainer>
-        </main>
+        </MainContainer>
     );
 };
 
