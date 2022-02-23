@@ -3,7 +3,7 @@ import { Button, TextField } from "@material-ui/core";
 import { login } from "../../../services/users.js";
 import { useNavigate } from "react-router-dom";
 
-const LoginForm = () => {
+const LoginForm = ({setLogInOut}) => {
     const { form, onChangeForm, cleanFields } = useForm(
         {
             email:"",
@@ -15,7 +15,7 @@ const LoginForm = () => {
 
     const onSubmitForm = event => {
         event.preventDefault();
-        login(form, cleanFields, navigate);
+        login(form, cleanFields, navigate, setLogInOut);
     };
 
     return (

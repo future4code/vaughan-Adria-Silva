@@ -2,13 +2,13 @@ import React from "react";
 import useUnProtectedPage from "../../hooks/useUnProtectedPage";
 import CreateAccountForm from "./components/CreateAccountForm";
 
-const CreateAccountPage = () => {
+const CreateAccountPage = ({setLogInOut}) => {
     useUnProtectedPage();
 
     return (
         <div>
             <h2>Crie uma conta</h2>
-            <CreateAccountForm />
+            <CreateAccountForm setLogInOut={setLogInOut}/>
         </div>
     );
 };

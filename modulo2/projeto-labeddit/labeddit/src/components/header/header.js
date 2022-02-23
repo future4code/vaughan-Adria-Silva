@@ -6,16 +6,26 @@ import { StyledToobar } from './styles';
 import { goToFeed, goToLogin } from '../../routes/coordinator';
 import { useNavigate } from 'react-router-dom';
 
-const Header = () => {
-    
+const Header = ({logInOut, setLogInOut}) => {    
     const navigate = useNavigate();
+    const token = localStorage.getItem("token")
+
+    const logInOutButtonAction = () => {
+      if (token) {
+        localStorage.removeItem("token");
+        setLogInOut("Login");
+        goToLogin(navigate);
+      } else {
+        goToLogin(navigate);
+      }
+    };
 
     return (
       <Box sx={{ flexGrow: 1 }}>
         <AppBar position="static">
           <StyledToobar>
             <Button onClick={ () => goToFeed(navigate)} color="inherit">Labbedit</Button>
-            <Button onClick={ () => goToLogin(navigate)} color="inherit">Login</Button>
+            <Button onClick={logInOutButtonAction} color="inherit">{logInOut}</Button>
           </StyledToobar>
         </AppBar>
       </Box>

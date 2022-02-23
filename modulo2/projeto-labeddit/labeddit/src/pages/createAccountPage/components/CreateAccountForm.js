@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 import useForm from "../../../hooks/useForm";
 import { signUp } from "../../../services/users";
 
-const CreateAccountForm = () => {
+const CreateAccountForm = ({setLogInOut}) => {
     const { form, onChangeForm, cleanFields } = useForm(
         {
             username: "",
@@ -17,7 +17,7 @@ const CreateAccountForm = () => {
 
     const onSubmitForm = event => {
         event.preventDefault();
-        signUp(form, cleanFields, navigate);
+        signUp(form, cleanFields, navigate, setLogInOut);
     };
 
     return (

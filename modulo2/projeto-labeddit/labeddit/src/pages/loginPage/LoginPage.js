@@ -5,13 +5,13 @@ import useUnProtectedPage from "../../hooks/useUnProtectedPage.js";
 import { goToSignUp } from "../../routes/coordinator.js";
 import LoginForm from "./components/LoginForm.js";
 
-const LoginPage = () => {
+const LoginPage = ({setLogInOut}) => {
     useUnProtectedPage();
     const navigate = useNavigate();
 
     return (
         <div> LoginPage
-            <LoginForm />
+            <LoginForm setLogInOut={setLogInOut}/>
             <Button
                 onClick={() => goToSignUp(navigate)}
                 variant={"text"}

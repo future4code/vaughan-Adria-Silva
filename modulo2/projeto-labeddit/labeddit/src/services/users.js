@@ -7,25 +7,27 @@ const simpleHeaders = {
     headers: contentType
 }
 
-export const login = async (body, clearInputs, navigate) => {
+export const login = async (body, clearInputs, navigate, setLogInOut) => {
 
     try {
         const response = await axios.post(`${URL_BASE}/users/login`, body, simpleHeaders);
         localStorage.setItem("token", response.data.token);
         clearInputs();
         goToFeed(navigate);
+        setLogInOut("Logout");
     } 
     catch (error) {
         alert("Desculpe-nos! Ocorreu algum erro ao fazer o login. Por favor, tente novamente mais tarde.");
     };
 };
 
-export const signUp = async (body, clearInputs, navigate) => {
+export const signUp = async (body, clearInputs, navigate, setLogInOut) => {
     try {
         const response = await axios.post(`${URL_BASE}/users/signup`, body, simpleHeaders);
         localStorage.setItem("token", response.data.token);
         clearInputs();
         goToFeed(navigate);
+        setLogInOut("Logout");
     } catch (error) {
         alert("Desculpe-nos! Algum erro ocorreu ao criar uma nova conta. Por favor, tente novamente mais tarde.");
     };
