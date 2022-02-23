@@ -27,7 +27,7 @@ const LoginForm = () => {
                     onChange={onChangeForm}
                     label={"E-mail"}
                     variant={"outlined"}
-                    pattern={"[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$"}
+                    inputProps={{ pattern:"^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$", title:"seuemail@exemplo.com" }}
                     autoFocus
                     required
                 />
@@ -38,12 +38,14 @@ const LoginForm = () => {
                     onChange={onChangeForm}
                     label={"Senha"}
                     variant={"outlined"}
+                    helperText={"Mín 8 e máx 30 caracteres"}
+                    inputProps={{ pattern:"^[^ ]{8,30}$", title:"Mínimo 8 e máx 30 caracteres sem espaço" }}
                     required
                 />
                 <Button
                     type={"submit"}
                     variant={"contained"}
-                    color={"primary"}
+                    color="primary"
                 >
                     Entrar
                 </Button>
