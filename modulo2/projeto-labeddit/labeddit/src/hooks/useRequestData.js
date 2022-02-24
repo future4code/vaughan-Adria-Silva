@@ -4,10 +4,11 @@ import { contentType } from "../constants/headers.js"
 
 const useRequestData = (inicialState, url) => {
     const [data, setData] = useState(inicialState);
+    const [reloadList, setReloadList] = useState(false)
 
     useEffect(() => {
         request();
-    }, [url])
+    }, [reloadList]);
 
     const request = async () => {
         const headersConfig = {
@@ -21,11 +22,13 @@ const useRequestData = (inicialState, url) => {
             const response = await axios.get(url, headersConfig);
             setData(response.data);
         } catch (error) {
-            alert("Desculpe-nos! Ocorreu um erro ao carregar o feed de posts. Por favor, tente novamente mais tarde.")
+            alert("Desculpe-nos! Ocorreu um erro ao carregar o feed de posts. Por favor, tente novamente mais tarde.");
         };
     };
+
+    const listReoadController = () => setReloadList(!reloadList);
     
-    return data;
+    return [data, listReoadController];
 };
 
 export default useRequestData;

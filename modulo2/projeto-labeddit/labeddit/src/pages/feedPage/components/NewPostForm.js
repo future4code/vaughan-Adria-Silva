@@ -3,7 +3,7 @@ import React from "react";
 import useForm from "../../../hooks/useForm";
 import { createPost } from "../../../services/posts";
 
-const NewPostForm = () => {
+const NewPostForm = ({listReoadController}) => {
     const { form, onChangeForm, cleanFields } = useForm(
         {
             title: "",
@@ -13,9 +13,8 @@ const NewPostForm = () => {
 
     const onSubmitForm = event => {
         event.preventDefault();
-        createPost(form, cleanFields);
+        createPost(form, cleanFields, listReoadController);
     };
-    console.log(form);
 
     return (
         <form onSubmit={onSubmitForm}>
