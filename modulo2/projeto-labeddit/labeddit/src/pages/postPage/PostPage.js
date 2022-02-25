@@ -36,8 +36,6 @@ const PostPage = ({postDetail}) => {
         );
     });
 
-    console.log("Info dos posts",currentPost);
-    console.log("Comentários",currentPost)
 
     return (
         <main>

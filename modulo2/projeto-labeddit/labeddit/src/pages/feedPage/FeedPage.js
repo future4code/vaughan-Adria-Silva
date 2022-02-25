@@ -6,6 +6,11 @@ import { CardsPostContainer, NewPostCard, PostCard, MainContainer } from "./styl
 import NewPostForm from "./components/NewPostForm";
 import { goToPost } from "../../routes/coordinator";
 import { useNavigate } from "react-router-dom";
+import unClickedLike from "../../assets/up-arrow.png"
+import clickedLike from "../../assets/up-arrow-full.png"
+import unClickedDisLike from "../../assets/down-arrow.png"
+import clickedDisLike from "../../assets/down-arrow-full.png"
+
 
 const FeedPage = ({setPostDetail}) => {
     useProtectedPage();
@@ -32,7 +37,13 @@ const FeedPage = ({setPostDetail}) => {
                     <p>{post.title}</p>
                     <p>{post.body}</p>
                 </div>
-                <p>Votos: {post.voteSum ? post.voteSum : 0}</p>
+                {!post.userVote && <img src={unClickedLike} alt="Ícone de curtido não clicado"/>}
+                {post.userVote === -1 && <img src={unClickedLike} alt="Ícone de curtido não clicado"/>}
+                {post.userVote === 1 && <img src={clickedLike} alt="Ícone de curtido clicado"/>}
+                <span>{post.voteSum ? post.voteSum : 0 }</span>
+                {!post.userVote && <img src={unClickedDisLike} alt="Ícone de descurtido não clicado"/>}
+                {post.userVote === 1 && <img src={unClickedDisLike} alt="Ícone de descurtido não clicado"/>}
+                {post.userVote === -1 && <img src={clickedDisLike} alt="Ícone de descurtido clicado"/>}
                 <p>Comentários {post.commentCount ? post.commentCount : 0}</p>
             </PostCard>
         );
