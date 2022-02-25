@@ -1,16 +1,13 @@
 import axios from "axios";
 import { URL_BASE } from "../constants/url.js";
-import { contentType } from "../constants/headers.js";
+import { headersContentType } from "../constants/headers.js";
 import { goToFeed } from "../routes/coordinator.js";
 
-const simpleHeaders = {
-    headers: contentType
-}
 
 export const login = async (body, clearInputs, navigate, setLogInOut) => {
 
     try {
-        const response = await axios.post(`${URL_BASE}/users/login`, body, simpleHeaders);
+        const response = await axios.post(`${URL_BASE}/users/login`, body, headersContentType);
         localStorage.setItem("token", response.data.token);
         clearInputs();
         goToFeed(navigate);
@@ -23,7 +20,7 @@ export const login = async (body, clearInputs, navigate, setLogInOut) => {
 
 export const signUp = async (body, clearInputs, navigate, setLogInOut) => {
     try {
-        const response = await axios.post(`${URL_BASE}/users/signup`, body, simpleHeaders);
+        const response = await axios.post(`${URL_BASE}/users/signup`, body, headersContentType);
         localStorage.setItem("token", response.data.token);
         clearInputs();
         goToFeed(navigate);

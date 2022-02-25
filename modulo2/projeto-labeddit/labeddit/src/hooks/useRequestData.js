@@ -1,6 +1,6 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
-import { contentType } from "../constants/headers.js"
+import { completeHeaders } from "../constants/headers.js"
 
 const useRequestData = (inicialState, url) => {
     const [data, setData] = useState(inicialState);
@@ -11,15 +11,8 @@ const useRequestData = (inicialState, url) => {
     }, [reloadList]);
 
     const request = async () => {
-        const headersConfig = {
-            headers: {
-                contentType,
-                Authorization: localStorage.getItem("token")
-            }
-        };
-
         try {
-            const response = await axios.get(url, headersConfig);
+            const response = await axios.get(url, completeHeaders);
             setData(response.data);
         } catch (error) {
             alert("Desculpe-nos! Ocorreu um erro ao carregar o feed de posts. Por favor, tente novamente mais tarde.");
