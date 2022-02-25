@@ -4,7 +4,7 @@ import { contentType } from "../constants/headers.js"
 
 const useRequestData = (inicialState, url) => {
     const [data, setData] = useState(inicialState);
-    const [reloadList, setReloadList] = useState(false)
+    const [reloadList, setReloadList] = useState(false);
 
     useEffect(() => {
         request();

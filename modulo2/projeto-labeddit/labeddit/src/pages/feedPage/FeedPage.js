@@ -14,7 +14,7 @@ const FeedPage = () => {
 
     const seeCommentsPost = postId => goToPost(navigate, postId);
     
-    const postsListFormated = postsList.length && postsList.map((post) => {
+    const formatedPostsList = postsList.length && postsList.map((post) => {
         return (
             <PostCard key={post.id}>
                 <div onClick={() => seeCommentsPost(post.id) }>
@@ -33,7 +33,7 @@ const FeedPage = () => {
             <NewPostCard>
                 <NewPostForm listReoadController={listReoadController}/>
             </NewPostCard>
-            <CardsPostContainer>{postsListFormated}</CardsPostContainer>
+            <CardsPostContainer>{formatedPostsList}</CardsPostContainer>
         </MainContainer>
     );
 };

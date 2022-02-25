@@ -25,11 +25,21 @@ export const createPost = async (body, clearInputs, listReoadController) => {
     };
 };
 
-export const getPostComments = async (id) => {
+export const getPostComments = async (id, setCommentsList) => {
     try {
         const response = await axios.get(`${URL_BASE}/posts/${id}/comments`, headersAuthorization);
-        console.log(response);
+        setCommentsList(response.data);
     } catch (error) {
-        console.log(error);
+        alert("Desculpe-nos! Ocorreu um erro ao carregar os comentários do post. Por favor, tente novamente mais tarde.")
+    };
+};
+
+export const createComment = async (id, body, clearInputs, listReoadController) => {
+    try {
+        const response = await axios.post(`${URL_BASE}/posts/${id}/comments`, body, completeHeaders);
+        clearInputs();
+        listReoadController();
+    } catch (error) {
+        alert("Desculpe-nos! Ocorreu um erro ao publicar o comentário. Por favor, tente novamente mais tarde.")
     };
 };
