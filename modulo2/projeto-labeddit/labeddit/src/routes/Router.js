@@ -6,11 +6,11 @@ import PostPage from "../pages/postPage/PostPage";
 import ErrorPage from "../pages/errorPage/ErrorPage";
 import Header from "../components/header/header";
 
-const Router = ({setLogInOut}) => {
+const Router = ({setLogInOut, setPostDetail, postDetail}) => {
     return (
         <Routes>
-		    <Route path="/" element={<FeedPage />} />
-		    <Route path="/post/:id" element={<PostPage />} />
+		    <Route path="/" element={<FeedPage setPostDetail={setPostDetail} />} />
+		    <Route path="/post/:id" element={<PostPage postDetail={postDetail} />} />
 		    <Route path="/login" element={<LoginPage setLogInOut={setLogInOut}/>} />
 		    <Route path="/signup" element={<CreateAccountPage setLogInOut={setLogInOut}/>} />
 		    <Route path="*" element={<ErrorPage />} />

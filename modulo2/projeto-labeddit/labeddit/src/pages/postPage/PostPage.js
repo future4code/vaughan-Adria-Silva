@@ -7,7 +7,7 @@ import { URL_BASE } from "../../constants/url";
 import { Card } from "@mui/material";
 import NewCommentForm from "./newCommentForm/NewCommentForm";
 
-const PostPage = () => {
+const PostPage = ({postDetail}) => {
     useProtectedPage();
 
     const params = useParams();
@@ -23,8 +23,7 @@ const PostPage = () => {
     const [postsList] = useRequestData([], `${URL_BASE}/posts`);
     const currentPost = postsList.filter((post)=>{
         return post.id === params.id
-    });
-    
+    });    
 
     const formatedCommentList = commentsList.length && commentsList.map((comment) => {
         return (
@@ -43,11 +42,10 @@ const PostPage = () => {
     return (
         <main>
             <Card>
-                {currentPost[0] && <div>
-                    <>Post</>
-                    <h3>{currentPost[0].username}</h3>
-                    <p>{currentPost[0].body}</p>
-                </div>}
+                <>Post</>
+                <h3>{postDetail.username}</h3>
+                <p>{postDetail.postTitle}</p>
+                <p>{postDetail.postContent}</p>
             </Card>
 
             <Card>
