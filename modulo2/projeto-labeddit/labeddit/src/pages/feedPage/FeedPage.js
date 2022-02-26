@@ -6,10 +6,7 @@ import { CardsPostContainer, NewPostCard, PostCard, MainContainer } from "./styl
 import NewPostForm from "./components/NewPostForm";
 import { goToPost } from "../../routes/coordinator";
 import { useNavigate } from "react-router-dom";
-import unClickedLike from "../../assets/up-arrow.png"
-import clickedLike from "../../assets/up-arrow-full.png"
-import unClickedDisLike from "../../assets/down-arrow.png"
-import clickedDisLike from "../../assets/down-arrow-full.png"
+import comment from "../../assets/comment.png"
 import Votes from "./components/Votes";
 
 
@@ -39,7 +36,8 @@ const FeedPage = ({setPostDetail}) => {
                     <p>{post.body}</p>
                 </div>
                 <Votes userVote={Number(post.userVote)} voteSum={Number(post.voteSum)} id={post.id} />
-                <p>Comentários {post.commentCount ? post.commentCount : 0}</p>
+                <img src={comment} alt="Ícone de comentários"/>
+                <p>{post.commentCount ? post.commentCount : 0} Comentários</p>
             </PostCard>
         );
     });

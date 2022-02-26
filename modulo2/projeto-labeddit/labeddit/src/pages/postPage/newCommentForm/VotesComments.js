@@ -3,9 +3,9 @@ import unClickedLike from "../../../assets/up-arrow.png"
 import clickedLike from "../../../assets/up-arrow-full.png"
 import unClickedDisLike from "../../../assets/down-arrow.png"
 import clickedDisLike from "../../../assets/down-arrow-full.png"
-import { changePostVote, createPostVote, deletePostVote } from "../../../services/posts";
+import { createCommentVote, changeCommentVote, deleteCommentVote } from "../../../services/comments";
 
-const Votes = ({userVote, voteSum, id}) => {
+const VotesComments = ({userVote, voteSum, id}) => {
     const [vote, setVote] = useState(userVote);
     const [voteCount, setVoteCount] = useState(voteSum);
 
@@ -18,15 +18,15 @@ const Votes = ({userVote, voteSum, id}) => {
     
     const clickOnLike = () => {
         if(vote === like) {
-            deletePostVote(id);
+            deleteCommentVote(id);
             setVote(noLikes);
             setVoteCount(voteSum);
         } else if (vote === dislike) {
-            changePostVote(id, liked);
+            changeCommentVote(id, liked);
             setVote(like);
             setVoteCount(voteSum + 1);
         } else {
-            createPostVote(id, liked);
+            createCommentVote(id, liked);
             setVote(like);
             setVoteCount(voteSum + 1);
         };
@@ -35,15 +35,15 @@ const Votes = ({userVote, voteSum, id}) => {
 
     const clickOnDislike = () => {
         if(vote === dislike) {
-            deletePostVote(id);
+            deleteCommentVote(id);
             setVote(noLikes);
             setVoteCount(voteSum);
         } else if (vote === like) {
-            changePostVote(id, unliked);
+            changeCommentVote(id, unliked);
             setVote(dislike);
             setVoteCount(voteSum - 1);
         } else {
-            createPostVote(id, unliked);
+            createCommentVote(id, unliked);
             setVote(dislike);
             setVoteCount(voteSum - 1);
         };
@@ -95,4 +95,4 @@ const Votes = ({userVote, voteSum, id}) => {
     );
 };
 
-export default Votes;
+export default VotesComments;
