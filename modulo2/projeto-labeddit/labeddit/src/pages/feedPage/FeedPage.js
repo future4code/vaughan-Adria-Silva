@@ -10,6 +10,7 @@ import unClickedLike from "../../assets/up-arrow.png"
 import clickedLike from "../../assets/up-arrow-full.png"
 import unClickedDisLike from "../../assets/down-arrow.png"
 import clickedDisLike from "../../assets/down-arrow-full.png"
+import Votes from "./components/Votes";
 
 
 const FeedPage = ({setPostDetail}) => {
@@ -37,13 +38,7 @@ const FeedPage = ({setPostDetail}) => {
                     <p>{post.title}</p>
                     <p>{post.body}</p>
                 </div>
-                {!post.userVote && <img src={unClickedLike} alt="Ícone de curtido não clicado"/>}
-                {post.userVote === -1 && <img src={unClickedLike} alt="Ícone de curtido não clicado"/>}
-                {post.userVote === 1 && <img src={clickedLike} alt="Ícone de curtido clicado"/>}
-                <span>{post.voteSum ? post.voteSum : 0 }</span>
-                {!post.userVote && <img src={unClickedDisLike} alt="Ícone de descurtido não clicado"/>}
-                {post.userVote === 1 && <img src={unClickedDisLike} alt="Ícone de descurtido não clicado"/>}
-                {post.userVote === -1 && <img src={clickedDisLike} alt="Ícone de descurtido clicado"/>}
+                <Votes userVote={Number(post.userVote)} voteSum={Number(post.voteSum)} id={post.id} />
                 <p>Comentários {post.commentCount ? post.commentCount : 0}</p>
             </PostCard>
         );

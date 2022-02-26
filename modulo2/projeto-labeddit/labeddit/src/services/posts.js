@@ -15,6 +15,36 @@ export const createPost = async (body, clearInputs, listReoadController) => {
     };
 };
 
+export const createPostVote = async (id, body) => {
+    try {
+        const response = await axios.post(`${URL_BASE}/posts/${id}/votes`, body, completeHeaders);
+        console.log(response);
+    } catch (error) {
+        console.log(error);
+    };
+};
+
+export const changePostVote = async (id, body) => {
+    try {
+        const response = await axios.put(`${URL_BASE}/posts/${id}/votes`, body, completeHeaders);
+        console.log(response);
+    } catch (error) {
+        console.log(error);
+    };
+};
+
+export const deletePostVote = async (id) => {
+    try {
+        const response = await axios.delete(`${URL_BASE}/posts/${id}/votes`,  headersAuthorization);
+        console.log(response);
+    } catch (error) {
+        console.log(error);
+    };
+};
+
+
+///////Comments////////
+
 export const getPostComments = async (id, setCommentsList) => {
     try {
         const response = await axios.get(`${URL_BASE}/posts/${id}/comments`, headersAuthorization);
