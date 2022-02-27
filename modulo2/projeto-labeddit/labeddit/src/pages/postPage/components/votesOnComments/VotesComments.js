@@ -1,9 +1,10 @@
 import React, { useState } from "react";
-import unClickedLike from "../../../assets/up-arrow.png"
-import clickedLike from "../../../assets/up-arrow-full.png"
-import unClickedDisLike from "../../../assets/down-arrow.png"
-import clickedDisLike from "../../../assets/down-arrow-full.png"
-import { createCommentVote, changeCommentVote, deleteCommentVote } from "../../../services/comments";
+import unClickedLike from "../../../../assets/up-arrow.png"
+import clickedLike from "../../../../assets/up-arrow-full.png"
+import unClickedDisLike from "../../../../assets/down-arrow.png"
+import clickedDisLike from "../../../../assets/down-arrow-full.png"
+import { createCommentVote, changeCommentVote, deleteCommentVote } from "../../../../services/comments";
+import { VotesContainer } from "./styles";
 
 const VotesComments = ({userVote, voteSum, id}) => {
     const [vote, setVote] = useState(userVote);
@@ -83,15 +84,12 @@ const VotesComments = ({userVote, voteSum, id}) => {
         };
     };
 
-    // console.log("Estado Inicial:", "userVote", userVote, "voteSum", voteSum);
-    // console.log("Mudança de estado:", "vote", vote, "voteCount", voteCount);
-
     return (
-        <div>
+        <VotesContainer>
             {switchButtonLike()}
-            <span>{voteCount}</span>
+            <p>{voteCount}</p>
             {switchButtonDislike()}
-        </div>
+        </VotesContainer>
     );
 };
 

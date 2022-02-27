@@ -4,11 +4,12 @@ import useProtectedPage from "../../hooks/useProtectedPage";
 import { getPostComments } from "../../services/comments.js";
 import useRequestData from "../../hooks/useRequestData";
 import { URL_BASE } from "../../constants/url";
-import { Card } from "@mui/material";
-import NewCommentForm from "./newCommentForm/NewCommentForm";
+import { Card, Typography } from "@mui/material";
+import NewCommentForm from "./components/newCommentForm/NewCommentForm";
 import Votes from "../feedPage/components/votesPost/Votes.js";
 import comment from "../../assets/comment.png"
-import VotesComments from "./newCommentForm/VotesComments";
+import VotesComments from "./components/votesOnComments/VotesComments";
+import { PostCard, CommentContent, PostContent, VotesAndCommentsContainer, MainContainer, CommentContainer, NewPostCard, CardsCommentContainer, CommentCard} from "./styles";
 
 const PostPage = () => {
     useProtectedPage();
@@ -31,49 +32,57 @@ const PostPage = () => {
     
     const formatedCommentList = commentsList.length && commentsList.map((comment) => {
         return (
-            <Card key={comment.id}>
-                <h4>{comment.username}</h4>
-                <p>{comment.body}</p>
+            <CommentCard key={comment.id}>
+                <CommentContent>
+                    <h4>{comment.username}</h4>
+                    <p>{comment.body}</p>
+                </CommentContent>
                 <VotesComments 
                     userVote={Number(comment.userVote)} 
                     voteSum={Number(comment.voteSum)} 
                     id={comment.id}
                 />
-            </Card>
+            </CommentCard>
         );
     });
 
-
     return (
-        <main>
+        <MainContainer>
             {currentPost.length &&
-            <Card>
-                <h3>{currentPost[0].username}</h3>
-                <p>{currentPost[0].title}</p>
-                <p>{currentPost[0].body}</p>
-                <Votes 
-                    userVote={Number(currentPost[0].userVote)} 
-                    voteSum={Number(currentPost[0].voteSum)} 
-                    id={currentPost[0].id}
-                />
-                <img src={comment} alt="Ícone de comentários"/>
-                <p>{numOfComments} Comentários</p>
-            </Card>
+            <PostCard>
+                <PostContent>
+                    <h3>{currentPost[0].username}</h3>
+                    <h2>{currentPost[0].title}</h2>
+                    <p>{currentPost[0].body}</p>
+                </PostContent>
+                <VotesAndCommentsContainer>
+                    <Votes 
+                        userVote={Number(currentPost[0].userVote)} 
+                        voteSum={Number(currentPost[0].voteSum)} 
+                        id={currentPost[0].id}
+                    />
+                    <CommentContainer>
+                        <img src={comment} alt="Ícone de comentários"/>
+                        <p>{numOfComments} Comentários</p>
+                    </CommentContainer>
+                </VotesAndCommentsContainer>
+            </PostCard>
             }
 
-            <Card>
+            <NewPostCard>
+                <Typography variant="h6" align="center">Adicione um novo comentário</Typography>
                 <NewCommentForm 
                     listReoadController={listReoadController}
                     setNumOfComments={setNumOfComments}
                     numOfComments={numOfComments}
                 />
-            </Card>
+            </NewPostCard>
 
-            <div>
-                {formatedCommentList}
-            </div>
-            
-        </main>);
+            {commentsList.length
+            ? <CardsCommentContainer>{formatedCommentList}</CardsCommentContainer>
+            : <p>Não há comentários neste post!</p>
+            }            
+        </MainContainer>);
 };
 
 export default PostPage;

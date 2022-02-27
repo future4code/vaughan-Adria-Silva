@@ -1,8 +1,9 @@
 import React from "react";
 import { useParams } from "react-router-dom";
-import useForm from "../../../hooks/useForm";
-import { createComment } from "../../../services/comments.js";
+import useForm from "../../../../hooks/useForm.js";
+import { createComment } from "../../../../services/comments.js";
 import { TextField, Button } from "@mui/material";
+import { Form } from "./styles.js";
 
 const NewCommentForm = ({listReoadController, setNumOfComments, numOfComments}) => {
     const params = useParams();
@@ -14,7 +15,7 @@ const NewCommentForm = ({listReoadController, setNumOfComments, numOfComments}) 
     };
 
     return (
-        <form onSubmit={onSubmitForm}>
+        <Form onSubmit={onSubmitForm}>
             <TextField
                 type={"text"}
                 name={"body"}
@@ -24,6 +25,10 @@ const NewCommentForm = ({listReoadController, setNumOfComments, numOfComments}) 
                 label={"Comentário"}
                 placeholder={"Adicione um comentário"}
                 required
+                fullWidth
+                multiline
+                rows={2}
+                margin="normal"
             />
             <Button
                     type={"submit"}
@@ -31,7 +36,7 @@ const NewCommentForm = ({listReoadController, setNumOfComments, numOfComments}) 
                 >
                     Publicar
             </Button>
-        </form>
+        </Form>
     
         );
 };
