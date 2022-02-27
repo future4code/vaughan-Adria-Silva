@@ -8,8 +8,8 @@ const theme = createTheme({
       contrastText: "white"
     },
     text: {
-        primary: neutralColor
-    }
+      primary: neutralColor
+    },
   },
 });
 

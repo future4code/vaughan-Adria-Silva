@@ -1,7 +1,18 @@
 import useForm from "../../../hooks/useForm.js";
-import { Button, TextField } from "@material-ui/core";
+import { Button, TextField } from '@mui/material';
 import { login } from "../../../services/users.js";
 import { useNavigate } from "react-router-dom";
+import styled from "styled-components";
+import { primaryColor } from "../../../constants/color.js";
+
+const Form = styled.form`
+    width: 350px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+`
 
 const LoginForm = ({setLogInOut}) => {
     const { form, onChangeForm, cleanFields } = useForm(
@@ -19,17 +30,20 @@ const LoginForm = ({setLogInOut}) => {
     };
 
     return (
-        <form onSubmit={onSubmitForm}>
+        <Form onSubmit={onSubmitForm}>
                 <TextField
                     name={"email"}
                     type={"email"}
                     value={form.email}
                     onChange={onChangeForm}
                     label={"E-mail"}
+                    placeholder={"seu_email@exemplo.com"}
                     variant={"outlined"}
                     inputProps={{ pattern:"^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$", title:"seuemail@exemplo.com" }}
                     autoFocus
                     required
+                    margin={"normal"}
+                    fullWidth
                 />
                 <TextField
                     name={"password"}
@@ -37,19 +51,22 @@ const LoginForm = ({setLogInOut}) => {
                     value={form.password}
                     onChange={onChangeForm}
                     label={"Senha"}
+                    placeholder={"********"}
                     variant={"outlined"}
                     helperText={"Mín 8 e máx 30 caracteres"}
                     inputProps={{ pattern:"^[^ ]{8,30}$", title:"Mínimo 8 e máx 30 caracteres sem espaço" }}
                     required
+                    margin={"normal"}
+                    fullWidth
                 />
                 <Button
                     type={"submit"}
                     variant={"contained"}
-                    color="primary"
+                    margin={"normal"}
                 >
                     Entrar
                 </Button>
-            </form>
+            </Form>
     );
 };
 
