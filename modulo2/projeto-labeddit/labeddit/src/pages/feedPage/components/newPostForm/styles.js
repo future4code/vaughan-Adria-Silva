@@ -1,7 +1,8 @@
 import styled from "styled-components";
 
-export const MainContainer = styled.main`
-    padding: 10vh 0;
+export const Form = styled.form`
+    margin: 0 auto;
+    width: 100%;
     display: flex;
     flex-direction: column;
     justify-content: center;

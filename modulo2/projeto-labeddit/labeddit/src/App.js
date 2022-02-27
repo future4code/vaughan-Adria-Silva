@@ -10,21 +10,11 @@ const App = () => {
 
   const [logInOut, setLogInOut] = useState(token ? "Logout" : "Login");
 
-  //
-  const [postDetail, setPostDetail] = useState(
-    {
-      username: "",
-      postTitle: "",
-      postContent: ""
-    }
-  );
-  //
-
   return (
     <ThemeProvider theme={theme}>
       <BrowserRouter>
         <Header logInOut={logInOut} setLogInOut={setLogInOut} />
-        <Router setLogInOut={setLogInOut} setPostDetail={setPostDetail} postDetail={postDetail}/>
+        <Router setLogInOut={setLogInOut} />
       </BrowserRouter>
     </ThemeProvider>
   );

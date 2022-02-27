@@ -6,11 +6,11 @@ import useRequestData from "../../hooks/useRequestData";
 import { URL_BASE } from "../../constants/url";
 import { Card } from "@mui/material";
 import NewCommentForm from "./newCommentForm/NewCommentForm";
-import Votes from "../feedPage/components/Votes";
+import Votes from "../feedPage/components/votesPost/Votes.js";
 import comment from "../../assets/comment.png"
 import VotesComments from "./newCommentForm/VotesComments";
 
-const PostPage = ({postDetail}) => {
+const PostPage = () => {
     useProtectedPage();
 
     const params = useParams();
@@ -39,7 +39,6 @@ const PostPage = ({postDetail}) => {
                     voteSum={Number(comment.voteSum)} 
                     id={comment.id}
                 />
-                {/* <p>Votos: {comment.voteSum}</p> */}
             </Card>
         );
     });

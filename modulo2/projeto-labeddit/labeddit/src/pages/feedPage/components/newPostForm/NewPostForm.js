@@ -1,7 +1,8 @@
-import { TextField, Button } from "@mui/material";
 import React from "react";
-import useForm from "../../../hooks/useForm";
-import { createPost } from "../../../services/posts";
+import { TextField, Button } from "@mui/material";
+import useForm from "../../../../hooks/useForm";
+import { createPost } from "../../../../services/posts";
+import { Form } from "./styles";
 
 const NewPostForm = ({listReoadController}) => {
     const { form, onChangeForm, cleanFields } = useForm(
@@ -17,7 +18,7 @@ const NewPostForm = ({listReoadController}) => {
     };
 
     return (
-        <form onSubmit={onSubmitForm}>
+        <Form onSubmit={onSubmitForm}>
             <TextField
                 type={"text"}
                 name={"title"}
@@ -27,6 +28,8 @@ const NewPostForm = ({listReoadController}) => {
                 label={"Título"}
                 placeholder={"Título da publicação"}
                 required
+                fullWidth
+                margin="normal"
             />
             <TextField
                 type={"text"}
@@ -37,8 +40,10 @@ const NewPostForm = ({listReoadController}) => {
                 label={"Conteúdo"}
                 placeholder={"Conteúdo da publicação"}
                 multiline
-                maxRows={3}
+                rows={2}
                 required
+                fullWidth
+                margin="normal"
             />
             <Button
                     type={"submit"}
@@ -46,7 +51,7 @@ const NewPostForm = ({listReoadController}) => {
                 >
                     Publicar
                 </Button>
-        </form>
+        </Form>
     );
 };
 
