@@ -1,18 +1,8 @@
-import useForm from "../../../hooks/useForm.js";
+import useForm from "../../../../hooks/useForm.js";
 import { Button, TextField } from '@mui/material';
-import { login } from "../../../services/users.js";
+import { login } from "../../../../services/users.js";
 import { useNavigate } from "react-router-dom";
-import styled from "styled-components";
-import { primaryColor } from "../../../constants/color.js";
-
-const Form = styled.form`
-    width: 350px;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-
-`
+import { Form } from "./styles.js";
 
 const LoginForm = ({setLogInOut}) => {
     const { form, onChangeForm, cleanFields } = useForm(
