@@ -11,24 +11,19 @@ import comment from "../../assets/comment.png"
 import VotesComments from "./components/votesOnComments/VotesComments";
 import { PostCard, CommentContent, PostContent, VotesAndCommentsContainer, MainContainer, CommentContainer, NewPostCard, CardsCommentContainer, CommentCard} from "./styles";
 
-const PostPage = () => {
+const PostPage = ({postDetail}) => {
     useProtectedPage();
 
     const params = useParams();
     const [commentsList, setCommentsList] = useState([]);
     const [reloadList, setReloadList] = useState(false);
-    const [numOfComments, setNumOfComments] = useState(0);
+    const [numOfComments, setNumOfComments] = useState(postDetail.commentCount);
     
     const listReoadController = () => setReloadList(!reloadList);
 
     useEffect(()=>{
         getPostComments(params.id, setCommentsList, setNumOfComments);
     },[reloadList])
-
-    const [postsList] = useRequestData([], `${URL_BASE}/posts`);
-    const currentPost = postsList.filter((post)=>{
-        return post.id === params.id
-    });
     
     const formatedCommentList = commentsList.length && commentsList.map((comment) => {
         return (
@@ -48,26 +43,24 @@ const PostPage = () => {
 
     return (
         <MainContainer>
-            {currentPost.length &&
             <PostCard>
                 <PostContent>
-                    <h3>{currentPost[0].username}</h3>
-                    <h2>{currentPost[0].title}</h2>
-                    <p>{currentPost[0].body}</p>
+                    <h3>{postDetail.username}</h3>
+                    <h2>{postDetail.title}</h2>
+                    <p>{postDetail.body}</p>
                 </PostContent>
                 <VotesAndCommentsContainer>
                     <Votes 
-                        userVote={Number(currentPost[0].userVote)} 
-                        voteSum={Number(currentPost[0].voteSum)} 
-                        id={currentPost[0].id}
+                        userVote={Number(postDetail.userVote)} 
+                        voteSum={Number(postDetail.voteSum)} 
+                        id={params.id}
                     />
                     <CommentContainer>
                         <img src={comment} alt="Ícone de comentários"/>
-                        <p>{numOfComments} Comentários</p>
+                        <p>{numOfComments ? numOfComments : 0} Comentários</p>
                     </CommentContainer>
                 </VotesAndCommentsContainer>
             </PostCard>
-            }
 
             <NewPostCard>
                 <Typography variant="h6" align="center">Adicione um novo comentário</Typography>
