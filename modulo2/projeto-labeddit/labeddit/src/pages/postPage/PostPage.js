@@ -2,9 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import useProtectedPage from "../../hooks/useProtectedPage";
 import { getPostComments } from "../../services/comments.js";
-import useRequestData from "../../hooks/useRequestData";
-import { URL_BASE } from "../../constants/url";
-import { Card, Typography } from "@mui/material";
+import { CircularProgress, Typography } from "@mui/material";
 import NewCommentForm from "./components/newCommentForm/NewCommentForm";
 import Votes from "../feedPage/components/votesPost/Votes.js";
 import comment from "../../assets/comment.png"
@@ -18,11 +16,12 @@ const PostPage = ({postDetail}) => {
     const [commentsList, setCommentsList] = useState([]);
     const [reloadList, setReloadList] = useState(false);
     const [numOfComments, setNumOfComments] = useState(postDetail.commentCount);
+    const [isLoading, setIsLoading] = useState(false);
     
     const listReoadController = () => setReloadList(!reloadList);
 
     useEffect(()=>{
-        getPostComments(params.id, setCommentsList, setNumOfComments);
+        getPostComments(params.id, setCommentsList, setNumOfComments, setIsLoading);
     },[reloadList])
     
     const formatedCommentList = commentsList.length && commentsList.map((comment) => {
@@ -73,7 +72,7 @@ const PostPage = ({postDetail}) => {
 
             {commentsList.length
             ? <CardsCommentContainer>{formatedCommentList}</CardsCommentContainer>
-            : <p>Não há comentários neste post!</p>
+            : isLoading ? <CircularProgress sx={{margin:"1rem"}} /> : <p>Não há comentários neste post!</p>
             }            
         </MainContainer>);
 };

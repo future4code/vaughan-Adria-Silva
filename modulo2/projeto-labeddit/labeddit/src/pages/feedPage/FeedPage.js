@@ -8,7 +8,7 @@ import { goToPost } from "../../routes/coordinator";
 import { useNavigate } from "react-router-dom";
 import comment from "../../assets/comment.png"
 import Votes from "./components/votesPost/Votes.js";
-import { Typography } from "@mui/material";
+import { CircularProgress, Typography } from "@mui/material";
 
 
 const FeedPage = ({setPostDetail}) => {
@@ -58,7 +58,7 @@ const FeedPage = ({setPostDetail}) => {
             </NewPostCard>
             {formatedPostsList.length
             ? <CardsPostContainer>{formatedPostsList}</CardsPostContainer>
-            : <p>Carregando o feed</p>
+            : <CircularProgress sx={{margin:"1rem"}}/>
             }
         </MainContainer>
     );

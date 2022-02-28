@@ -1,5 +1,5 @@
-import React from "react";
-import { TextField, Button } from "@mui/material";
+import React, { useState } from "react";
+import { TextField, Button, CircularProgress } from "@mui/material";
 import useForm from "../../../../hooks/useForm";
 import { createPost } from "../../../../services/posts";
 import { Form } from "./styles";
@@ -11,10 +11,11 @@ const NewPostForm = ({listReoadController}) => {
             body: ""
         }
     );
+    const [isLoading, setIsLoading] = useState(false);
 
     const onSubmitForm = event => {
         event.preventDefault();
-        createPost(form, cleanFields, listReoadController);
+        createPost(form, cleanFields, listReoadController, setIsLoading);
     };
 
     return (
@@ -48,8 +49,9 @@ const NewPostForm = ({listReoadController}) => {
             <Button
                     type={"submit"}
                     variant={"contained"}
+                    sx={{margin:"1rem", width:"100px"}}
                 >
-                    Publicar
+                    {isLoading ? <CircularProgress color="inherit" size="1.5rem" /> : <>Publicar</>}
                 </Button>
         </Form>
     );

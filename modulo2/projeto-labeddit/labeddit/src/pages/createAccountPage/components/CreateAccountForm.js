@@ -1,18 +1,9 @@
-import { TextField, Button } from "@material-ui/core";
-import React from "react";
+import { TextField, Button, CircularProgress } from '@mui/material';
+import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import useForm from "../../../hooks/useForm";
 import { signUp } from "../../../services/users";
-import styled from "styled-components";
-
-const Form = styled.form`
-    width: 350px;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-
-`
+import { Form } from "./styles.js"
 
 const CreateAccountForm = ({setLogInOut}) => {
     const { form, onChangeForm, cleanFields } = useForm(
@@ -22,12 +13,13 @@ const CreateAccountForm = ({setLogInOut}) => {
             password: ""
         }
     );
+    const [isLoading, setIsloading] = useState(false);
 
     const navigate = useNavigate();
 
     const onSubmitForm = event => {
         event.preventDefault();
-        signUp(form, cleanFields, navigate, setLogInOut);
+        signUp(form, cleanFields, navigate, setLogInOut, setIsloading);
     };
 
     return (
@@ -75,9 +67,9 @@ const CreateAccountForm = ({setLogInOut}) => {
                 <Button
                     type={"submit"}
                     variant={"contained"}
-                    color={"primary"}
+                    sx={{margin:"1rem", width:"150px"}}
                 >
-                    Criar conta
+                    {isLoading ? <CircularProgress color="inherit" size="1.5rem" /> : <>Criar Conta</>}
                 </Button>
             </Form>
     );

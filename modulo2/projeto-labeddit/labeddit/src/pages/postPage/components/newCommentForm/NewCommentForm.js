@@ -1,17 +1,18 @@
-import React from "react";
+import React, { useState } from "react";
 import { useParams } from "react-router-dom";
 import useForm from "../../../../hooks/useForm.js";
 import { createComment } from "../../../../services/comments.js";
-import { TextField, Button } from "@mui/material";
+import { TextField, Button, CircularProgress } from "@mui/material";
 import { Form } from "./styles.js";
 
 const NewCommentForm = ({listReoadController, setNumOfComments, numOfComments}) => {
     const params = useParams();
     const { form, onChangeForm, cleanFields } = useForm({ body: "" });
+    const [isLoading, setIsLoading] = useState(false)
 
     const onSubmitForm = (event) => {
         event.preventDefault();
-        createComment(params.id, form, cleanFields, listReoadController, setNumOfComments, numOfComments);
+        createComment(params.id, form, cleanFields, listReoadController, setNumOfComments, numOfComments, setIsLoading);
     };
 
     return (
@@ -33,8 +34,9 @@ const NewCommentForm = ({listReoadController, setNumOfComments, numOfComments}) 
             <Button
                     type={"submit"}
                     variant={"contained"}
+                    sx={{margin:"1rem", width:"100px"}}
                 >
-                    Publicar
+                    {isLoading ? <CircularProgress color="inherit" size="1.5rem" /> : <>Publicar</>}
             </Button>
         </Form>
     

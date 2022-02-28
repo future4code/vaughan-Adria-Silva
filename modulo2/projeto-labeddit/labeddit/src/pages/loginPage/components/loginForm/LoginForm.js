@@ -1,8 +1,9 @@
 import useForm from "../../../../hooks/useForm.js";
-import { Button, TextField } from '@mui/material';
+import { Button, TextField, CircularProgress } from '@mui/material';
 import { login } from "../../../../services/users.js";
 import { useNavigate } from "react-router-dom";
 import { Form } from "./styles.js";
+import { useState } from "react";
 
 const LoginForm = ({setLogInOut}) => {
     const { form, onChangeForm, cleanFields } = useForm(
@@ -11,12 +12,13 @@ const LoginForm = ({setLogInOut}) => {
             password: ""
         }
     );
+    const [isLoading, setIsloading] = useState(false);
 
     const navigate = useNavigate();
 
     const onSubmitForm = event => {
         event.preventDefault();
-        login(form, cleanFields, navigate, setLogInOut);
+        login(form, cleanFields, navigate, setLogInOut, setIsloading);
     };
 
     return (
@@ -52,9 +54,9 @@ const LoginForm = ({setLogInOut}) => {
                 <Button
                     type={"submit"}
                     variant={"contained"}
-                    margin={"normal"}
+                    sx={{margin:"1rem", width:"100px"}}
                 >
-                    Entrar
+                    {isLoading ? <CircularProgress color="inherit" size="1.5rem" /> : <>Entrar</>}
                 </Button>
             </Form>
     );
