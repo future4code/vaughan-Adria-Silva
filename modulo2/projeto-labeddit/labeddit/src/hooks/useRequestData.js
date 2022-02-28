@@ -12,10 +12,10 @@ const useRequestData = (inicialState, url) => {
 
     const request = async () => {
         try {
-            const response = await axios.get(url, completeHeaders);
+            const response = await axios.get(url, completeHeaders());
             setData(response.data);
         } catch (error) {
-            alert("Desculpe-nos! Ocorreu um erro ao carregar o feed de posts. Por favor, tente novamente mais tarde.");
+            // alert("Desculpe-nos! Ocorreu um erro ao carregar o feed de posts. Por favor, tente novamente mais tarde.");
         };
     };
 

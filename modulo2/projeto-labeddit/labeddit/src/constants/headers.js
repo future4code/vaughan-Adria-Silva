@@ -6,9 +6,13 @@ export const headersAuthorization = {
     headers: { Authorization: localStorage.getItem("token") }
 };
 
-export const completeHeaders = {
-    headers: {
-        "Content-Type": "application/json",
-        Authorization: localStorage.getItem("token")
-    }
+export const completeHeaders = () => {
+    return (
+        {
+            headers: {
+                "Content-Type": "application/json",
+                Authorization: localStorage.getItem("token")
+            }
+        }
+    );
 };

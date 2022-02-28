@@ -13,6 +13,7 @@ import { Typography } from "@mui/material";
 
 const FeedPage = ({setPostDetail}) => {
     useProtectedPage();
+    
     const [postsList, listReoadController] = useRequestData([], `${URL_BASE}/posts`);
     const navigate = useNavigate();
 
@@ -55,7 +56,10 @@ const FeedPage = ({setPostDetail}) => {
                 <Typography variant="h5" align="center">Comece uma nova publicação</Typography>
                 <NewPostForm listReoadController={listReoadController}/>
             </NewPostCard>
-            <CardsPostContainer>{formatedPostsList}</CardsPostContainer>
+            {formatedPostsList.length
+            ? <CardsPostContainer>{formatedPostsList}</CardsPostContainer>
+            : <p>Carregando o feed</p>
+            }
         </MainContainer>
     );
 };
