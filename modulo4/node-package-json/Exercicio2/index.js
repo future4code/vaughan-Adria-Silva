@@ -9,6 +9,17 @@
         const firstNumber  = Number(process.argv[3]);
         const secondNumber  = Number(process.argv[4]);
 
+        if (!operation) {
+            console.log("Esperava 3 parâmetros e recebi nenhum.")
+            return false
+        } else if (operation && !firstNumber) {
+            console.log("Esperava 3 parâmetros e só recebi um.")
+            return false
+        } else if (operation && firstNumber && !secondNumber) {
+            console.log("Esperava 3 parâmetros e só recebi 2.")
+            return false
+        }
+
         let result = 0
         switch (operation) {
             case "add":

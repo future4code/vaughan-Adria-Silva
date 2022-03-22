@@ -14,6 +14,15 @@
     const printMessage = () => {
         const name = process.argv[2];
         const age = process.argv[3];
+
+        if (!name) {
+            console.log("Esperava 2 parâmetros e recebi nenhum.")
+            return false
+        } else if (name && !age) {
+            console.log("Esperava 2 parâmetros e só recebi um.")
+            return false
+        }
+
         console.log(`Olá, ${name}! Você tem ${age} anos.`);
     };
     printMessage();
@@ -23,6 +32,15 @@
     const printNewMessage = () => {
         const name = process.argv[2];
         const age = process.argv[3];
+
+        if (!name) {
+            console.log("Esperava 2 parâmetros e recebi nenhum.")
+            return false
+        } else if (name && !age) {
+            console.log("Esperava 2 parâmetros e só recebi um.")
+            return false
+        }
+
         const futureAge = Number(age) + 7;
         console.log(`Olá, ${name}! Você tem ${age} anos. Em sete anos você terá ${futureAge}.`);
     };
