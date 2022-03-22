@@ -25,6 +25,7 @@
                 break; 
         }
 
-        console.log("Resposta: ", result);
-        
+        console.log("Resposta: ", result); 
     }
+
+    mathOperation();
