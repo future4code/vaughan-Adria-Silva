@@ -14,6 +14,16 @@
     const printMessage = () => {
         const name = process.argv[2];
         const age = process.argv[3];
-        console.log(`Olá, ${name}! Você tem ${age} anos.`)
-    }
-    printMessage()
+        console.log(`Olá, ${name}! Você tem ${age} anos.`);
+    };
+    printMessage();
+
+// c) c) Altere o programa acima para que mostre também a sua idade 
+//daqui a sete anos: "Olá, (Nome)! Você tem (sua idade) anos. Em sete anos você terá (nova idade)"
+    const printNewMessage = () => {
+        const name = process.argv[2];
+        const age = process.argv[3];
+        const futureAge = Number(age) + 7;
+        console.log(`Olá, ${name}! Você tem ${age} anos. Em sete anos você terá ${futureAge}.`);
+    };
+    printNewMessage();
