@@ -8,6 +8,6 @@
     "start": "tsc && node ./build/index.js"
   },
   "keywords": [],
-  "author": "",
+  "author": "Adria",
   "license": "ISC"
 }
