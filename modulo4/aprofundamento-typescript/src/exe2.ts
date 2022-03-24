@@ -92,3 +92,4 @@
         }
 
         console.log(dadosCompletos.obterEstatisticas([5, 4, 8, 1]));
+        console.log(dadosCompletos);

@@ -29,33 +29,52 @@
 // - Utilize esse mesmo tipo criado acima para fazer a tipagem do array 
 //posts.
 
-    // RESPOSTA:
-        type Post = {
-            autor: string,
-            texto: string
-        };
-
-        const posts : Post[] = [
+  // RESPOSTA:
+      type Post = {
+          autor: string,
+          texto: string
+      };
+      const posts : Post[] = [
+          {
+              autor: "Alvo Dumbledore",
+              texto: "Não vale a pena viver sonhando e se esquecer de viver"
+            },
             {
-                autor: "Alvo Dumbledore",
-                texto: "Não vale a pena viver sonhando e se esquecer de viver"
-              },
-              {
-                autor: "Severo Snape",
-                texto: "Menos 10 pontos para Grifinória!"
-              },
-              {
-                autor: "Hermione Granger",
-                texto: "É levi-ô-sa, não levio-sá!"
-              },
-              {
-                autor: "Dobby",
-                texto: "Dobby é um elfo livre!"
-              },
-              {
-                autor: "Lord Voldemort",
-                texto: "Avada Kedavra!"
-              }
-        ];
-        
+              autor: "Severo Snape",
+              texto: "Menos 10 pontos para Grifinória!"
+            },
+            {
+              autor: "Hermione Granger",
+              texto: "É levi-ô-sa, não levio-sá!"
+            },
+            {
+              autor: "Dobby",
+              texto: "Dobby é um elfo livre!"
+            },
+            {
+              autor: "Lord Voldemort",
+              texto: "Avada Kedavra!"
+            }
+      ];
+  //
 
+//b) Observe abaixo a função buscarPostsPorAutor(), escrita em JavasScript:
+// function buscarPostsPorAutor(posts, autorInformado) {
+//   return posts.filter(
+//     (post) => {
+//       return post.autor === autorInformado
+//     }
+//   )
+// }
+
+      // RESPOSTA: 
+
+      function buscarPostsPorAutor(posts : Post[], autorInformado : string) : Post[] {
+        return posts.filter(
+          (post) => {
+            return post.autor === autorInformado;
+          }
+        );
+      };
+
+      console.log(buscarPostsPorAutor(posts, "Severo Snape"));
