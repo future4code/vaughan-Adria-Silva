@@ -7,7 +7,8 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "exe1": "tsc && node ./build/exe1.js",
     "exe2": "tsc && node ./build/exe2.js",
-    "exe3": "tsc && node ./build/exe3.js"
+    "exe3": "tsc && node ./build/exe3.js",
+    "exe4": "tsc && node ./build/exe4.js"
   },
   "author": "",
   "license": "ISC"
