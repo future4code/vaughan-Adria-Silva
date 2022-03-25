@@ -14,6 +14,7 @@
     "exe7": "tsc && node ./build/exe7.js",
     "exe8": "tsc && node ./build/exe8.js",
     "exe9": "tsc && node ./build/exe9.js",
+    "exe10": "tsc && node ./build/exe10.js",
     "exe11": "tsc && node ./build/exe11.js"
   },
   "author": "",
