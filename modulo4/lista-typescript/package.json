@@ -11,7 +11,8 @@
     "exe4": "tsc && node ./build/exe4.js",
     "exe5": "tsc && node ./build/exe5.js",
     "exe6": "tsc && node ./build/exe6.js",
-    "exe7": "tsc && node ./build/exe7.js"
+    "exe7": "tsc && node ./build/exe7.js",
+    "exe8": "tsc && node ./build/exe8.js"
   },
   "author": "",
   "license": "ISC"
