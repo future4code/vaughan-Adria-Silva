@@ -5,8 +5,8 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "exe1": "tsc && node ./build/exe1.js"
-
+    "exe1": "tsc && node ./build/exe1.js",
+    "exe2": "tsc && node ./build/exe2.js"
   },
   "author": "",
   "license": "ISC"
