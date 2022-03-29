@@ -21,8 +21,26 @@ app.get("/tasks/:completed", (req, res) => {
     const completedTasks = usersTask.filter(task => {
         return task.completed.toString() === req.params.completed;
     })
-    res.send(completedTasks);
-})
+    res.send({completedTasks});
+});
+
+// Exercício 5
+
+app.post("/task", (req, res) => {
+    const userId = req.body.userId;
+    const title = req.body.title;
+    const completed = req.body.completed;
+    
+    const newTask = {
+        userId: userId,
+        id: Date.now(),
+        title: title,
+        completed: completed
+    };
+    usersTask.push(newTask);
+
+    res.send({usersTask});
+});
 
 const server = app.listen(process.env.PORT || 3003, () => {
     if (server) {
