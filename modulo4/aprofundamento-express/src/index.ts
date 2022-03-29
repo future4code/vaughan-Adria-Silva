@@ -9,14 +9,13 @@ app.use(express.json());
 app.use(cors());
 
 // ENDPOINTS
-// Exercício 1
 
+// Exercício 1
 app.get("/ping", (req, res) => {
     res.send("Pong!");
 });
 
 // Exercício 4
-
 app.get("/tasks/:completed", (req, res) => {
     const completedTasks = usersTask.filter(task => {
         return task.completed.toString() === req.params.completed;
@@ -25,7 +24,6 @@ app.get("/tasks/:completed", (req, res) => {
 });
 
 // Exercício 5
-
 app.post("/tasks", (req, res) => {
     const userId = req.body.userId;
     const title = req.body.title;
@@ -43,7 +41,6 @@ app.post("/tasks", (req, res) => {
 });
 
 // Exercício 6
-
 app.put("/tasks/:id", (req, res) => {
     const newStatus = req.body.completed;
     const toUpdateTask = usersTask.filter(task => {
@@ -54,6 +51,15 @@ app.put("/tasks/:id", (req, res) => {
     });
 
     res.send(updatedTask);
+});
+
+// Exrcício 7
+app.delete("/tasks/:id", (req, res) => {
+    const deletedTaskList = usersTask.filter(task => {
+        return task.id !== Number(req.params.id);
+    });
+
+    res.send(deletedTaskList);
 });
 
 const server = app.listen(process.env.PORT || 3003, () => {
