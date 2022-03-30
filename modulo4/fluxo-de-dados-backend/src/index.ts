@@ -117,14 +117,38 @@ app.put("/products/:id", (req, res) => {
     }
 });
 
-// Exercício 6
+// Exercício 6 e 9
 app.delete("/products/:id", (req, res) => {
-    const id = req.params.id;
+    try {
+        const id = req.params.id;
+        let findId = false;
 
-    const updateList = dataProducts.filter(product => {
-        return product.id !== id;
-    });
-    res.status(200).send({updateList});
+        for (let product of dataProducts) {
+            if (product.id === id) {
+                findId = true
+            }
+        };
+
+        if (!findId) {
+            throw new Error("Produto para deletar não encontrado. Informar id válido.")
+        }
+
+        const updateList = dataProducts.filter(product => {
+            return product.id !== id;
+        });
+
+        res.status(200).send({updateList});
+
+    } catch (error: any) {
+        switch (error.message) {
+            case "Produto para deletar não encontrado. Informar id válido.":
+                res.status(422).send(error.message);
+                break;
+            default:
+                res.status(500).send(error.message);
+                break;
+        };
+    }
 });
 
 const server = app.listen(process.env.PORT || 3003, () => {
