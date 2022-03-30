@@ -17,10 +17,10 @@ app.get("/test", (req, res) => {
 
 // Exercício 3 e 7
 app.post("/products", (req, res) => {
-    const name = req.body.name;
-    const price = req.body.price;
-
     try{
+        const name = req.body.name;
+        const price = req.body.price;
+
         const newProduct = {
             id: Date.now().toString(),
             name: name,
@@ -64,20 +64,57 @@ app.get("/products", (req, res) => {
     res.status(200).send({dataProducts});
 });
 
-// Exercício 5
+// Exercício 5 e 8
 app.put("/products/:id", (req, res) => {
-    const id = req.params.id;
-    const newPrice = req.body.price;
+    try {
+        const id = req.params.id;
+        const newPrice = req.body.price;
 
-    const updateList = dataProducts.map(product => {
-        if ( product.id === id ) {
-            return {... product, price: newPrice};
-        } else {
-            return product
+        if (!newPrice) {
+            throw new Error("Valor do novo preço não recebido.");
         }
-    });
+        if (typeof newPrice !== "number") {
+            throw new Error("Valor do novo preço deve ser numérico.");
+        }
+        if (newPrice <= 0) {
+            throw new Error("Valor do novo preço deve ser maior ou igual a zero.");
+        }
 
-    res.status(200).send({updateList});
+        let findId = false;
+
+        const updateList = dataProducts.map(product => {
+            if ( product.id === id ) {
+                findId = true
+                return {... product, price: newPrice};
+            } else {
+                return product
+            }
+        });
+
+        if (!findId) {
+            throw new Error("Produto não encontrado. Informar id válido.")
+        }
+    
+        res.status(200).send({updateList});
+    } catch (error : any) {
+        switch (error.message) {
+            case "Valor do novo preço não recebido.":
+                res.status(422).send(error.message);
+                break;
+            case "Valor do novo preço deve ser numérico.":
+                res.status(422).send(error.message);
+                break;
+            case "Valor do novo preço deve ser maior ou igual a zero.":
+                res.status(422).send(error.message);
+                break;
+            case "Produto não encontrado. Informar id válido.":
+                res.status(422).send(error.message);
+                break
+            default:
+                res.status(500).send(error.message);
+                break;
+        };
+    }
 });
 
 // Exercício 6
