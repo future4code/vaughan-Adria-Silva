@@ -62,6 +62,15 @@ app.delete("/tasks/:id", (req, res) => {
     res.send(deletedTaskList);
 });
 
+// Exercício 8
+app.get("/tasks/user/:userId", (req, res) => {
+    const userIdTasks = usersTask.filter(task => {
+        return task.userId === Number(req.params.userId);
+    });
+
+    res.send(userIdTasks);
+});
+
 const server = app.listen(process.env.PORT || 3003, () => {
     if (server) {
       const address = server.address() as AddressInfo;
