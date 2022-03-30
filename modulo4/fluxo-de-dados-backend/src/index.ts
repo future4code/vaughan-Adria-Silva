@@ -73,6 +73,16 @@ app.put("/products/:id", (req, res) => {
     res.status(200).send({updateList});
 });
 
+// Exercício 6
+app.delete("/products/:id", (req, res) => {
+    const id = req.params.id;
+
+    const updateList = dataProducts.filter(product => {
+        return product.id !== id;
+    });
+    res.status(200).send({updateList});
+});
+
 const server = app.listen(process.env.PORT || 3003, () => {
   if (server) {
     const address = server.address() as AddressInfo;
