@@ -16,7 +16,7 @@ app.get("/test", (req, res) => {
 });
 
 // Exercício3
-app.put("/products", (req, res) => {
+app.post("/products", (req, res) => {
     const name = req.body.name;
     const price = req.body.price;
 
@@ -55,6 +55,22 @@ app.put("/products", (req, res) => {
 // Exercício 4
 app.get("/products", (req, res) => {
     res.status(200).send({dataProducts});
+});
+
+// Exercício 5
+app.put("/products/:id", (req, res) => {
+    const id = req.params.id;
+    const newPrice = req.body.price;
+
+    const updateList = dataProducts.map(product => {
+        if ( product.id === id ) {
+            return {... product, price: newPrice};
+        } else {
+            return product
+        }
+    });
+
+    res.status(200).send({updateList});
 });
 
 const server = app.listen(process.env.PORT || 3003, () => {
