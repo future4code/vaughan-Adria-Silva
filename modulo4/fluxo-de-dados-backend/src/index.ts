@@ -1,6 +1,7 @@
 import express from "express";
 import cors from "cors";
 import { AddressInfo } from "net";
+import { dataProducts } from "./data";
 
 const app = express();
 
@@ -12,6 +13,43 @@ app.use(cors());
 // Exercício 1
 app.get("/test", (req, res) => {
     res.status(200).send("Teste");
+});
+
+// Exercício3
+app.put("/product", (req, res) => {
+    const name = req.body.name;
+    const price = req.body.price;
+
+    try{
+        const newProduct = {
+            id: Date.now().toString(),
+            name: name,
+            price: price
+        }
+
+        if (!newProduct.name) {
+            throw new Error("Nome do produto inválido");
+        } else if (!newProduct.price) {
+            throw new Error("Preço do produto inválido");
+        };
+
+        dataProducts.push(newProduct);
+        res.status(201).send({dataProducts});
+
+    } catch (error : any) {
+        switch (error.message) {
+            case "Nome do produto inválido":
+                res.status(422).send(error.message)
+                break
+            case "Preço do produto inválido":
+                res.status(422).send(error.message)
+                break
+            default:
+                res.status(500).send(error.message)
+                break
+        }
+    }
+
 });
 
 const server = app.listen(process.env.PORT || 3003, () => {

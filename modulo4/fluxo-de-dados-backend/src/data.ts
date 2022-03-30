@@ -6,7 +6,7 @@ type Product = {
     price: number
 }
 
-export const data : Product[] = [
+export const dataProducts : Product[] = [
     {
         id: "1",
         name: "camisa",
