@@ -16,7 +16,7 @@ app.get("/test", (req, res) => {
 });
 
 // Exercício3
-app.put("/product", (req, res) => {
+app.put("/products", (req, res) => {
     const name = req.body.name;
     const price = req.body.price;
 
@@ -39,17 +39,22 @@ app.put("/product", (req, res) => {
     } catch (error : any) {
         switch (error.message) {
             case "Nome do produto inválido":
-                res.status(422).send(error.message)
-                break
+                res.status(422).send(error.message);
+                break;
             case "Preço do produto inválido":
-                res.status(422).send(error.message)
-                break
+                res.status(422).send(error.message);
+                break;
             default:
-                res.status(500).send(error.message)
-                break
-        }
-    }
+                res.status(500).send(error.message);
+                break;
+        };
+    };
 
+});
+
+// Exercício 4
+app.get("/products", (req, res) => {
+    res.status(200).send({dataProducts});
 });
 
 const server = app.listen(process.env.PORT || 3003, () => {
