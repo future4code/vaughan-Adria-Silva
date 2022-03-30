@@ -15,7 +15,7 @@ app.get("/test", (req, res) => {
     res.status(200).send("Teste");
 });
 
-// Exercício3
+// Exercício 3 e 7
 app.post("/products", (req, res) => {
     const name = req.body.name;
     const price = req.body.price;
@@ -27,21 +27,28 @@ app.post("/products", (req, res) => {
             price: price
         }
 
-        if (!newProduct.name) {
-            throw new Error("Nome do produto inválido");
-        } else if (!newProduct.price) {
-            throw new Error("Preço do produto inválido");
+        if (!newProduct.name || typeof newProduct.name !== "string") {
+            throw new Error("Nome do produto inválido.");
         };
+        if (!newProduct.price || typeof newProduct.price !== "number") {
+            throw new Error("Preço do produto inválido.");
+        };
+        if (newProduct.price <= 0) {
+            throw new Error("Preço do produto deve ser maior ou igual a zero.");
+        }
 
         dataProducts.push(newProduct);
         res.status(201).send({dataProducts});
 
     } catch (error : any) {
         switch (error.message) {
-            case "Nome do produto inválido":
+            case "Nome do produto inválido.":
                 res.status(422).send(error.message);
                 break;
-            case "Preço do produto inválido":
+            case "Preço do produto inválido.":
+                res.status(422).send(error.message);
+                break;
+            case "Preço do produto deve ser maior ou igual a zero.":
                 res.status(422).send(error.message);
                 break;
             default:
