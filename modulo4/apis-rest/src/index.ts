@@ -31,7 +31,7 @@ app.get("/users", (req: Request, res: Response) => {
                 console.log("entrou");
                 throw new Error("Valor de type inválido. É necessário que type seja ADMIN ou NORMAL");
             };
-    
+
             const filteredList = users.filter(user => user.type === type);
             res.status(200).send(filteredList);
         }
@@ -40,7 +40,7 @@ app.get("/users", (req: Request, res: Response) => {
 
     } catch (error: any) {
         if (errorCode === 500) {
-            res.status(errorCode).send({message: "Erro no servidor"})
+            res.status(errorCode).send({ message: "Erro no servidor" })
         }
         res.status(errorCode).send({ message: error.message })
     };
@@ -122,6 +122,32 @@ app.post("/users", (req: Request, res: Response) => {
 //         res.status(errorCode).send({ message: error.message })
 //     };
 // });
+
+// Exercício 7
+app.delete("/users/:id", (req: Request, res: Response) => {
+    let errorCode: number = 400;
+
+    try {
+        const id = Number(req.params.id);
+        if (!id) {
+            errorCode = 422;
+            throw new Error("Não foi passado valor de id válido");
+        }
+
+        const hasUser = users.find(user => user.id === id);
+        if (!hasUser) {
+            errorCode = 404;
+            throw new Error("Esse id de usuário(a) não existe");
+        }
+
+        const updateUsersData = users.filter(user => user.id !== id);
+
+        res.status(204).send(updateUsersData);
+
+    } catch (error: any) {
+        res.status(errorCode).send({ message: error.message});
+    }
+});
 
 const server = app.listen(process.env.PORT || 3003, () => {
     if (server) {
