@@ -1,0 +1,9 @@
+Exercício 1
+a) Qual método HTTP você deve utilizar para isso?
+
+Método GET, pois é necessário apenas buscar informações.
+
+b) Como você indicaria a entidade que está sendo manipulada?
+
+Simplesmente como "/users", já que os dados estão guardados em uma variável
+chamada users
