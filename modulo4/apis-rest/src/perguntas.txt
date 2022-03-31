@@ -24,3 +24,9 @@ a) Qual é o tipo de parâmetro que costuma ser utilizado por aqui?
 
     Query params são os ideiais para fazer uma consulta, mas também é
 possível fazer com path params.
+
+Exercício 4
+b) Você considera o método PUT apropriado para esta transação? Por quê?
+
+    Não, pois o método PUT é para ser utilizado quando se deseja atualizar
+o dado e o método POST é aquele que deve ser usado para criar um novo dado.
