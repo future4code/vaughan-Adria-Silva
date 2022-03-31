@@ -2,7 +2,7 @@ enum Type {
     ADMIN = "ADMIN",
     NORMAL = "NORMAL"
 }
-type User = {
+export type User = {
     id: number,
     name: string,
     email:string,

@@ -1,7 +1,7 @@
 import express, {Express, Request, Response} from 'express';
 import cors from 'cors';
 import { AddressInfo } from "net";
-import { users } from './data';
+import { User, users } from './data';
 
 const app: Express = express();
 
@@ -33,6 +33,28 @@ app.get("/users/:type", (req: Request, res: Response) => {
 
         const filteredList = users.filter(user => user.type === type);
         res.status(200).send(filteredList);
+    } catch (error: any) {
+        res.status(errorCode).send({message: error.message})
+    };
+});
+
+// Exercício 3
+app.get("/user", (req: Request, res: Response) => {
+    let errorCode: number = 400;
+    try {
+        const name: string = req.query.name as string;
+        if (!name) {
+            errorCode = 422;
+            throw new Error("Nome não enviado");
+        };
+
+        const user: User | undefined =  users.find(user => user.name === name);
+        if (!user) {
+            errorCode = 404;
+            throw new Error("Usuário(a) não encontrado(a).");
+        };
+
+        res.status(200).send(user);
     } catch (error: any) {
         res.status(errorCode).send({message: error.message})
     };
