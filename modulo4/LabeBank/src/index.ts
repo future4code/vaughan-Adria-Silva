@@ -21,6 +21,27 @@ app.get("/users", (req: Request, res: Response) => {
     };
 });
 
+app.get("/users/:cpf", (req: Request, res: Response) => {
+    let errorCode: number = 400;
+    try {
+        const cpf = req.params.cpf
+        const client = dataBank.find(client => client.cpf === cpf);
+
+        if (!client) {
+            errorCode = 404;
+            throw new Error("Cliente não cadastrado");
+        }
+        const balance: number = client.balance;
+
+        res.status(200).send({saldo: balance});
+    } catch (error: any) {
+        if (errorCode === 400) {
+            res.status(errorCode).send({message: "Erro na requisição"})
+        }
+        res.status(errorCode).send({message: error.message});
+    };
+});
+
 app.post("/users", (req: Request, res: Response) => {
     let errorCode: number = 400;
     try {
@@ -60,7 +81,7 @@ app.post("/users", (req: Request, res: Response) => {
             balance: 0,
             statment: []
         };
-
+        //
         dataBank.push(newClient);
 
         res.status(201).send(dataBank)
