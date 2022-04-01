@@ -1,6 +1,6 @@
 export type Client = {
     name: string,
-    cpf: number,
+    cpf: string,
     birth: string,
     balance: number,
     statment: Transaction[]
@@ -21,7 +21,7 @@ export enum OPERATION {
 export const dataBank: Client[]= [
     {
         name: "Flavio Motta",
-        cpf: 11111111111,
+        cpf: "111.111.111-11",
         birth: "24/02/2000",
         balance: 10000,
         statment: [
@@ -39,7 +39,7 @@ export const dataBank: Client[]= [
     },
     {
         name: "Izabella Brandao",
-        cpf: 22222222222,
+        cpf: "222.222.222-22",
         birth: "01/04/2004",
         balance: 100000,
         statment: [
@@ -67,7 +67,7 @@ export const dataBank: Client[]= [
     },
     {
         name: "Pauleany Prince",
-        cpf: 33333333333,
+        cpf: "333.333.333-33",
         birth: "12/07/1997",
         balance: 50000,
         statment: []

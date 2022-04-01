@@ -15,7 +15,7 @@ app.get("/users", (req: Request, res: Response) => {
         res.status(200).send(dataBank)
     } catch (error: any) {
         if (errorCode === 400) {
-            res.status(errorCode).send({message: "Erro na requisição!"})
+            res.status(errorCode).send({message: "Erro na requisição"})
         }
         res.status(errorCode).send({message: error.message})
     };
@@ -26,7 +26,12 @@ app.post("/users", (req: Request, res: Response) => {
     try {
         const {name, cpf, birth} = req.body;
 
-        //Válidar idade
+        if (!name || !cpf || !birth) {
+            errorCode = 422;
+            throw new Error("Informações incompletas");
+        }
+
+        //Validar idade
         const eightennYears: number = new Date(1988, 0, 1).getTime();
         const splitBirth = birth.split("/");
         const birthTimeStamp : number = new Date(Number(splitBirth[2]), Number(splitBirth[1]) -1, Number(splitBirth[0])).getTime(); 
@@ -34,7 +39,18 @@ app.post("/users", (req: Request, res: Response) => {
 
         if (ageTimeStamp < eightennYears) {
             errorCode = 422;
-            throw new Error("É necessário ter mais de 18 anos para abrir uma conta no LabeBank")
+            throw new Error("É necessário ter mais de 18 anos para abrir uma conta no LabeBank");
+        };
+        
+        //Validar CPF
+        if (cpf.length !== 14 || cpf[3] !== "." || cpf[7] !== "." || cpf[11] !== "-" ) {
+            errorCode = 422;
+            throw new Error("CPF não está no formato solicitado: XXX.XXX.XXX-XX");  
+        };
+        const findCpf = dataBank.find(client => client.cpf === cpf);
+        if (findCpf) {
+            errorCode = 422;
+            throw new Error("CPF informado já é cadastrado no LabeBank");
         };
 
         const newClient: Client = {
@@ -50,7 +66,7 @@ app.post("/users", (req: Request, res: Response) => {
         res.status(201).send(dataBank)
     } catch (error: any) {
         if (errorCode === 400) {
-            res.status(errorCode).send({message: "Erro na requisição!"})
+            res.status(errorCode).send({message: "Erro na requisição"})
         }
         res.status(errorCode).send({message: error.message})
     };
