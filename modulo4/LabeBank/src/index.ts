@@ -3,7 +3,8 @@ import cors from 'cors';
 import { AddressInfo } from "net";
 import { Client, dataBank, OPERATION, Transaction } from './data';
 import { cpfFormatValidate, findCpf } from './cpfValidate';
-import { dateFormatValidate, isMinor, pastDate } from './dateValidate';
+import { dateFormatValidate, getDate, isMinor, pastDate } from './dateValidate';
+import { newTransaction } from './newTransaction';
 
 const app: Express = express();
 
@@ -11,6 +12,7 @@ app.use(express.json());
 app.use(cors());
 
 // ENDPOINTS
+// All Users
 app.get("/users", (req: Request, res: Response) => {
     let errorCode: number = 400;
     try {
@@ -23,11 +25,12 @@ app.get("/users", (req: Request, res: Response) => {
     };
 });
 
+// User Balance
 app.get("/users/:cpf", (req: Request, res: Response) => {
     let errorCode: number = 400;
     try {
         const cpf: string = req.params.cpf
-        const client: Client | undefined = dataBank.find(client => client.cpf === cpf);
+        const client: Client | undefined = findCpf(cpf, dataBank);
 
         if (!client) {
             errorCode = 404;
@@ -44,6 +47,7 @@ app.get("/users/:cpf", (req: Request, res: Response) => {
     };
 });
 
+// Create User
 app.post("/users", (req: Request, res: Response) => {
     let errorCode: number = 400;
     try {
@@ -52,13 +56,24 @@ app.post("/users", (req: Request, res: Response) => {
         if (!name || !cpf || !birth) {
             errorCode = 422;
             throw new Error("Informações incompletas");
-        }
+        };
+        
+        if (typeof name !== "string" || name.length < 3){
+            errorCode = 422;
+            throw new Error("Nome inválido");
+        };
 
+        if (typeof birth !== "string"){
+            throw new Error("A data não está no formato solicitado: DD / MM / AAAA");
+        };
         dateFormatValidate(birth);
         isMinor(birth);
-
+        
+        if (typeof cpf !== "string"){
+            throw new Error("CPF não está no formato solicitado: XXX.XXX.XXX-XX");
+        };
         cpfFormatValidate(cpf);
-        const isClient = findCpf(cpf, dataBank);
+        const isClient: Client | undefined = findCpf(cpf, dataBank);
         if (isClient) {
             errorCode = 409;
             throw new Error("CPF informado já é cadastrado no LabeBank");
@@ -95,7 +110,7 @@ app.post("/users", (req: Request, res: Response) => {
     };
 });
 
-
+// Add Balance
 app.put("/users", (req: Request, res: Response) => {
     let errorCode: number = 400;
     try {
@@ -104,7 +119,21 @@ app.put("/users", (req: Request, res: Response) => {
         if (!name || !cpf || !addValue) {
             errorCode = 422;
             throw new Error("Informações incompletas")
-        }
+        };
+
+        if (typeof name !== "string" || name.length < 3){
+            errorCode = 422;
+            throw new Error("Nome inválido");
+        };
+
+        if (typeof addValue !== "number" || addValue <= 0) {
+            errorCode = 422;
+            throw new Error("Valor para depósito inválido");
+        };
+
+        if (typeof cpf !== "string"){
+            throw new Error("CPF não está no formato solicitado: XXX.XXX.XXX-XX");
+        };
         cpfFormatValidate(cpf);
         const isClient = findCpf(cpf, dataBank);
         if (!isClient) {
@@ -121,13 +150,8 @@ app.put("/users", (req: Request, res: Response) => {
             if (client.cpf !== isClient.cpf) {
                 return client;
             } else {
-                const nowDate = new Date().toLocaleString();
-                const splitNowDate = nowDate.split(" ");
-                const newStatment: Transaction = {
-                    value: addValue,
-                    date: splitNowDate[0],
-                    description: OPERATION.ADICIONAR
-                };
+                const date: string = getDate();
+                const newStatment: Transaction = newTransaction(addValue,date,OPERATION.ADICIONAR);
 
                 const newBalance: number = client.balance + addValue;
 
@@ -155,6 +179,7 @@ app.put("/users", (req: Request, res: Response) => {
     };
 });
 
+// Add Payment
 app.post("/users/payment", (req: Request, res: Response) => {
     let errorCode: number = 400;
     try {
@@ -162,8 +187,11 @@ app.post("/users/payment", (req: Request, res: Response) => {
         if (!cpf || !description || !value) {
             errorCode = 422;
             throw new Error("Informações incompletas")
-        }
+        };
 
+        if (typeof cpf !== "string"){
+            throw new Error("CPF não está no formato solicitado: XXX.XXX.XXX-XX");
+        };
         cpfFormatValidate(cpf);
         const isClient = findCpf(cpf, dataBank);
         if (!isClient) {
@@ -184,19 +212,20 @@ app.post("/users/payment", (req: Request, res: Response) => {
         if (typeof description !== "string" || description.toUpperCase() !== "PAGAMENTO") {
             errorCode = 422;
             throw new Error("Descrição da operação é inválida. Para essa operação, informar apenas: PAGAMENTO");
-        }
+        };
 
         if (!date) {
-            const getDate = new Date().toLocaleString();
-            const splitDate = getDate.split(" ")
-            date = splitDate[0];
+            date = getDate();
         } else {
+            if (typeof date !== "string"){
+                throw new Error("A data não está no formato solicitado: DD / MM / AAAA");
+            };
             dateFormatValidate(date);
             const isPast = pastDate(date);
             if (isPast > 0) {
                 errorCode = 422;
                 throw new Error("A data informada do pagamento já passou");
-            }
+            };
         };
 
         const updateDataBankStatement: Client[] = dataBank.map(client => {
@@ -205,16 +234,11 @@ app.post("/users/payment", (req: Request, res: Response) => {
             } else {
                 const allStatment = client.statment;
 
-                const newStatment: Transaction = {
-                    value,
-                    date,
-                    description: OPERATION.PAGAMENTO
-                };
-
+                const newStatment: Transaction = newTransaction(value, date, OPERATION.PAGAMENTO);
                 allStatment.push(newStatment);
 
                 return { ...client, statment: allStatment };
-            }
+            };
         });
 
         res.status(201).send(updateDataBankStatement);
@@ -238,13 +262,14 @@ app.post("/users/payment", (req: Request, res: Response) => {
     };
 });
 
-app.put("/users/payment", (req: Request, res: Response) => {
+// Do Transactions
+app.put("/users/transactions", (req: Request, res: Response) => {
     let errorCode: number = 400;
     try {
         const cpf: string = req.body.cpf;
         if (!cpf) {
             errorCode = 401;
-            throw new Error("Não foi informado um cpf")
+            throw new Error("Não foi informado um cpf");
         }
         cpfFormatValidate(cpf);
         const isClient = findCpf(cpf, dataBank);
@@ -267,15 +292,15 @@ app.put("/users/payment", (req: Request, res: Response) => {
                             discount += statment[i].value;
                         } else {
                             discount -= statment[i].value;
-                        }
+                        };
                     };
                 };
 
-                return { ...client, balance: client.balance + discount }
+                return { ...client, balance: client.balance + discount };
             }
         });
 
-        res.status(200).send(updatePaymentsBalance)
+        res.status(200).send(updatePaymentsBalance);
 
     } catch (error: any) {
         if (
@@ -293,6 +318,7 @@ app.put("/users/payment", (req: Request, res: Response) => {
     };
 });
 
+// Add Transfer
 app.post("/users/transfer", (req: Request, res: Response) => {
     let errorCode: number = 400;
     try {
@@ -300,6 +326,11 @@ app.post("/users/transfer", (req: Request, res: Response) => {
         if(!cpfPayer || !namePayer || !value || !cpfReceiver || !nameReceiver) {
             errorCode = 422;
             throw new Error("Informações incompletas")
+        };
+
+        if (typeof cpfPayer !== "string" || typeof cpfReceiver !== "string") {
+            errorCode = 422;
+            throw new Error("Um ou dois dos CPFs informados são inválidos")
         };
 
         cpfFormatValidate(cpfPayer);
@@ -336,33 +367,24 @@ app.post("/users/transfer", (req: Request, res: Response) => {
             throw new Error("Valor do pagamento ultrapassa o saldo");
         };
 
-        const getDate: string = new Date().toLocaleString();
-        const splitDate: string[] = getDate.split(" ")
-        const date: string = splitDate[0];
+        const date = getDate();
 
-        const newStatmentPayer: Transaction = {
-            value,
-            date,
-            description: OPERATION.TRANSFERENCIAPAGA
-        }
-        const newStatmentReceiver: Transaction = {
-            value,
-            date,
-            description: OPERATION.TRANSFERENCIARECEBIDA
-        }
+        const newStatementPayer: Transaction = newTransaction(value, date, OPERATION.TRANSFERENCIAPAGA);
+        const newStatementReceiver: Transaction = newTransaction(value, date, OPERATION.TRANSFERENCIARECEBIDA);
+        
 
         const updateDataBankStatement: Client[] = dataBank.map(client => {
             if (client.cpf !== cpfPayer && client.cpf !== cpfReceiver) {
                 return client;
             } else if (client.cpf === cpfPayer) {
                 const allStatment: Transaction[] = client.statment;
-                allStatment.push(newStatmentPayer);
+                allStatment.push(newStatementPayer);
                 return {...client, statment: allStatment};
             } else {
                 const allStatment: Transaction[] = client.statment;
-                allStatment.push(newStatmentReceiver);
+                allStatment.push(newStatementReceiver);
                 return {...client, statment: allStatment};
-            }
+            };
         });
 
         res.status(201).send(updateDataBankStatement);
@@ -391,4 +413,3 @@ const server = app.listen(process.env.PORT || 3003, () => {
         console.error(`Failure upon starting server.`);
     };
 });
-

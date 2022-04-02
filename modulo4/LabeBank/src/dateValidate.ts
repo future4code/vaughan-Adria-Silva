@@ -1,4 +1,4 @@
-export const dateFormatValidate = (date: string) => {
+export const dateFormatValidate = (date: string): void => {
     const formatCondition1: boolean = date.length !== 10 || date[2] !== "/" || date[5] !== "/";
     if (formatCondition1) {
         throw new Error("A data não está no formato solicitado: DD / MM / AAAA");
@@ -19,7 +19,7 @@ export const dateFormatValidate = (date: string) => {
     };
 };
 
-export const isMinor = (birth: string) => {
+export const isMinor = (birth: string): void => {
     const eightennYears: number = new Date(1988, 0, 1).getTime();
     const splitBirth: string[] = birth.split("/");
     const birthTimeStamp: number = new Date(Number(splitBirth[2]), Number(splitBirth[1]) - 1, Number(splitBirth[0])).getTime();
@@ -30,7 +30,7 @@ export const isMinor = (birth: string) => {
     };
 };
 
-export const pastDate = (date: string) => {
+export const pastDate = (date: string): number => {
     const getNowDate: number = new Date().getTime()
     
     const splitInformedDate: string[] = date.split("/");
@@ -40,3 +40,10 @@ export const pastDate = (date: string) => {
 
     return isPastDate;
 };
+
+export const getDate = (): string => {
+    const getDate = new Date().toLocaleString();
+    const splitDate = getDate.split(" ");
+
+    return splitDate[0];
+}

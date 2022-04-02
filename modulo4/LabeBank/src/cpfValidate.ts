@@ -1,6 +1,6 @@
 import { Client } from "./data";
 
-export const cpfFormatValidate = (cpf: string) => {
+export const cpfFormatValidate = (cpf: string): void => {
     const formatCondition1: boolean = cpf.length !== 14 || cpf[3] !== "." || cpf[7] !== "." || cpf[11] !== "-";
     if (formatCondition1) {
         throw new Error("CPF não está no formato solicitado: XXX.XXX.XXX-XX");  
@@ -22,7 +22,7 @@ export const cpfFormatValidate = (cpf: string) => {
     };
 };
 
-export const findCpf = (cpf: string, dataBank: Client[]) => {
+export const findCpf = (cpf: string, dataBank: Client[]): Client | undefined => {
     const result = dataBank.find(client => client.cpf === cpf);
     return result;
 };
