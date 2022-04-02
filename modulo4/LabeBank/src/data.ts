@@ -13,9 +13,9 @@ export type Transaction = {
 };
 
 export enum OPERATION {
-    PAGAMENTO = "pagamento",
+    PAGAMENTO = "Pagamento de conta",
     TRANSFERENCIA = "transferencia",
-    ADICIONAR = "adicionar"
+    ADICIONAR = "Depósito em dinheiro"
 };
 
 export const dataBank: Client[]= [

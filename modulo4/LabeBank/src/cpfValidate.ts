@@ -1,6 +1,6 @@
 import { Client } from "./data";
 
-export const cpfFormatValidate = (cpf: string, dataBank: Client[]) => {
+export const cpfFormatValidate = (cpf: string) => {
     const formatCondition1: boolean = cpf.length !== 14 || cpf[3] !== "." || cpf[7] !== "." || cpf[11] !== "-";
     if (formatCondition1) {
         throw new Error("CPF não está no formato solicitado: XXX.XXX.XXX-XX");  
