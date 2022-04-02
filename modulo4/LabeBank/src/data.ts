@@ -14,7 +14,8 @@ export type Transaction = {
 
 export enum OPERATION {
     PAGAMENTO = "Pagamento de conta",
-    TRANSFERENCIA = "transferencia",
+    TRANSFERENCIAPAGA = "Transferencia paga",
+    TRANSFERENCIARECEBIDA = "Transferência recebida", 
     ADICIONAR = "Depósito em dinheiro"
 };
 
@@ -38,7 +39,12 @@ export const dataBank: Client[]= [
             {
                 value: 500,
                 date: "01/04/2022",
-                description: OPERATION.TRANSFERENCIA
+                description: OPERATION.TRANSFERENCIAPAGA
+            },
+            {
+                value: 2,
+                date: "01/04/2022",
+                description: OPERATION.TRANSFERENCIARECEBIDA
             }
         ]
     },
@@ -61,7 +67,7 @@ export const dataBank: Client[]= [
             {
                 value: 500,
                 date: "08/02/2022",
-                description: OPERATION.TRANSFERENCIA
+                description: OPERATION.TRANSFERENCIARECEBIDA
             },
             {
                 value: 150,

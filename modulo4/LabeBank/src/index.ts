@@ -113,7 +113,7 @@ app.put("/users", (req: Request, res: Response) => {
         };
 
         if (name !== isClient.name) {
-            errorCode = 409;
+            errorCode = 401;
             throw new Error("Nome informado não confere com o cadastrado");
         }
 
@@ -261,20 +261,111 @@ app.put("/users/payment", (req: Request, res: Response) => {
                 const statment: Transaction[] = client.statment;
 
                 for (let i: number = 0; i < statment.length; i++) {
-                    if (statment[i].description === OPERATION.PAGAMENTO) {
-                        let isPast = pastDate(statment[i].date);
-                        if (isPast > 0) {
+                    let isPast = pastDate(statment[i].date);
+                    if (isPast > 0) {
+                        if (statment[i].description === OPERATION.TRANSFERENCIARECEBIDA) {
                             discount += statment[i].value;
+                        } else {
+                            discount -= statment[i].value;
                         }
                     };
                 };
 
-                return { ...client, balance: client.balance - discount }
+                return { ...client, balance: client.balance + discount }
             }
         });
 
         res.status(200).send(updatePaymentsBalance)
 
+    } catch (error: any) {
+        if (
+            error.message === "CPF não está no formato solicitado: XXX.XXX.XXX-XX" ||
+            error.message === "Algun(s) caractere(s) do CPF não é (são) não numérico(s)"
+        ) {
+            res.status(422).send({ message: error.message });
+        };
+
+        if (errorCode === 400) {
+            res.status(errorCode).send({ message: "Erro na requisição" });
+        };
+
+        res.status(errorCode).send({ message: error.message });
+    };
+});
+
+app.post("/users/transfer", (req: Request, res: Response) => {
+    let errorCode: number = 400;
+    try {
+        const {cpfPayer, namePayer, value, cpfReceiver, nameReceiver} = req.body;
+        if(!cpfPayer || !namePayer || !value || !cpfReceiver || !nameReceiver) {
+            errorCode = 422;
+            throw new Error("Informações incompletas")
+        };
+
+        cpfFormatValidate(cpfPayer);
+        const clientPayer = findCpf(cpfPayer, dataBank);
+        if (!clientPayer) {
+            errorCode = 404;
+            throw new Error("CPF informado não é cadastrado no LabeBank");
+        } else {
+            if (clientPayer.name !== namePayer) {
+                errorCode = 401;
+                throw new Error("Nome do pagador não confere com o cadastrado");
+            }
+        }
+
+        cpfFormatValidate(cpfPayer);
+        const clientReceiver = findCpf(cpfReceiver, dataBank);
+        if (!clientReceiver) {
+            errorCode = 404;
+            throw new Error("CPF informado não é cadastrado no LabeBank");
+        } else {
+            if (clientReceiver.name !== nameReceiver) {
+                errorCode = 401;
+                throw new Error("Nome do pagador não confere com o cadastrado");
+            }
+        }
+
+        if (typeof value !== "number" || value <= 0) {
+            errorCode = 422;
+            throw new Error("Valor do pagamento informado deve ser numérico e maior que zero");
+        };
+
+        if (value > clientPayer.balance) {
+            errorCode = 403;
+            throw new Error("Valor do pagamento ultrapassa o saldo");
+        };
+
+        const getDate: string = new Date().toLocaleString();
+        const splitDate: string[] = getDate.split(" ")
+        const date: string = splitDate[0];
+
+        const newStatmentPayer: Transaction = {
+            value,
+            date,
+            description: OPERATION.TRANSFERENCIAPAGA
+        }
+        const newStatmentReceiver: Transaction = {
+            value,
+            date,
+            description: OPERATION.TRANSFERENCIARECEBIDA
+        }
+
+        const updateDataBankStatement: Client[] = dataBank.map(client => {
+            if (client.cpf !== cpfPayer && client.cpf !== cpfReceiver) {
+                return client;
+            } else if (client.cpf === cpfPayer) {
+                const allStatment: Transaction[] = client.statment;
+                allStatment.push(newStatmentPayer);
+                return {...client, statment: allStatment};
+            } else {
+                const allStatment: Transaction[] = client.statment;
+                allStatment.push(newStatmentReceiver);
+                return {...client, statment: allStatment};
+            }
+        });
+
+        res.status(201).send(updateDataBankStatement);
     } catch (error: any) {
         if (
             error.message === "CPF não está no formato solicitado: XXX.XXX.XXX-XX" ||
