@@ -3,7 +3,7 @@ import cors from 'cors';
 import { AddressInfo } from "net";
 import { Client, dataBank, OPERATION, Transaction } from './data';
 import { cpfFormatValidate, findCpf } from './cpfValidate';
-import { dateFormatValidate, isMinor } from './dateValidate';
+import { dateFormatValidate, isMinor, pastDate } from './dateValidate';
 
 const app: Express = express();
 
@@ -187,6 +187,7 @@ app.post("/users/payment", (req: Request, res: Response) => {
             date = splitDate[0];
         } else {
             dateFormatValidate(date);
+            pastDate(date);
         };
 
         const updateDataBankStatement: Client[] = dataBank.map(client => {
@@ -207,7 +208,7 @@ app.post("/users/payment", (req: Request, res: Response) => {
             }
         });
 
-        res.status(200).send(updateDataBankStatement);
+        res.status(201).send(updateDataBankStatement);
         
     } catch (error: any) {
         if (    
@@ -215,7 +216,8 @@ app.post("/users/payment", (req: Request, res: Response) => {
             error.message === "Algun(s) caractere(s) do CPF não é (são) não numérico(s)" ||
             error.message === "A data não está no formato solicitado: DD / MM / AAAA" ||
             error.message === "Algum(s) caractere(s) do dia, mês e / ou ano da data não é (são) não numérico(s)" ||
-            error.message === "Data inválida"
+            error.message === "Data inválida" ||
+            error.message === "A data informada do pagamento já passou"
         ) {
             res.status(422).send({ message: error.message });
         };
