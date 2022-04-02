@@ -31,6 +31,11 @@ export const dataBank: Client[]= [
                 description: OPERATION.PAGAMENTO
             },
             {
+                value: 150,
+                date: "15/04/2022",
+                description: OPERATION.PAGAMENTO
+            },
+            {
                 value: 500,
                 date: "01/04/2022",
                 description: OPERATION.TRANSFERENCIA

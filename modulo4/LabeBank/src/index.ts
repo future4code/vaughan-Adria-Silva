@@ -158,7 +158,7 @@ app.put("/users", (req: Request, res: Response) => {
 app.post("/users/payment", (req: Request, res: Response) => {
     let errorCode: number = 400;
     try {
-        let {cpf, value, description, date} = req.body;
+        let { cpf, value, description, date } = req.body;
         if (!cpf || !description || !value) {
             errorCode = 422;
             throw new Error("Informações incompletas")
@@ -177,7 +177,7 @@ app.post("/users/payment", (req: Request, res: Response) => {
         };
 
         if (value > isClient.balance) {
-            errorCode = 409;
+            errorCode = 403;
             throw new Error("Valor do pagamento ultrapassa o saldo");
         };
 
@@ -192,7 +192,11 @@ app.post("/users/payment", (req: Request, res: Response) => {
             date = splitDate[0];
         } else {
             dateFormatValidate(date);
-            pastDate(date);
+            const isPast = pastDate(date);
+            if (isPast > 0) {
+                errorCode = 422;
+                throw new Error("A data informada do pagamento já passou");
+            }
         };
 
         const updateDataBankStatement: Client[] = dataBank.map(client => {
@@ -209,20 +213,19 @@ app.post("/users/payment", (req: Request, res: Response) => {
 
                 allStatment.push(newStatment);
 
-                return {...client, statment: allStatment};
+                return { ...client, statment: allStatment };
             }
         });
 
         res.status(201).send(updateDataBankStatement);
-        
+
     } catch (error: any) {
-        if (    
+        if (
             error.message === "CPF não está no formato solicitado: XXX.XXX.XXX-XX" ||
             error.message === "Algun(s) caractere(s) do CPF não é (são) não numérico(s)" ||
             error.message === "A data não está no formato solicitado: DD / MM / AAAA" ||
             error.message === "Algum(s) caractere(s) do dia, mês e / ou ano da data não é (são) não numérico(s)" ||
-            error.message === "Data inválida" ||
-            error.message === "A data informada do pagamento já passou"
+            error.message === "Data inválida"
         ) {
             res.status(422).send({ message: error.message });
         };
@@ -235,6 +238,58 @@ app.post("/users/payment", (req: Request, res: Response) => {
     };
 });
 
+app.put("/users/payment", (req: Request, res: Response) => {
+    let errorCode: number = 400;
+    try {
+        const cpf: string = req.body.cpf;
+        if (!cpf) {
+            errorCode = 401;
+            throw new Error("Não foi informado um cpf")
+        }
+        cpfFormatValidate(cpf);
+        const isClient = findCpf(cpf, dataBank);
+        if (!isClient) {
+            errorCode = 404;
+            throw new Error("CPF informado não é cadastrado no LabeBank");
+        };
+
+        const updatePaymentsBalance = dataBank.map(client => {
+            if (client.cpf !== cpf) {
+                return client;
+            } else {
+                let discount: number = 0;
+                const statment: Transaction[] = client.statment;
+
+                for (let i: number = 0; i < statment.length; i++) {
+                    if (statment[i].description === OPERATION.PAGAMENTO) {
+                        let isPast = pastDate(statment[i].date);
+                        if (isPast > 0) {
+                            discount += statment[i].value;
+                        }
+                    };
+                };
+
+                return { ...client, balance: client.balance - discount }
+            }
+        });
+
+        res.status(200).send(updatePaymentsBalance)
+
+    } catch (error: any) {
+        if (
+            error.message === "CPF não está no formato solicitado: XXX.XXX.XXX-XX" ||
+            error.message === "Algun(s) caractere(s) do CPF não é (são) não numérico(s)"
+        ) {
+            res.status(422).send({ message: error.message });
+        };
+
+        if (errorCode === 400) {
+            res.status(errorCode).send({ message: "Erro na requisição" });
+        };
+
+        res.status(errorCode).send({ message: error.message });
+    };
+});
 
 
 const server = app.listen(process.env.PORT || 3003, () => {

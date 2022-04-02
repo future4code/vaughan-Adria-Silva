@@ -37,7 +37,6 @@ export const pastDate = (date: string) => {
     const informedDateTimeStamp: number = new Date(Number(splitInformedDate[2]), Number(splitInformedDate[1]) -1, Number(splitInformedDate[0]) +1).getTime();
 
     const isPastDate = getNowDate - informedDateTimeStamp;
-    if (isPastDate > 0) {
-        throw new Error("A data informada do pagamento já passou");
-    }
+
+    return isPastDate;
 };
