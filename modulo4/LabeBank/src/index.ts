@@ -2,6 +2,8 @@ import express, {Express, Request, Response} from 'express';
 import cors from 'cors';
 import { AddressInfo } from "net";
 import { Client, dataBank } from './data';
+import { cpfFormatValidate, findCpf } from './cpfValidate';
+import { dateFormatValidate, isMinor } from './dateValidate';
 
 const app: Express = express();
 
@@ -12,20 +14,20 @@ app.use(cors());
 app.get("/users", (req: Request, res: Response) => {
     let errorCode: number = 400;
     try {
-        res.status(200).send(dataBank)
+        res.status(200).send(dataBank);
     } catch (error: any) {
         if (errorCode === 400) {
-            res.status(errorCode).send({message: "Erro na requisição"})
+            res.status(errorCode).send({message: "Erro na requisição"});
         }
-        res.status(errorCode).send({message: error.message})
+        res.status(errorCode).send({message: error.message});
     };
 });
 
 app.get("/users/:cpf", (req: Request, res: Response) => {
     let errorCode: number = 400;
     try {
-        const cpf = req.params.cpf
-        const client = dataBank.find(client => client.cpf === cpf);
+        const cpf: string = req.params.cpf
+        const client: Client | undefined = dataBank.find(client => client.cpf === cpf);
 
         if (!client) {
             errorCode = 404;
@@ -36,8 +38,8 @@ app.get("/users/:cpf", (req: Request, res: Response) => {
         res.status(200).send({saldo: balance});
     } catch (error: any) {
         if (errorCode === 400) {
-            res.status(errorCode).send({message: "Erro na requisição"})
-        }
+            res.status(errorCode).send({message: "Erro na requisição"});
+        };
         res.status(errorCode).send({message: error.message});
     };
 });
@@ -52,24 +54,12 @@ app.post("/users", (req: Request, res: Response) => {
             throw new Error("Informações incompletas");
         }
 
-        //Validar idade
-        const eightennYears: number = new Date(1988, 0, 1).getTime();
-        const splitBirth = birth.split("/");
-        const birthTimeStamp : number = new Date(Number(splitBirth[2]), Number(splitBirth[1]) -1, Number(splitBirth[0])).getTime(); 
-        const ageTimeStamp: number = Date.now() - birthTimeStamp;
+        dateFormatValidate(birth);
+        isMinor(birth);
 
-        if (ageTimeStamp < eightennYears) {
-            errorCode = 422;
-            throw new Error("É necessário ter mais de 18 anos para abrir uma conta no LabeBank");
-        };
-        
-        //Validar CPF
-        if (cpf.length !== 14 || cpf[3] !== "." || cpf[7] !== "." || cpf[11] !== "-" ) {
-            errorCode = 422;
-            throw new Error("CPF não está no formato solicitado: XXX.XXX.XXX-XX");  
-        };
-        const findCpf = dataBank.find(client => client.cpf === cpf);
-        if (findCpf) {
+        cpfFormatValidate(cpf, dataBank);
+        const isClient = findCpf(cpf, dataBank);
+        if (isClient) {
             errorCode = 422;
             throw new Error("CPF informado já é cadastrado no LabeBank");
         };
@@ -86,11 +76,42 @@ app.post("/users", (req: Request, res: Response) => {
 
         res.status(201).send(dataBank)
     } catch (error: any) {
+        if (
+            error.message === "Data inválida" || 
+            error.message === "É necessário ter mais de 18 anos para abrir uma conta no LabeBank" || 
+            error.message === "CPF não está no formato solicitado: XXX.XXX.XXX-XX" || 
+            error.message === "Algun(s) caractere(s) do CPF não é (são) não numérico(s)" || 
+            error.message === "A data não está no formato solicitado: DD / MM / AAAA" || 
+            error.message === "Algum(s) caractere(s) do dia, mês e / ou ano da data não é (são) não numérico(s)" 
+        ) {
+            res.status(422).send({message: error.message});
+        };
+
         if (errorCode === 400) {
             res.status(errorCode).send({message: "Erro na requisição"})
-        }
-        res.status(errorCode).send({message: error.message})
+        };
+        res.status(errorCode).send({message: error.message});
     };
+});
+
+app.put("/users", (req: Request, res: Response) => {
+    let errorCode: number = 400;
+    try {
+        const {name, cpf, addValue} = req.body;
+
+        if (!name || !cpf || !addValue) {
+            errorCode = 422;
+            throw new Error("Informações incompletas")
+        }
+
+
+
+    } catch (error: any) {
+        if (errorCode === 400) {
+            res.status(errorCode).send({message: "Erro na requisição"});
+        };
+        res.status(errorCode).send({message: error.message});
+    };   
 });
 
 
