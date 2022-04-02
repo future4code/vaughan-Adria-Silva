@@ -1,7 +1,7 @@
 import express, {Express, Request, Response} from 'express';
 import cors from 'cors';
 import { AddressInfo } from "net";
-import { Client, dataBank } from './data';
+import { Client, dataBank, OPERATION, Transaction } from './data';
 import { cpfFormatValidate, findCpf } from './cpfValidate';
 import { dateFormatValidate, isMinor } from './dateValidate';
 
@@ -60,7 +60,7 @@ app.post("/users", (req: Request, res: Response) => {
         cpfFormatValidate(cpf, dataBank);
         const isClient = findCpf(cpf, dataBank);
         if (isClient) {
-            errorCode = 422;
+            errorCode = 409;
             throw new Error("CPF informado já é cadastrado no LabeBank");
         };
 
@@ -71,7 +71,7 @@ app.post("/users", (req: Request, res: Response) => {
             balance: 0,
             statment: []
         };
-        //
+
         dataBank.push(newClient);
 
         res.status(201).send(dataBank)
@@ -90,6 +90,7 @@ app.post("/users", (req: Request, res: Response) => {
         if (errorCode === 400) {
             res.status(errorCode).send({message: "Erro na requisição"})
         };
+
         res.status(errorCode).send({message: error.message});
     };
 });
@@ -103,13 +104,50 @@ app.put("/users", (req: Request, res: Response) => {
             errorCode = 422;
             throw new Error("Informações incompletas")
         }
+        cpfFormatValidate(cpf, dataBank);
+        const isClient = findCpf(cpf, dataBank);
+        if (!isClient) {
+            errorCode = 404;
+            throw new Error("CPF informado não é cadastrado no LabeBank");
+        };
 
+        if (name !== isClient.name) {
+            errorCode = 409;
+            throw new Error("Nome informado não confere com o cadastrado");
+        }
 
+        const updateDataBank = dataBank.map(client => {
+            if (client.cpf !== isClient.cpf) {
+                return client;
+            } else {
+                const nowDate = new Date().toLocaleString();
+                const splitNowDate = nowDate.split(" ");
+                const newStatment: Transaction = {
+                    value: addValue,
+                    date: splitNowDate[0],
+                    description: OPERATION.ADICIONAR
+                };
+
+                const allStatment = client.statment;
+                allStatment.push(newStatment);
+                return {...client, statment: allStatment};
+            }
+        })
+
+        res.status(200).send(updateDataBank);
 
     } catch (error: any) {
+        if (
+            error.message === "CPF não está no formato solicitado: XXX.XXX.XXX-XX" || 
+            error.message === "Algun(s) caractere(s) do CPF não é (são) não numérico(s)"
+        ) {
+            res.status(422).send({message: error.message});
+        };
+
         if (errorCode === 400) {
             res.status(errorCode).send({message: "Erro na requisição"});
         };
+
         res.status(errorCode).send({message: error.message});
     };   
 });
