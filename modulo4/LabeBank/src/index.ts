@@ -84,7 +84,7 @@ app.post("/users", (req: Request, res: Response) => {
             cpf,
             birth,
             balance: 0,
-            statment: []
+            statement: []
         };
 
         dataBank.push(newClient);
@@ -151,13 +151,13 @@ app.put("/users", (req: Request, res: Response) => {
                 return client;
             } else {
                 const date: string = getDate();
-                const newStatment: Transaction = newTransaction(addValue,date,OPERATION.ADICIONAR);
+                const newStatement: Transaction = newTransaction(addValue,date,OPERATION.ADICIONAR);
 
                 const newBalance: number = client.balance + addValue;
 
-                const allStatment = client.statment;
-                allStatment.push(newStatment);
-                return { ...client, balance: newBalance, statment: allStatment };
+                const allStatement = client.statement;
+                allStatement.push(newStatement);
+                return { ...client, balance: newBalance, statement: allStatement };
             }
         })
 
@@ -232,12 +232,12 @@ app.post("/users/payment", (req: Request, res: Response) => {
             if (client.cpf !== cpf) {
                 return client;
             } else {
-                const allStatment = client.statment;
+                const allStatement = client.statement;
 
-                const newStatment: Transaction = newTransaction(value, date, OPERATION.PAGAMENTO);
-                allStatment.push(newStatment);
+                const newStatement: Transaction = newTransaction(value, date, OPERATION.PAGAMENTO);
+                allStatement.push(newStatement);
 
-                return { ...client, statment: allStatment };
+                return { ...client, statement: allStatement };
             };
         });
 
@@ -283,15 +283,15 @@ app.put("/users/transactions", (req: Request, res: Response) => {
                 return client;
             } else {
                 let discount: number = 0;
-                const statment: Transaction[] = client.statment;
+                const statement: Transaction[] = client.statement;
 
-                for (let i: number = 0; i < statment.length; i++) {
-                    let isPast = pastDate(statment[i].date);
+                for (let i: number = 0; i < statement.length; i++) {
+                    let isPast = pastDate(statement[i].date);
                     if (isPast > 0) {
-                        if (statment[i].description === OPERATION.TRANSFERENCIARECEBIDA) {
-                            discount += statment[i].value;
+                        if (statement[i].description === OPERATION.TRANSFERENCIARECEBIDA) {
+                            discount += statement[i].value;
                         } else {
-                            discount -= statment[i].value;
+                            discount -= statement[i].value;
                         };
                     };
                 };
@@ -377,13 +377,13 @@ app.post("/users/transfer", (req: Request, res: Response) => {
             if (client.cpf !== cpfPayer && client.cpf !== cpfReceiver) {
                 return client;
             } else if (client.cpf === cpfPayer) {
-                const allStatment: Transaction[] = client.statment;
-                allStatment.push(newStatementPayer);
-                return {...client, statment: allStatment};
+                const allStatement: Transaction[] = client.statement;
+                allStatement.push(newStatementPayer);
+                return {...client, statement: allStatement};
             } else {
-                const allStatment: Transaction[] = client.statment;
-                allStatment.push(newStatementReceiver);
-                return {...client, statment: allStatment};
+                const allStatement: Transaction[] = client.statement;
+                allStatement.push(newStatementReceiver);
+                return {...client, statement: allStatement};
             };
         });
 

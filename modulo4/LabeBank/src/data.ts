@@ -3,7 +3,7 @@ export type Client = {
     cpf: string,
     birth: string,
     balance: number,
-    statment: Transaction[]
+    statement: Transaction[]
 };
 
 export type Transaction = {
@@ -25,7 +25,7 @@ export const dataBank: Client[]= [
         cpf: "111.111.111-11",
         birth: "24/02/2000",
         balance: 10000,
-        statment: [
+        statement: [
             {
                 value: 150,
                 date: "15/03/2022",
@@ -53,7 +53,7 @@ export const dataBank: Client[]= [
         cpf: "222.222.222-22",
         birth: "01/04/2004",
         balance: 100000,
-        statment: [
+        statement: [
             {
                 value: 5000,
                 date: "01/04/2022",
@@ -81,7 +81,7 @@ export const dataBank: Client[]= [
         cpf: "333.333.333-33",
         birth: "12/07/1997",
         balance: 50000,
-        statment: []
+        statement: []
     },
 
 ];
