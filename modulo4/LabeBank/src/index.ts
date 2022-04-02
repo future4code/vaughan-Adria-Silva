@@ -176,6 +176,11 @@ app.post("/users/payment", (req: Request, res: Response) => {
             throw new Error("Valor do pagamento informado deve ser numérico e maior que zero");
         };
 
+        if (value > isClient.balance) {
+            errorCode = 409;
+            throw new Error("Valor do pagamento ultrapassa o saldo");
+        };
+
         if (typeof description !== "string" || description.toUpperCase() !== "PAGAMENTO") {
             errorCode = 422;
             throw new Error("Descrição da operação é inválida. Para essa operação, informar apenas: PAGAMENTO");
