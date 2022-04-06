@@ -54,6 +54,7 @@ app.get('/actor', async (req: Request, res: Response): Promise<void> => {
         } else if (gender && typeof gender === "string") {
             result = await getNumberOfActors(gender);
         } else {
+            //Exercício 3-b
             const getAllActors = await connection.raw(`
             SELECT * FROM Actor
             `);
@@ -74,7 +75,7 @@ const updateSalary = async (id: string, salary: number): Promise<void> => {
     .update({salary})
     .where({id})
 };
-
+// Exercício 4-a
 app.put("/actor/:id", async (req: Request, res: Response) => {
     try {
         const salary = req.body.salary;
@@ -93,7 +94,7 @@ const deleteActor = async (id: string) : Promise<void> => {
     await connection("Actor")
     .where({id}).delete();
 };
-
+// Exercício 4-b
 app.delete("/actor/:id", async (req: Request, res: Response) => {
     try {
         const id = req.params.id;
