@@ -125,6 +125,22 @@ app.get("/actor/avg/:gender", async (req: Request, res: Response) => {
     };
 });
 
+// EXERCÌCIO 3
+// A)
+app.get('/actor/:id', async (req: Request, res: Response) => {
+    try {
+        const id = req.params.id;
+
+        const result = await connection("Actor")
+        .where({id});
+
+        res.status(200).send(result);
+    } catch (error: any) {
+        res.status(400).send(error.sqlMessage || error.message);
+    }
+
+});
+
 
 const server = app.listen(process.env.PORT || 3003, () => {
     if (server) {
