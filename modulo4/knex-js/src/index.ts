@@ -67,7 +67,63 @@ app.get('/actor', async (req: Request, res: Response): Promise<void> => {
 
 });
 
-app.post("/actor")
+// EXERCÌCIO 2
+// A)
+const updateSalary = async (id: string, salary: number): Promise<void> => {
+    await connection("Actor")
+    .update({salary})
+    .where({id})
+};
+
+app.put("/actor/:id", async (req: Request, res: Response) => {
+    try {
+        const salary = req.body.salary;
+        const id = req.params.id;
+        await updateSalary(id, salary);
+
+        const result = await connection("Actor").where({id})
+
+        res.status(200).send(result);
+    } catch (error: any){
+        res.status(400).send(error.sqlMessage || error.message);
+    };
+});
+// B)
+const deleteActor = async (id: string) : Promise<void> => {
+    await connection("Actor")
+    .where({id}).delete();
+};
+
+app.delete("/actor/:id", async (req: Request, res: Response) => {
+    try {
+        const id = req.params.id;
+        await deleteActor(id);
+
+        res.status(204).send("Ator/atriz deletado (a)");
+    } catch (error: any){
+        res.status(400).send(error.sqlMessage || error.message);
+    };
+});
+
+// C)
+const getAvgSalaryByGender = async(gender: string): Promise<any> => {
+    const avarage = await connection("Actor")
+    .avg('salary as avarage').where({gender});
+    console.log(avarage);
+    return avarage;
+};
+
+app.get("/actor/avg/:gender", async (req: Request, res: Response) => {
+    try {
+        const gender = req.params.gender;
+        console.log(gender);
+        const result = await getAvgSalaryByGender(gender);
+
+        res.status(200).send({result});
+    } catch (error: any) {
+        res.status(400).send(error.sqlMessage || error.message);
+    };
+});
 
 
 const server = app.listen(process.env.PORT || 3003, () => {
