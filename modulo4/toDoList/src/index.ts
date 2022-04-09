@@ -19,7 +19,16 @@ const createUser = async (id: number, name: string, nickname: string, email: str
       });
 };
 
+const getUserById = async(id: string): Promise<any> => {
+   const user = await connection("ToDoListUser")
+   .select("id", "name")
+   .where({id});
+
+   return user[0];
+};
+
 // ENDPOINTS
+// Criar Usuário
 app.post("/user", (req: Request, res: Response) => {
    let statusCode: number = 400;
    try {
@@ -44,6 +53,24 @@ app.post("/user", (req: Request, res: Response) => {
    } catch (error: any) {
       res.status(statusCode).send(error.sqlMessage || error.message); 
    };
+});
+
+//Pegar usuário pelo id
+app.get("/user/:id", async (req: Request, res: Response) => {
+   let statusCode: number = 400;
+   try {
+      const id = req.params.id;
+
+      const user = await getUserById(id);
+      if (!user) {
+         statusCode = 404;
+         throw new Error("Id inválido ou não cadastrado!")
+      }
+
+      res.status(200).send(user);
+   } catch (error: any) {
+      res.status(statusCode).send(error.sqlMessage || error.message); 
+   }
 });
 
 const server = app.listen(process.env.PORT || 3003, () => {
