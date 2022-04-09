@@ -27,6 +27,14 @@ const getUserById = async(id: string): Promise<any> => {
    return user[0];
 };
 
+const editUser = async (id: string, name: string, nickname: string): Promise<void> => {
+   await connection("ToDoListUser")
+   .update({
+      name,
+      nickname
+   }).where({id});
+};
+
 // ENDPOINTS
 // Criar Usuário
 app.post("/user", (req: Request, res: Response) => {
@@ -64,13 +72,39 @@ app.get("/user/:id", async (req: Request, res: Response) => {
       const user = await getUserById(id);
       if (!user) {
          statusCode = 404;
-         throw new Error("Id inválido ou não cadastrado!")
-      }
+         throw new Error("Id inválido ou não cadastrado!");
+      };
 
       res.status(200).send(user);
    } catch (error: any) {
       res.status(statusCode).send(error.sqlMessage || error.message); 
    }
+});
+
+// Editar usuário
+app.put("/user/edit/:id", async (req: Request, res: Response) => {
+   let statusCode: number = 400;
+   try {
+      const id = req.params.id;
+      const {name, nickname} = req.body;
+
+      const hasUser = await getUserById(id);
+      if (!hasUser) {
+         statusCode = 404;
+         throw new Error("Id inválido ou não cadastrado!");
+      };
+
+      if (!name || !nickname) {
+         statusCode = 422;
+         throw new Error("Informações incompletas!");
+      };
+
+      editUser(id, name, nickname);
+
+      res.status(200).send("Nome e apelido atualizado com sucesso!");
+   } catch (error: any) {
+      res.status(statusCode).send(error.sqlMessage || error.message); 
+   };
 });
 
 const server = app.listen(process.env.PORT || 3003, () => {
