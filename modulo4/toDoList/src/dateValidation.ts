@@ -37,6 +37,14 @@ export const sqlFormatDate = (date: string): string => {
     return formatedDate;
 };
 
+export const responseFormatDate = (date: string): string => {
+    const dateToString = date.toLocaleString();
+    const splitDate = dateToString.split(" ");
+    const formatedDate = splitDate[0];
+    
+    return formatedDate;
+};
+
 export const getDate = (): string => {
     const getDate = new Date().toLocaleString();
     const splitDate = getDate.split(" ");

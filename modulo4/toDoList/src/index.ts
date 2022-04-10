@@ -2,7 +2,7 @@ import express, { Express, Request, Response } from 'express';
 import cors from 'cors';
 import { AddressInfo } from "net";
 import { connection } from './connection';
-import { dateFormatValidate, pastDate, sqlFormatDate } from './dateValidation';
+import { dateFormatValidate, pastDate, responseFormatDate, sqlFormatDate } from './dateValidation';
 
 const app: Express = express();
 
@@ -35,6 +35,34 @@ const editUser = async (id: string, name: string, nickname: string): Promise<voi
          nickname
       }).where({ id });
 };
+
+const createTask = async (id: number, title: string, description: string, limitDate: string, creatorUserId: string): Promise<void> => {
+   await connection("ToDoListTask")
+   .insert({
+      id,
+      title,
+      description,
+      limit_date: limitDate,
+      creator_user_id: creatorUserId
+   });
+};
+
+const getTaskById = async (id: string): Promise<any> => {
+   const task = await connection("ToDoListTask")
+      .select("id", "title")
+      .where({ id });
+   return task[0];
+};
+
+const getAllInfoTask = async (id: string): Promise<any> => {
+   const allInfoTask = await connection("ToDoListTask")
+   .innerJoin("ToDoListUser", "ToDoListTask.creator_user_id", "=","ToDoListUser.id ")
+   .select("ToDoListTask.*", "ToDoListUser.nickname")
+   .where({"ToDoListTask.id": id});
+
+   return allInfoTask[0];
+};
+
 
 // ENDPOINTS
 // Criar Usuário
@@ -109,22 +137,6 @@ app.put("/user/edit/:id", async (req: Request, res: Response) => {
 });
 
 // Criar tarefa
-const createTask = async (id: number, title: string, description: string, limitDate: string, creatorUserId: string): Promise<void> => {
-   await connection("ToDoListTask")
-      .insert({
-         id,
-         title,
-         description,
-         limit_date: limitDate,
-         creator_user_id: creatorUserId
-      });
-      console.log(id,
-         title,
-         description,
-         limitDate,
-         creatorUserId)
-};
-
 app.post("/task", async (req: Request, res: Response) => {
    let statusCode: number = 400;
    try {
@@ -159,9 +171,40 @@ app.post("/task", async (req: Request, res: Response) => {
          error.message === "A data não está no formato solicitado: DD / MM / AAAA" ||
          error.message === "Algum(s) caractere(s) do dia, mês e / ou ano da data não é (são) não numérico(s)" ||
          error.message === "Data inválida"
-     ) {
-        res.status(422).send({ message: error.message });
-     };
+      ) {
+         res.status(422).send({ message: error.message });
+      };
+      res.status(statusCode).send(error.sqlMessage || error.message);
+   };
+});
+
+//Pegar tarefa pelo id
+app.get("/task/:id", async (req: Request, res: Response)=>{
+   let statusCode:number = 400;
+   try {
+      const id: string = req.params.id;
+      
+      const hasTask = await getTaskById(id);
+      if (!hasTask) {
+         statusCode = 404;
+         throw new Error("Id inválido ou não cadastrado!");
+      };
+
+      const allInfoTask = await getAllInfoTask(id);
+      const formatedDate = responseFormatDate(allInfoTask.limit_date);
+
+      const formatedInfoTask = {
+         taskId: allInfoTask.id,
+         title: allInfoTask.title,
+         description: allInfoTask.description,
+	      limitDate: formatedDate,
+	      status: allInfoTask.status,
+	      creatorUserId: allInfoTask.creator_user_id,
+	      creatorUserNickname: allInfoTask.nickname
+      }
+
+      res.status(200).send(formatedInfoTask);
+   } catch (error: any) {
       res.status(statusCode).send(error.sqlMessage || error.message);
    };
 });
