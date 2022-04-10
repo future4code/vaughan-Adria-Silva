@@ -71,6 +71,14 @@ const getAllUsers = async (): Promise<any> => {
    return allUsers;
 };
 
+const getUserbyNickname = async (query: string): Promise<any> => {
+   const user = await connection("ToDoListUser")
+   .select("id", "nickname")
+   .whereLike("nickname", `%${query}%`);
+
+   return user;
+};
+
 // ENDPOINTS
 // Criar Usuário
 app.post("/user", async (req: Request, res: Response) => {
@@ -94,6 +102,25 @@ app.post("/user", async (req: Request, res: Response) => {
       };
 
       res.status(201).send({ newUser: newUserInfo });
+   } catch (error: any) {
+      res.status(statusCode).send(error.sqlMessage || error.message);
+   };
+});
+
+// Pesquisar usuário
+app.get("/user/", async (req: Request, res: Response) => {
+   let statusCode: number = 400;
+   try {
+      const query: string = req.query.query as string;
+
+      if (!query) {
+         statusCode = 422;
+         throw new Error("É necessário enviar um termo de busca!");
+      };
+
+      const foundUsers = await getUserbyNickname(query);
+
+      res.status(200).send({users: foundUsers});
    } catch (error: any) {
       res.status(statusCode).send(error.sqlMessage || error.message);
    };
