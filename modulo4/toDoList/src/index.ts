@@ -13,12 +13,12 @@ app.use(cors());
 // FUNÇÔES 
 const createUser = async (id: number, name: string, nickname: string, email: string): Promise<void> => {
    await connection("ToDoListUser")
-      .insert({
-         id,
-         name,
-         nickname,
-         email
-      });
+   .insert({
+      id,
+      name,
+      nickname,
+      email
+   });
 };
 
 const getUserById = async (id: string): Promise<any> => {
@@ -77,6 +77,23 @@ const getUserbyNickname = async (query: string): Promise<any> => {
    .whereLike("nickname", `%${query}%`);
 
    return user;
+};
+
+const getAllTaskByCreatorId = async (creatorUserId: string): Promise<any> => {
+   const allTasksByCreatorId = await connection("ToDoListTask")
+   .innerJoin("ToDoListUser", "ToDoListTask.creator_user_id", "=", "ToDoListUser.id")
+   .select("ToDoListTask.*", "ToDoListUser.nickname")
+   .where({"ToDoListTask.creator_user_id": creatorUserId});
+
+   return allTasksByCreatorId;
+};
+
+const createRelationTaskUser = async (task_id: string, responsible_user_id: string): Promise<void> => {
+   await connection("ToDoListResponsibleUserTaskRelation")
+   .insert({
+      task_id,
+      responsible_user_id
+   });
 };
 
 // ENDPOINTS
@@ -218,15 +235,6 @@ app.post("/task", async (req: Request, res: Response) => {
 });
 
 // Pegar tarefas criadas por um usuário
-const getAllTaskByCreatorId = async (creatorUserId: string): Promise<any> => {
-   const allTasksByCreatorId = await connection("ToDoListTask")
-   .innerJoin("ToDoListUser", "ToDoListTask.creator_user_id", "=", "ToDoListUser.id")
-   .select("ToDoListTask.*", "ToDoListUser.nickname")
-   .where({"ToDoListTask.creator_user_id": creatorUserId});
-
-   return allTasksByCreatorId;
-};
-
 app.get("/task/", async (req: Request, res: Response)=>{
    let statusCode:number = 400;
    try {
@@ -264,6 +272,36 @@ app.get("/task/:id", async (req: Request, res: Response)=>{
       const formatedInfoTask = formatResponseTasks(taskArr);
 
       res.status(200).send(formatedInfoTask[0]);
+   } catch (error: any) {
+      res.status(statusCode).send(error.sqlMessage || error.message);
+   };
+});
+
+// Atribuir um usuário responsável a uma tarefa
+app.post("/task/responsible", async (req: Request, res: Response) => {
+   let statusCode: number = 400;
+   try {
+      const {task_id, responsible_user_id} = req.body;
+      if(!task_id || !responsible_user_id) {
+         statusCode = 422;
+         throw new Error("Informações incompletas!");
+      };
+
+      const hasTask = await getTaskById(task_id);
+      if (!hasTask) {
+         statusCode = 404;
+         throw new Error("Id de tarefa inválido ou não cadastrado!");
+      };
+
+      const hasUser = await getUserById(responsible_user_id);
+      if (!hasUser) {
+         statusCode = 404;
+         throw new Error("Id de user inválido ou não cadastrado!");
+      };
+
+      await createRelationTaskUser(task_id, responsible_user_id)
+
+      res.status(201).send(`${hasUser.name} é responsável por ${hasTask.title}`);
    } catch (error: any) {
       res.status(statusCode).send(error.sqlMessage || error.message);
    };
