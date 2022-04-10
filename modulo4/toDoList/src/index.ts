@@ -23,9 +23,9 @@ const createUser = async (id: number, name: string, nickname: string, email: str
 
 const getUserById = async (id: string): Promise<any> => {
    const user = await connection("ToDoListUser")
-      .select("id", "name")
+      .select("id", "nickname")
       .where({ id });
-
+   console.log(user)
    return user[0];
 };
 
@@ -94,6 +94,15 @@ const createRelationTaskUser = async (task_id: string, responsible_user_id: stri
       task_id,
       responsible_user_id
    });
+};
+
+const getUsersResponsibleByIdTask = async (idTask: string): Promise<any> => {
+   const responsibleUsers = await connection("ToDoListResponsibleUserTaskRelation")
+   .innerJoin("ToDoListUser", "ToDoListResponsibleUserTaskRelation.responsible_user_id", "=", "ToDoListUser.id")
+   .select("ToDoListUser.id", "ToDoListUser.nickname")
+   .where({"ToDoListResponsibleUserTaskRelation.task_id": idTask});
+
+   return responsibleUsers;
 };
 
 // ENDPOINTS
@@ -272,6 +281,31 @@ app.get("/task/:id", async (req: Request, res: Response)=>{
       const formatedInfoTask = formatResponseTasks(taskArr);
 
       res.status(200).send(formatedInfoTask[0]);
+   } catch (error: any) {
+      res.status(statusCode).send(error.sqlMessage || error.message);
+   };
+});
+
+// Pegar usuários responsáveis por uma tarefa
+app.get("/task/:id/responsible", async (req: Request, res: Response)=>{
+   let statusCode:number = 400;
+   try {
+      const idTask: string = req.params.id;
+
+      if (!idTask) {
+         statusCode = 422;
+         throw new Error("Informações inclompletas");
+      };
+      
+      const hasTask = await getTaskById(idTask);
+      if (!hasTask) {
+         statusCode = 404;
+         throw new Error("Id de tarefa inválido ou não cadastrado!");
+      };
+
+      const responsibleUsersOfTask = await getUsersResponsibleByIdTask(idTask);
+
+      res.status(200).send({users: responsibleUsersOfTask});
    } catch (error: any) {
       res.status(statusCode).send(error.sqlMessage || error.message);
    };
