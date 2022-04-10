@@ -63,6 +63,12 @@ const getAllInfoTask = async (id: string): Promise<any> => {
    return allInfoTask[0];
 };
 
+const getAllUsers = async (): Promise<any> => {
+   const allUsers = await connection("ToDoListUser")
+   .select("id", "nickname");
+
+   return allUsers;
+};
 
 // ENDPOINTS
 // Criar Usuário
@@ -92,11 +98,16 @@ app.post("/user", async (req: Request, res: Response) => {
    };
 });
 
-//Pegar usuário pelo id
+//Pegar usuário pelo id e Pegar todos os usuários
 app.get("/user/:id", async (req: Request, res: Response) => {
    let statusCode: number = 400;
    try {
       const id = req.params.id;
+
+      if (id === "all") {
+         const allUsers = await getAllUsers();
+         res.status(200).send({users: allUsers});
+      };
 
       const user = await getUserById(id);
       if (!user) {
@@ -208,7 +219,6 @@ app.get("/task/:id", async (req: Request, res: Response)=>{
       res.status(statusCode).send(error.sqlMessage || error.message);
    };
 });
-
 
 const server = app.listen(process.env.PORT || 3003, () => {
    if (server) {
