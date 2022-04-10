@@ -45,9 +45,9 @@ export const responseFormatDate = (date: string): string => {
     return formatedDate;
 };
 
-export const getDate = (): string => {
-    const getDate = new Date().toLocaleString();
-    const splitDate = getDate.split(" ");
+// export const getDate = (): string => {
+//     const getDate = new Date().toLocaleString();
+//     const splitDate = getDate.split(" ");
 
-    return splitDate[0];
-}
+//     return splitDate[0];
+// }

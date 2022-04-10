@@ -3,6 +3,7 @@ import cors from 'cors';
 import { AddressInfo } from "net";
 import { connection } from './connection';
 import { dateFormatValidate, pastDate, responseFormatDate, sqlFormatDate } from './dateValidation';
+import { formatResponseTasks } from './formatResTasks';
 
 const app: Express = express();
 
@@ -54,7 +55,7 @@ const getTaskById = async (id: string): Promise<any> => {
    return task[0];
 };
 
-const getAllInfoTask = async (id: string): Promise<any> => {
+const getInfoTask = async (id: string): Promise<any> => {
    const allInfoTask = await connection("ToDoListTask")
    .innerJoin("ToDoListUser", "ToDoListTask.creator_user_id", "=","ToDoListUser.id ")
    .select("ToDoListTask.*", "ToDoListUser.nickname")
@@ -189,6 +190,36 @@ app.post("/task", async (req: Request, res: Response) => {
    };
 });
 
+// Pegar tarefas criadas por um usuário
+const getAllTaskByCreatorId = async (creatorUserId: string): Promise<any> => {
+   const allTasksByCreatorId = await connection("ToDoListTask")
+   .innerJoin("ToDoListUser", "ToDoListTask.creator_user_id", "=", "ToDoListUser.id")
+   .select("ToDoListTask.*", "ToDoListUser.nickname")
+   .where({"ToDoListTask.creator_user_id": creatorUserId});
+
+   return allTasksByCreatorId;
+};
+
+app.get("/task/", async (req: Request, res: Response)=>{
+   let statusCode:number = 400;
+   try {
+      const creatorUserId = req.query.creatorUserId as string;
+
+      const hasUser = await getUserById(creatorUserId);
+      if (!hasUser) {
+         statusCode = 404;
+         throw new Error("Id inválido ou não cadastrado!");
+      };
+
+      const allTasksByCreatorId = await getAllTaskByCreatorId(creatorUserId);
+      const formatedAllTasksByCreatorId = formatResponseTasks(allTasksByCreatorId);
+  
+      res.status(200).send(formatedAllTasksByCreatorId);
+   } catch (error: any) {
+      res.status(statusCode).send(error.sqlMessage || error.message);
+   };
+});
+
 //Pegar tarefa pelo id
 app.get("/task/:id", async (req: Request, res: Response)=>{
    let statusCode:number = 400;
@@ -201,20 +232,11 @@ app.get("/task/:id", async (req: Request, res: Response)=>{
          throw new Error("Id inválido ou não cadastrado!");
       };
 
-      const allInfoTask = await getAllInfoTask(id);
-      const formatedDate = responseFormatDate(allInfoTask.limit_date);
+      const infoTask = await getInfoTask(id);
+      const taskArr = [infoTask];
+      const formatedInfoTask = formatResponseTasks(taskArr);
 
-      const formatedInfoTask = {
-         taskId: allInfoTask.id,
-         title: allInfoTask.title,
-         description: allInfoTask.description,
-	      limitDate: formatedDate,
-	      status: allInfoTask.status,
-	      creatorUserId: allInfoTask.creator_user_id,
-	      creatorUserNickname: allInfoTask.nickname
-      }
-
-      res.status(200).send(formatedInfoTask);
+      res.status(200).send(formatedInfoTask[0]);
    } catch (error: any) {
       res.status(statusCode).send(error.sqlMessage || error.message);
    };
