@@ -3,7 +3,7 @@ import cors from 'cors';
 import { AddressInfo } from "net";
 import { connection } from './connection';
 import { dateFormatValidate, pastDate, responseFormatDate, sqlFormatDate } from './dateValidation';
-import { formatResponseTasks } from './formatResTasks';
+import { formatResponseOneTask, formatResponseTasks } from './formatResTasks';
 
 const app: Express = express();
 
@@ -265,6 +265,21 @@ app.get("/task/", async (req: Request, res: Response)=>{
 });
 
 //Pegar tarefa pelo id
+const getInfoTask2 = async (id: string): Promise<any> => {
+   const allInfoTask = await connection("ToDoListResponsibleUserTaskRelation")
+   .select("ToDoListTask.*", "users.nickname as creatorUserNickname", 
+   "ToDoListUser.id as responsible_id","ToDoListUser.nickname as responsible_nick")
+   .innerJoin("ToDoListTask",
+   "ToDoListResponsibleUserTaskRelation.task_id", "=","ToDoListTask.id")
+   .innerJoin("ToDoListUser",
+   "ToDoListResponsibleUserTaskRelation.responsible_user_id", "=","ToDoListUser.id")
+   .innerJoin("ToDoListUser as users",
+   "ToDoListTask.creator_user_id", "=", "users.id")
+   .where({"ToDoListTask.id": id});
+
+   return allInfoTask;
+};
+
 app.get("/task/:id", async (req: Request, res: Response)=>{
    let statusCode:number = 400;
    try {
@@ -276,11 +291,10 @@ app.get("/task/:id", async (req: Request, res: Response)=>{
          throw new Error("Id inválido ou não cadastrado!");
       };
 
-      const infoTask = await getInfoTask(id);
-      const taskArr = [infoTask];
-      const formatedInfoTask = formatResponseTasks(taskArr);
-
-      res.status(200).send(formatedInfoTask[0]);
+      const infoTask = await getInfoTask2(id);
+      const formatedTask = formatResponseOneTask(infoTask);
+      
+      res.status(200).send(formatedTask);
    } catch (error: any) {
       res.status(statusCode).send(error.sqlMessage || error.message);
    };
@@ -333,9 +347,9 @@ app.post("/task/responsible", async (req: Request, res: Response) => {
          throw new Error("Id de user inválido ou não cadastrado!");
       };
 
-      await createRelationTaskUser(task_id, responsible_user_id)
+      await createRelationTaskUser(task_id, responsible_user_id);
 
-      res.status(201).send(`${hasUser.name} é responsável por ${hasTask.title}`);
+      res.status(201).send(`${hasUser.nickname} é responsável por ${hasTask.title}`);
    } catch (error: any) {
       res.status(statusCode).send(error.sqlMessage || error.message);
    };
