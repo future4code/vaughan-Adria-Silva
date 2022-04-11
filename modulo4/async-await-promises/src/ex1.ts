@@ -31,7 +31,19 @@ import { baseURL } from "./baseURL"
 // c)
 
 async function getSubscribers (): Promise<any[]> {
-   const response = await axios.get(`${baseURL}/subscribers`);
-   return response.data;
+   return axios
+   .get(`${baseURL}/subscribers`)
+   .then(res => res.data);  
 };
+
+const main = async () => {
+   try {
+      const allSubscribers = await getSubscribers();
+      console.log(allSubscribers );
+   } catch (error: any) {
+      console.log(error.response?.data || error.message);
+   };
+};
+
+main();
 
