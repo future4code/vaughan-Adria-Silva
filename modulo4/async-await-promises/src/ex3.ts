@@ -1,7 +1,7 @@
 import axios from "axios"
 import { baseURL } from "./baseURL"
 
-type user = {
+type User = {
 	id: string;
 	name: string;
 	email: string;
@@ -9,27 +9,33 @@ type user = {
 
 // Exercício 3
 
-// const getSubscribers = async(): Promise<user[]> => {
-//     const response = await axios.get(`${baseURL}/subscribers`);
-//     return response.data;
-//  };
+// a) Testei e não deu erro.
 
-// a)
-
-// b)
-
+// b) Já que Typescript é uma linguagem fortemente tipada, é uma boa prática
+//fazer o mapeamento para garantir que a função retorne exatamente do tipo 
+//esperado.
 
 // c)
-const getSubscribers = async (): Promise<user[]> => {
-    const response = await axios.get(`${baseURL}/subscribers`);
-    const mappedResponse = response.data.map((res: any) => {
-      return {
-        id: res.id,
-        name: res.name,
-        email: res.email,
-      };
-    });
-    return mappedResponse;
-};
 
-getSubscribers();
+const getSubscribers = async(): Promise<User[]> => {
+    return axios.get(`${baseURL}/subscribers`)
+    .then(res => res.data.map((user: User) => {
+       return {
+           id: user.id,
+           name: user.name,
+           email: user.email
+       }
+    }) as User[]
+    );
+ };
+ 
+ const main = async (): Promise<void> => {
+    try {
+       const allSubscribers = await getSubscribers();
+       console.log(allSubscribers );
+    } catch (error: any) {
+       console.log(error.response?.data || error.message);
+    };
+ };
+ 
+ main();
