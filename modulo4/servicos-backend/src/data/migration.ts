@@ -20,3 +20,26 @@ export const createTable = async (): Promise<void>=> {
     .then(() => {console.log("Tabela Criada")})
     .catch(showError);
 };
+
+export const insertAddress = async (
+    cep: number,
+    num: number,
+    district: string,
+    city: string,
+    state: string,
+    complement?: string) => {
+    const id = Date.now();
+
+    await connection("address")
+    .insert({
+        id,
+        CEP: cep,
+        numero: num,
+        complemento: complement,
+        bairro: district,
+        cidade: city,
+        estado: state
+    })
+    .then(() => {console.log("Endereço cadastrado")})
+    .catch(showError);
+};
