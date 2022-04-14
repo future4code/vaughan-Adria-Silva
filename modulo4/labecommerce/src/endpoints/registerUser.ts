@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import { createTable, insertUser } from "../data/migrations";
+import { createTableUsers, insertUser } from "../data/migrations";
 
 
 
@@ -17,11 +17,11 @@ export const registerUser = async (req: Request, res: Response): Promise<void> =
 
         const id: string = `${Date.now()}`;
 
-        await createTable();
+        await createTableUsers();
         await insertUser(id, name, email, password);
 
         res.status(201).send("Usuário registrado com sucesso!");
     } catch (error: any) {
         res.status(errorCode).send(error.sqlMessage || error.message)
-    }
+    };
 };
