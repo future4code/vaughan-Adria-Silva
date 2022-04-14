@@ -3,7 +3,7 @@ import { createTable, insertUser } from "../data/migrations";
 
 
 
-export const registerUser = async (req: Request, res: Response) => {
+export const registerUser = async (req: Request, res: Response): Promise<void> => {
     let errorCode: number = 400;
     try {
         const {name, email, password} = req.body;

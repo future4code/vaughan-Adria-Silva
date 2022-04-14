@@ -1,3 +1,4 @@
+import { User } from "../types";
 import { connection } from "./connection";
 
 
@@ -35,10 +36,10 @@ export const insertUser = async (
     .catch(showError);
 };
 
-export const allUsers = async (): Promise<any> => {
+export const allUsers = async (): Promise<User[]> => {
     const result = await connection("labecommerce_users")
     .then((res) => res)
     .catch(showError);
-    
-    return result;
+
+    return result as User[];
 }
