@@ -22,6 +22,6 @@ export const registerUser = async (req: Request, res: Response) => {
 
         res.status(201).send("Usuário registrado com sucesso!");
     } catch (error: any) {
-        res.status(errorCode).send(error.message)
+        res.status(errorCode).send(error.sqlMessage || error.message)
     }
 };

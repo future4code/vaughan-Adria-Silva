@@ -34,3 +34,11 @@ export const insertUser = async (
     .then(() => {console.log("Usuário Cadastrado")})
     .catch(showError);
 };
+
+export const allUsers = async (): Promise<any> => {
+    const result = await connection("labecommerce_users")
+    .then((res) => res)
+    .catch(showError);
+    
+    return result;
+}
