@@ -1,4 +1,4 @@
-import { User } from "../types";
+import { Product, User } from "../types";
 import { connection } from "./connection";
 
 
@@ -72,4 +72,12 @@ export const insertProduct = async (
     })
     .then(() => {console.log("Produto Cadastrado")})
     .catch(showError);
+};
+
+export const allProducts = async (): Promise<Product[]> => {
+    const result = await connection("labecommerce_products")
+    .then((res) => res)
+    .catch(showError);
+
+    return result as Product[];
 };
