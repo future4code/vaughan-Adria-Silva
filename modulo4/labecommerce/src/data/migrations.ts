@@ -81,3 +81,58 @@ export const allProducts = async (): Promise<Product[]> => {
 
     return result as Product[];
 };
+
+//////////
+
+export const findUser = async (id: string): Promise<User[]> => {
+    const result = await connection("labecommerce_users")
+    .where({id})
+    .then((res) => res)
+    .catch(showError);
+
+    return result as User[];
+};
+
+export const findProduct = async (id: string): Promise<Product[]> => {
+    const result = await connection("labecommerce_products")
+    .where({id})
+    .then((res) => res)
+    .catch(showError);
+
+    return result as Product[];
+};
+
+export const createTablePurchases = async (): Promise<void>=> {
+    await connection.raw(`
+        CREATE TABLE IF NOT EXISTS labecommerce_purchases (
+            id VARCHAR(255) PRIMARY KEY,
+            user_id VARCHAR(255) NOT NULL,
+            product_id VARCHAR(255) NOT NULL,
+            quantity INT NOT NULL,
+            total_price FLOAT NOT NULL,
+            FOREIGN KEY (user_id) REFERENCES labecommerce_users(id),
+            FOREIGN KEY (product_id) REFERENCES labecommerce_products(id)
+        );   
+    `)
+    .then(() => {console.log("Tabela de Produtos Criada")})
+    .catch(showError);
+};
+
+export const insertPurchase = async (
+    id: string,
+    user_id: string, 
+    product_id: string,
+    quantity: number,
+    total_price: number
+) => {
+    await connection("labecommerce_purchases")
+    .insert({
+        id,
+        user_id, 
+        product_id,
+        quantity,
+        total_price
+    })
+    .then(() => {console.log("Compra Cadastrada")})
+    .catch(showError);
+};
