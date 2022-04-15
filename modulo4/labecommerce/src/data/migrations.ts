@@ -124,7 +124,7 @@ export const insertPurchase = async (
     product_id: string,
     quantity: number,
     total_price: number
-) => {
+): Promise<void> => {
     await connection("labecommerce_purchases")
     .insert({
         id,
@@ -135,4 +135,22 @@ export const insertPurchase = async (
     })
     .then(() => {console.log("Compra Cadastrada")})
     .catch(showError);
+};
+
+export const getPurchasesByUserId = async (user_id: string) => {
+    const result = await connection("labecommerce_purchases")
+    .select (
+        "labecommerce_products.*",
+        "labecommerce_purchases.quantity",
+        "labecommerce_purchases.total_price"
+    ).innerJoin(
+        "labecommerce_products",
+        "labecommerce_purchases.product_id",
+        "=",
+        "labecommerce_products.id")
+    .where({"labecommerce_purchases.user_id": user_id})
+    .then((res) => res)
+    .catch(showError);
+
+    return result;
 };
