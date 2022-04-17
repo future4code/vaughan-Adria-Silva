@@ -154,3 +154,35 @@ export const getPurchasesByUserId = async (user_id: string) => {
 
     return result;
 };
+
+/////////// 
+
+export const allUsersAndPurchases = async (): Promise<any> => {
+    const result = await connection("labecommerce_users")
+    .select(
+        "labecommerce_users.id as user_id",
+        "labecommerce_users.name as user_name",
+        "labecommerce_users.email",
+        "labecommerce_users.password",
+        "labecommerce_products.id as product_id",
+        "labecommerce_products.name as product_name",
+        "labecommerce_products.image_url",
+        "labecommerce_products.price",
+        "labecommerce_purchases.quantity",
+        "labecommerce_purchases.total_price"
+    ).leftJoin(
+        "labecommerce_purchases",
+        "labecommerce_purchases.user_id",
+        "=",
+        "labecommerce_users.id"
+    ).leftJoin(
+        "labecommerce_products",
+        "labecommerce_purchases.product_id",
+        "=",
+        "labecommerce_products.id"
+    ).orderBy("labecommerce_users.id", "asc")
+    .then((res) => res)
+    .catch(showError);
+
+    return result;
+};

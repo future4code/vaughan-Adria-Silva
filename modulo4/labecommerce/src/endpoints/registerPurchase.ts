@@ -32,9 +32,6 @@ export const registerPurchase = async (req: Request, res: Response): Promise<voi
         const id: string = `${Date.now()}`;
         const totalPrice = Number((quantity * hasProduct[0].price).toFixed(2));
 
-        console.log(id, user_id, product_id, quantity, totalPrice)
-        console.log(typeof id, typeof user_id, typeof product_id, typeof quantity, typeof totalPrice)
-
         await insertPurchase(id, user_id, product_id, quantity, totalPrice);
 
         res.status(201).send("Compra registrada")
