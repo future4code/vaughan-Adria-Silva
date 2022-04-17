@@ -13,13 +13,6 @@ export type Product = {
     image_url: string
 }
 
-export type ProductInPurchases = {
-    procuct_id: string,
-    product_name: string,
-    price: number,
-    image_url: string
-}
-
 export type UserAndPurchases = {
     user_id: string,
     user_name: string,
