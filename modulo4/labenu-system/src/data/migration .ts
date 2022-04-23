@@ -1,4 +1,12 @@
-import { connection } from "./connection"
+import { connection } from "./connection";
+import classes from "./initialData/class.json";
+import students from "./initialData/student.json";
+import hobbies from "./initialData/hobby.json";
+import studentsHobbies from "./initialData/studentsHobby.json";
+import teachers from "./initialData/teacher.json";
+import specialties from "./initialData/specialty.json";
+import teachersSpecialties from "./initialData/teachersSpecialty.json";
+
 
 const printError = (error: any): void => { 
     console.log(error.sqlMessage || error.message);
@@ -59,4 +67,47 @@ const createTables = (): Promise<void> => connection
     .then(()=> console.log("Created tables"))
     .catch(printError);
 
-createTables();
+const insertClass = () => connection("labesystem_class")
+    .insert(classes)
+    .then(() => console.log("labesystem_class populated"))
+    .catch(printError);
+
+const insertStudent = () => connection("labesystem_student")
+    .insert(students)
+    .then(() => console.log("labesystem_student populated"))
+    .catch(printError);
+
+const insertHobby = () => connection("labesystem_hobby")
+    .insert(hobbies)
+    .then(() => console.log("labesystem_hobby populated"))
+    .catch(printError);
+
+const insertStudentsHobby = () => connection("labesystem_student_with_hobby")
+    .insert(studentsHobbies)
+    .then(() => console.log("labesystem_student_with_hobby populated"))
+    .catch(printError);
+
+const insertTeacher = () => connection("labesystem_teacher")
+    .insert(teachers)
+    .then(() => console.log("labesystem_teacher populated"))
+    .catch(printError);
+
+const insertSpecialty = () => connection("labesystem_specialty")
+    .insert(specialties)
+    .then(() => console.log("labesystem_specialty populated"))
+    .catch(printError);
+
+const insertTeachersSpecialty = () => connection("labesystem_teacher_with_specialty")
+    .insert(teachersSpecialties)
+    .then(() => console.log("labesystem_teacher_with_specialty populated"))
+    .catch(printError);
+
+
+createTables()
+    .then(insertClass)
+    .then(insertStudent)
+    .then(insertHobby)
+    .then(insertStudentsHobby)
+    .then(insertTeacher)
+    .then(insertSpecialty)
+    .then(insertTeachersSpecialty);
