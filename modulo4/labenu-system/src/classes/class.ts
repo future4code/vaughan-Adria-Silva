@@ -1,13 +1,14 @@
 export class Class {
-    private id: string
+    private id: string;
+
     constructor (
-        id: string,
         private name: string,
         private teachersId: string[],
         private studentsId: string[],
-        private module: number
+        private module?: number
     ) {
-        this.id = `${(Math.random()*Math.pow(10, 10)).toFixed}`;
+        const idGenerator = (Math.random()*Math.pow(10, 10)).toFixed(); 
+        this.id = `${idGenerator}`;
     }
 
     public getId (): string {
@@ -22,7 +23,7 @@ export class Class {
         this.name = name
     }
 
-    public getModule (): number {
+    public getModule (): number | undefined {
         return this.module
     }
 

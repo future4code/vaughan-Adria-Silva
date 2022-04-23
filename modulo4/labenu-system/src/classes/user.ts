@@ -2,13 +2,13 @@ export abstract class User {
     private id:string; 
     
     constructor (
-        id:string,
         private name: string,
         private email: string,
         private birthDate: string,
         private classId: string
     ) {
-        this.id = `${(Math.random()*Math.pow(10, 10)).toFixed}`;
+        const idGenerator = (Math.random()*Math.pow(10, 10)).toFixed(); 
+        this.id = `${idGenerator}`;
     }
 
     public getId (): string {
