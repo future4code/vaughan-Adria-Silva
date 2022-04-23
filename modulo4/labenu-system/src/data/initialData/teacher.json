@@ -1,0 +1,23 @@
+[
+    {
+        "id": "1",
+        "name": "Flávio",
+        "email": "flavio@labenu.com",
+        "birth_date": "2000-02-24",
+        "class_id": "1"
+    },
+    {
+        "id": "2",
+        "name": "Chijo",
+        "email": "flavio@labenu.com",
+        "birth_date": "1970-05-03",
+        "class_id": "3"
+    },
+    {
+        "id": "3",
+        "name": "Darvas",
+        "email": "darvas@labenu.com",
+        "birth_date": "1960-12-30",
+        "class_id": "2"
+    }
+]

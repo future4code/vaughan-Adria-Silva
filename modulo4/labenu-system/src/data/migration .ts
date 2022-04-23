@@ -4,8 +4,8 @@ const printError = (error: any): void => {
     console.log(error.sqlMessage || error.message);
 };
 
-const createTables = (): void => {
-    connection.raw(`
+const createTables = (): Promise<void> => connection
+    .raw(`
         CREATE TABLE IF NOT EXISTS labesystem_class(
             id VARCHAR(255) PRIMARY KEY,
             name VARCHAR(255) UNIQUE NOT NULL,
@@ -58,6 +58,5 @@ const createTables = (): void => {
     `)
     .then(()=> console.log("Created tables"))
     .catch(printError);
-};
 
 createTables();

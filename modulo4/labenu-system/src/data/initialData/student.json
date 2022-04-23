@@ -1,0 +1,23 @@
+[
+    {
+        "id": "1",
+        "name": "Ádria",
+        "email": "adria@vaughan.com",
+        "birth_date": "1995-12-28",
+        "class_id": "1"
+    },
+    {
+        "id": "2",
+        "name": "Fravo",
+        "email": "fravo@domal.com",
+        "birth_date": "1985-02-24",
+        "class_id": "2"
+    },
+    {
+        "id": "3",
+        "name": "Iza",
+        "email": "adria@vaughan.com",
+        "birth_date": "1990-01-01",
+        "class_id": "3"
+    }
+]
