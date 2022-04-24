@@ -39,6 +39,13 @@ export abstract class User {
         this.birthDate = birthDate
     }
 
+    public getSqlFormatBirthDate (): string {
+        const splitedBirthDate = this.birthDate.split("/");
+        const formatedBirthDateToSql = `${splitedBirthDate[2]}-${splitedBirthDate[1]}-${splitedBirthDate[0]}`;
+
+        return formatedBirthDateToSql;
+    }
+
     public getClassId (): string {
         return this.classId
     }

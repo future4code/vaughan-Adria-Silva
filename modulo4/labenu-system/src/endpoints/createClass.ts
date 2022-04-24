@@ -1,6 +1,6 @@
 import { Request, Response } from "express";
 import { Class } from "../classes/class";
-import { findClass } from "../data/classesData/findClass";
+import { findClassByName } from "../data/classesData/findClass";
 import { insertClass } from "../data/classesData/insertClass";
 
 
@@ -19,7 +19,7 @@ export const createClass = async (req: Request ,res: Response) => {
             throw new Error("Wrong module was sent. Only numbers from 0 to 6 are accepted!");
         };
 
-        const hasName = await findClass(name);
+        const hasName = await findClassByName(name);
         if (hasName.length) {
             codeError = 422;
             throw new Error("This class already exists!");
