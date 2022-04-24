@@ -31,3 +31,9 @@ export const isMinor = (birth: string): void => {
         throw new Error("Age must be over 18 to be a student at Labenu!");
     };
 };
+
+export const formatDateToResponse = (date:string): string => {
+    const formatingDate = date.toLocaleString();
+    const splitDate = formatingDate.split(" ");
+    return splitDate[0];
+}
