@@ -9,6 +9,5 @@ export const findClass = async (name: string): Promise<ClassType[]> => {
         .then(res => res)
         .catch(showError)
     
-    console.log(result)
     return result as ClassType[];
 };
