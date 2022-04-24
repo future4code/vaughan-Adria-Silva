@@ -37,8 +37,6 @@ export const studentsByNameHobby = async (req: Request, res: Response) => {
             }
         }
 
-        // console.log(studentsList);
-
         res.status(200).send(studentsList);
     } catch (error: any) {
         res.status(codeError).send({ 
