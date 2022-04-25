@@ -1,6 +1,7 @@
 import { Request, Response } from "express";
 import { findClassByName } from "../data/classesData/findClass";
 import { updateModule } from "../data/classesData/updateModule";
+import { ClassType } from "../types";
 
 
 export const updateClassModule = async (req: Request, res: Response) => {
@@ -18,10 +19,10 @@ export const updateClassModule = async (req: Request, res: Response) => {
             throw new Error("Module is missing or wrong module was sent. Only numbers from 0 to 6 are accepted!");
         };
 
-        const hasName = await findClassByName(name);
+        const hasName: ClassType[] = await findClassByName(name);
         if (!hasName.length) {
             codeError = 422;
-            throw new Error("This class do not exists!");
+            throw new Error("This class does not exist!");
         };
 
         await updateModule(name, newModule);

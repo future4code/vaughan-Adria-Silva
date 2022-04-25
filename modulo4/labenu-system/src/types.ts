@@ -4,6 +4,22 @@ export type ClassType = {
     module: number
 };
 
+export type ClassCompleteInfo = {
+    id: string,
+    name: string,
+    module: number,
+    studentsId: string | null,
+    teachersId: string | null
+}
+
+export type FormatedClassCompleteInfo = {
+    id: string,
+    name: string,
+    module: number,
+    studentsId: string[],
+    teachersId: string[]
+}
+
 export type Hobby = {
     id: string,
     hobby: string
