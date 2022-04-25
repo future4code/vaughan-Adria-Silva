@@ -35,3 +35,21 @@ export type Specialty = {
     id: string,
     specialty: string
 }
+
+export type Teacher = {
+    id: string,
+    name: string,
+    email: string,
+    birth_date: string,
+    class_id: string,
+    specialty: string
+}
+
+export type FormatedTeacher = {
+    id: string,
+    name: string,
+    email: string,
+    birthDate: string,
+    classId: string,
+    specialty: string[]
+}

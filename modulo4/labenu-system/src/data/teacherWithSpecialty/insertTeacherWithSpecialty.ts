@@ -12,6 +12,6 @@ export const insertRelationTeacherSpecialty = async (
         teacher_id,
         specialty_id
     })
-    .then(() => console.log("created teacher and hobby specailty"))
+    .then(() => console.log("created teacher and specailty"))
     .catch(showError);
 };
