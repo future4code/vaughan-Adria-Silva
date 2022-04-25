@@ -11,3 +11,12 @@ export const findStudentById = async (id: string): Promise<Student[]> => {
 
     return result as Student[];
 };
+
+export const findStudentByEmail = async (email: string): Promise<Student[]> => {
+    const result = await connection("labesystem_student")
+    .where({email})
+    .then(res => res)
+    .catch(showError);
+
+    return result as Student[];
+};

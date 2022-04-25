@@ -8,6 +8,7 @@ import { selectHobbyById } from "../data/hobbyData/selectHobbyId";
 import { insertStudent } from "../data/studentData/insertStudent";
 import { dateFormatValidate, isMinor } from "../functions/dateValidate";
 import { Id } from "../types";
+import { findStudentByEmail } from "../data/studentData/findStudent";
 
 
 export const createStudent = async (req: Request, res: Response) => {
@@ -36,6 +37,12 @@ export const createStudent = async (req: Request, res: Response) => {
         if (!hasClassId.length) {
             codeError = 422;
             throw new Error("This class does not exist!");
+        };
+
+        const hasEmail = await findStudentByEmail(email);
+        if (hasEmail.length) {
+            codeError = 422;
+            throw new Error("This email is already registered! Please, sent a new email!");
         };
 
         if (!hobbies.length) {
@@ -88,7 +95,7 @@ export const createStudent = async (req: Request, res: Response) => {
         ) {
             res.status(422).send({ message: error.message });
         };
-        
+
         (error.message).includes("SQLMESSAGE") 
         ? res.status(codeError).send({message: "Database connection problem. Please, try again later or contact our company!"})
         : res.status(codeError).send({message: error.message})

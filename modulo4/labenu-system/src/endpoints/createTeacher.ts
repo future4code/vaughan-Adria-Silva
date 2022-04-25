@@ -4,6 +4,7 @@ import { findClassById } from "../data/classesData/findClass";
 import { findSpecialtyByDescription } from "../data/SpecialtyData/findSpecialty";
 import { insertSpecialty } from "../data/SpecialtyData/insertSpecialty";
 import { selectSpecialtyId } from "../data/SpecialtyData/selectSpecialtyId";
+import { findTeacherByEmail } from "../data/teacherData/findTeacher";
 import { insertTeacher } from "../data/teacherData/insertTeacher";
 import { insertRelationTeacherSpecialty } from "../data/teacherWithSpecialty/insertTeacherWithSpecialty";
 import { dateFormatValidate, isMinor } from "../functions/dateValidate";
@@ -37,6 +38,12 @@ export const createTeacher = async (req: Request, res: Response) => {
         if (!hasClassId.length) {
             codeError = 422;
             throw new Error("This class does not exist!");
+        };
+
+        const hasEmail = await findTeacherByEmail(email);
+        if (hasEmail.length) {
+            codeError = 422;
+            throw new Error("This email is already registered! Please, sent a new email!");
         };
 
         if (!specialties.length) {
