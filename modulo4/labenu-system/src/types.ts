@@ -10,7 +10,7 @@ export type ClassCompleteInfo = {
     module: number,
     studentsId: string | null,
     teachersId: string | null
-}
+};
 
 export type FormatedClassCompleteInfo = {
     id: string,
@@ -18,16 +18,16 @@ export type FormatedClassCompleteInfo = {
     module: number,
     studentsId: string[],
     teachersId: string[]
-}
+};
 
 export type Hobby = {
     id: string,
     hobby: string
-}
+};
 
 export type Id = {
     id: string
-}
+};
 
 export type Student = {
     id: string,
@@ -36,7 +36,7 @@ export type Student = {
     birth_date: string,
     class_id: string,
     hobby: string | null
-}
+};
 
 export type FormatedStudent = {
     id: string,
@@ -45,12 +45,12 @@ export type FormatedStudent = {
     birthDate: string,
     classId: string,
     hobby: string[]
-}
+};
 
 export type Specialty = {
     id: string,
     specialty: string
-}
+};
 
 export type Teacher = {
     id: string,
@@ -59,7 +59,7 @@ export type Teacher = {
     birth_date: string,
     class_id: string,
     specialty: string
-}
+};
 
 export type FormatedTeacher = {
     id: string,
@@ -68,4 +68,4 @@ export type FormatedTeacher = {
     birthDate: string,
     classId: string,
     specialty: string[]
-}
+};

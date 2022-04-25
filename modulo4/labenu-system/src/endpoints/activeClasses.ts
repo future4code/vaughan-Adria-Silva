@@ -40,10 +40,8 @@ export const activeClasses = async (req: Request, res: Response) => {
 
         res.status(200).send({activeClassesList});
     } catch (error: any) {
-        res.status(codeError).send({ 
-            message: error.message 
-            || error.sqlMessage 
-            && "Database connection problem. Please, try again later!"
-        })
+        (error.message).includes("SQLMESSAGE") 
+        ? res.status(codeError).send({message: "Database connection problem. Please, try again later or contact our company!"})
+        : res.status(codeError).send({message: error.message})
     };
 };

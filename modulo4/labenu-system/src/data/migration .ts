@@ -11,7 +11,7 @@ import teachersSpecialties from "./initialData/teachersSpecialty.json";
 export const showError = (error: any): void => { 
     console.log(error.sqlMessage || error.message);
     if (error.sqlMessage) {
-        throw new Error(error.sqlMessage);
+        throw new Error(`SQLMESSAGE:${error.sqlMessage}`);
     };
 };
 
