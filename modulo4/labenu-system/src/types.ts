@@ -30,3 +30,8 @@ export type FormatedStudent = {
     classId: string,
     hobby: string[]
 }
+
+export type Specialty = {
+    id: string,
+    specialty: string
+}

@@ -28,7 +28,7 @@ export const isMinor = (birth: string): void => {
     const ageTimeStamp: number = Date.now() - birthTimeStamp;
 
     if (ageTimeStamp < eightennYears) {
-        throw new Error("Age must be over 18 to be a student at Labenu!");
+        throw new Error("Age must be over 18 to be a student or a teacher at Labenu!");
     };
 };
 

@@ -18,16 +18,16 @@ export const createStudent = async (req: Request, res: Response) => {
 
         if (!name || typeof name !== "string") {
             codeError = 422;
-            throw new Error("Name is missing or wrong format name were sent.");
+            throw new Error("Name is missing or wrong format name was sent.");
         };
 
         if (!email || typeof email !== "string" || !email.includes("@")) {
             codeError = 422;
-            throw new Error("Email is missing or wrong format email were sent.");
+            throw new Error("Email is missing or wrong format email was sent.");
         };
 
         if (typeof birthDate !== "string"){
-            throw new Error("A data não está no formato solicitado: DD / MM / AAAA");
+            throw new Error("Wrong birth date format was sent. The accepted format is: DD/MM/AAAA");
         };
         dateFormatValidate(birthDate);
         isMinor(birthDate);
@@ -35,7 +35,7 @@ export const createStudent = async (req: Request, res: Response) => {
         const hasClassId = await findClassById(classId);
         if (!hasClassId.length) {
             codeError = 422;
-            throw new Error("This class do not exists!");
+            throw new Error("This class does not exist!");
         };
 
         if (!hobbies.length) {
@@ -78,13 +78,13 @@ export const createStudent = async (req: Request, res: Response) => {
             };
         };
 
-        res.status(201).send({message: "Student was added successfully!"})
+        res.status(201).send({message: "New student was added successfully!"});
     } catch (error: any) {
         if (
             error.message === "Birth date is not in the requested format: DD / MM / AAAA" ||
             error.message === "Some characters of day, month and/or year of birth date are not numeric" ||
             error.message === "Invalid birth date format!" ||
-            error.message === "Age must be over 18 to be a student at Labenu!"
+            error.message === "Age must be over 18 to be a student or a teacher at Labenu!"
         ) {
             res.status(422).send({ message: error.message });
         };
