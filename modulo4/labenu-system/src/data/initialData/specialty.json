@@ -1,0 +1,22 @@
+[
+    {
+        "id": "1",
+        "specialty": "JS"
+    },
+    {
+        "id": "2",
+        "specialty": "CSS"
+    },
+    {
+        "id": "3",
+        "specialty": "React"
+    },
+    {
+        "id": "4",
+        "specialty": "Typescript"
+    },
+    {
+        "id": "5",
+        "specialty": "POO"
+    }
+]
