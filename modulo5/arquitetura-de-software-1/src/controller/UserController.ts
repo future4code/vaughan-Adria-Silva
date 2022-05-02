@@ -18,4 +18,19 @@ export class UserController {
             res.status(400).send(error.message);
         };
     };
+
+    public async login (
+        req: Request,
+        res: Response
+    ): Promise<void> {
+        try {
+            const { email, password } = req.body;
+
+            const token = await userBusiness.login(email, password);
+
+            res.status(200).send({token});
+        } catch (error: any) {
+            res.status(400).send(error.message);
+        };
+    }
 };

@@ -6,17 +6,15 @@ import { User, USER_ROLES } from "../types/user";
 
 const userDB = new UserDatabase();
 const generateId = new IdGenerator();
-const hashingPassword = new HashManager();
+const hashPassword = new HashManager();
 const authenticator = new Authenticator()
 
 export class UserBusiness {
     public async signUp (
         name: string, email: string, password: string, role: USER_ROLES
-    ) {
+    ): Promise<string> {
         try {
-            if (
-                !name || !email || !password || !role
-            ) {
+            if (!name || !email || !password || !role) {
                 throw new Error ("Preencha todos os campos para se inscrever");
             };
 
@@ -29,7 +27,7 @@ export class UserBusiness {
             };
 
             const id = generateId.generate();
-            const hash = await hashingPassword.createHash(password);
+            const hash = await hashPassword.createHash(password);
 
             const newUser: User = {
                 id,
@@ -43,9 +41,41 @@ export class UserBusiness {
 
             const token = authenticator.generateToken({id, role});
             return token;
-            
+
         } catch (error: any) {
-            throw new Error (error.message || "Erro ao se inscrever")
+            throw new Error (error.message || "Erro ao se inscrever");
         }
     };
+
+    public async login(email: string, password: string): Promise<string> {
+        try {
+            if (!email || !password ) {
+                throw new Error ("Preencha todos os campos para se inscrever");
+            };
+
+            if (!email.includes("@") || password.length < 6) {
+                throw new Error("Email e/ou senha inválidos");
+            };
+
+            const user: User = await userDB.selectUserByEmail(email);
+            if (!user) {
+                throw new Error("Usuário não cadastrado");
+            };
+
+            const hashCompare: boolean = await hashPassword.compareHash(password, user.password);
+            if (!hashCompare) {
+                throw new Error("Senha inválida");
+            };
+
+            const accessToken = authenticator.generateToken({
+                id: user.id,
+                role: user.role
+            });
+
+            return accessToken;
+
+        } catch (error: any) {
+            throw new Error (error.message || "Erro ao se inscrever");
+        }
+    }
 };
