@@ -9,17 +9,17 @@ export class Authenticator {
             payload,
             process.env.JWT_KEY as string,
             {
-                expiresIn: "1h"
+                expiresIn: process.env.ACCESS_TOKEN_EXPIRES_IN
             }
         );
     };
 
     getTokenData(
         token: string
-     ): AuthenticationData {
+    ): AuthenticationData {
         return jwt.verify(
-           token,
-           process.env.JWT_KEY as string
+            token,
+            process.env.JWT_KEY as string
         ) as AuthenticationData;
-     };
+    };
 };

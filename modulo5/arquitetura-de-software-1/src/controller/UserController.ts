@@ -1,5 +1,6 @@
 import { Request, Response } from "express";
 import { UserBusiness } from "../business/UserBusiness";
+import { User } from "../types/user";
 
 const userBusiness = new UserBusiness();
 
@@ -32,5 +33,20 @@ export class UserController {
         } catch (error: any) {
             res.status(400).send(error.message);
         };
-    }
+    };
+
+    public async getUsers (
+        req: Request,
+        res: Response
+    ): Promise<void> {
+        try {
+            const token = req.headers.authorization as string;
+            
+            const allUsers: User[] = await userBusiness.getAllUsers(token);
+
+            res.status(200).send({usersList: allUsers});
+        } catch (error: any) {
+            res.status(400).send(error.message);
+        };
+    };
 };

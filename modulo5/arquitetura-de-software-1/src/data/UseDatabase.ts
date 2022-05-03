@@ -29,4 +29,25 @@ export class UserDatabase extends BaseDatabase {
             throw new Error(error.slqMessage || error.message);
         };
     };
+
+    public async selectAllUsers (): Promise<User[]> {
+        try {
+            const result = await this.connection("User_Arq")
+                .select("*");
+            
+            const formatedResult = result.map((user: User) => {
+                return {
+                    id: user.id,
+                    name: user.name,
+                    email: user.email,
+                    password: user.password,
+                    role: user.role
+                };
+            }); 
+            
+            return formatedResult;
+        } catch (error: any) {
+            throw new Error(error.slqMessage || error.message);
+        };
+    };
 };
