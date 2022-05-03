@@ -57,19 +57,19 @@ export class UserBusiness {
                 throw new Error("Email e/ou senha inválidos");
             };
 
-            const user: User = await userDB.selectUserByEmail(email);
-            if (!user) {
+            const user: User[] = await userDB.selectUserByEmail(email);
+            if (!user.length) {
                 throw new Error("Usuário não cadastrado");
             };
 
-            const hashCompare: boolean = await hashPassword.compareHash(password, user.password);
+            const hashCompare: boolean = await hashPassword.compareHash(password, user[0].password);
             if (!hashCompare) {
                 throw new Error("Senha inválida");
             };
 
             const accessToken = authenticator.generateToken({
-                id: user.id,
-                role: user.role
+                id: user[0].id,
+                role: user[0].role
             });
 
             return accessToken;
