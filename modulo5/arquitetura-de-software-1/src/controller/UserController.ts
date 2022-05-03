@@ -49,4 +49,20 @@ export class UserController {
             res.status(400).send(error.message);
         };
     };
+
+    public async deleteUser (
+        req: Request,
+        res: Response
+    ): Promise<void> {
+        try {
+            const token = req.headers.authorization as string;
+            const id = req.params.id as string
+            
+            await userBusiness.deleteUser(token, id);
+            
+            res.status(200).send({message: "Usuário apagado com sucesso!"});
+        } catch (error: any) {
+            res.status(400).send(error.message);
+        };
+    };
 };

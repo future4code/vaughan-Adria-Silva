@@ -95,4 +95,25 @@ export class UserBusiness {
             throw new Error(error.message || "Não autorizado");
         };
     };
+
+    public async deleteUser(token: string, id: string) {
+        try {
+            const tokenData = authenticator.getTokenData(token);
+
+            if (!tokenData || tokenData.role !== 'ADMIN') {
+                throw new Error("Não autorizado. É necessário estar logado em uma conta ADMIN.");
+            };
+
+            const userToDelete: User[] = await userDB.selectUserById(id);
+
+            if (!userToDelete.length) {
+                throw new Error("Usuário informado não existe em nosso banco de dados");
+            };
+
+            await userDB.deleteUserById(id);
+
+        } catch (error: any) {
+            throw new Error(error.message || "Não autorizado");
+        };
+    };
 };
