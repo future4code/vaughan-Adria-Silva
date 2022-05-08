@@ -23,7 +23,7 @@ export class TablesCreator extends BaseDatabase {
                     )
                 `);
         } catch (error: any) {
-            throw new Error(error.message || error.sqlMessage);
+            throw new Error(error.message || `SQL:${error.sqlMessage}` )
         };
     };
 };
