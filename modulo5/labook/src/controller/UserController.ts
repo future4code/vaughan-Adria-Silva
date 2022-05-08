@@ -1,6 +1,6 @@
 import { Request, Response } from "express";
 import { UserBusiness } from "../business/UserBusiness";
-import { SignupInputDTO } from "../model/User";
+import { LoginInputDTO, SignupInputDTO } from "../model/User";
 
 
 export class UserController {
@@ -46,6 +46,44 @@ export class UserController {
                     break;
             };
 
+        };
+    };
+
+    public async login(
+        req: Request,
+        res: Response
+    ): Promise<void> {
+        try {
+            const { email, password } = req.body;
+
+            const input: LoginInputDTO = {
+                email,
+                password
+            };
+
+            //ToDo: const token = passar função que retorna token;
+
+            // res.status(200).send({token});
+        } catch (error: any) {
+            if (error.message.includes("SQL")) {
+                res.statusCode = 500;
+                res.send("internal database problem");
+            };
+
+            switch (error.message) {
+                case '"email" and "password" must be provided':
+                    res.statusCode = 406;
+                    res.send(error.message);
+                    break;
+                case "e-mail already registered":
+                    res.statusCode = 409;
+                    res.send(error.message);
+                    break;
+                default:
+                    res.statusCode = 400;
+                    res.send(error.message);
+                    break;
+            };
         };
     };
 }
