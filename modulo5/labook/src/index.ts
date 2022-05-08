@@ -21,3 +21,4 @@ const userController = new UserController(
 );
 
 app.post("/signup", (req, res) => userController.signUp(req, res));
+app.post("/login", (req, res) => userController.login(req, res));
