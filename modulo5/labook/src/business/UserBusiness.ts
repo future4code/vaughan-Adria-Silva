@@ -70,7 +70,7 @@ export class UserBusiness {
 
         const registeredUser: User[] = await this.userDB.findUserByEmail(email);
         if (!registeredUser.length) {
-            const message = "Email is not registered" // res.statusCode = 401
+            const message = "Email is not registered";
             throw new Error(message);
         };
 
@@ -83,7 +83,7 @@ export class UserBusiness {
 
         const passwordIsCorrect: boolean = await this.hashManager.compareHash(password, user.password)
         if (!passwordIsCorrect) {
-            const message = "Email is not registered" // res.statusCode = 401
+            const message = "Password is incorrect";
             throw new Error(message);
         };
 

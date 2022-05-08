@@ -61,9 +61,9 @@ export class UserController {
                 password
             };
 
-            //ToDo: const token = passar função que retorna token;
+            const token = await this.userBusiness.login(input); 
 
-            // res.status(200).send({token});
+            res.status(200).send({token});
         } catch (error: any) {
             if (error.message.includes("SQL")) {
                 res.statusCode = 500;
@@ -75,8 +75,12 @@ export class UserController {
                     res.statusCode = 406;
                     res.send(error.message);
                     break;
-                case "e-mail already registered":
-                    res.statusCode = 409;
+                case "Email is not registered":
+                    res.statusCode = 401;
+                    res.send(error.message);
+                    break;
+                case "Password is incorrect":
+                    res.statusCode = 401;
                     res.send(error.message);
                     break;
                 default:
