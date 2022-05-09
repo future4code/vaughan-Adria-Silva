@@ -29,7 +29,7 @@ test("Testing balance iqual to value", () => {
 	});
 });
 
-test("Testing balance iqual to value", () => {
+test("Testing balance lower than value", () => {
 	const user: User = {
 		name: "Ádria",
 		balance: 3000
