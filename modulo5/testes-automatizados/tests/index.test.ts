@@ -28,3 +28,14 @@ test("Testing balance iqual to value", () => {
 		balance: 0
 	});
 });
+
+test("Testing balance iqual to value", () => {
+	const user: User = {
+		name: "Ádria",
+		balance: 3000
+	};
+
+	const result = performPurchase(user, 4000);
+	
+	expect(result).toEqual(undefined);
+});
