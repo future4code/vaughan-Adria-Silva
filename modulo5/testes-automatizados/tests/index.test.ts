@@ -13,4 +13,18 @@ test("Testing balance greater than value", () => {
 		name: "Ádria",
 		balance: 1000
 	});
-})
+});
+
+test("Testing balance iqual to value", () => {
+	const user: User = {
+		name: "Ádria",
+		balance: 3000
+	};
+
+	const result = performPurchase(user, 3000);
+	
+	expect(result).toEqual({
+		name: "Ádria",
+		balance: 0
+	});
+});
