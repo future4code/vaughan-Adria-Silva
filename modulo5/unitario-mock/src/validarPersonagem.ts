@@ -1,7 +1,7 @@
 import { Personagem } from ".";
 
-export const validateCharacter = (input: Personagem): boolean => {
-    if (!input.nome || !input.vida || !input.defesa || input.forca) {
+export const validarPersonagem = (input: Personagem): boolean => {
+    if (!input.nome || !input.vida || !input.defesa || !input.forca) {
         return false;
     }
 
