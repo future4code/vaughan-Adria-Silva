@@ -23,7 +23,7 @@ export const atacarComInjecaoDeDependencias = (
     atacante: Personagem,
     defensor: Personagem,
     validador: (input: Personagem) => boolean
-) => {
+): Personagem => {
     if (!validador(atacante)|| !validador(defensor)) {
         throw new Error("Personagem inválido");
     }
@@ -31,6 +31,8 @@ export const atacarComInjecaoDeDependencias = (
     if (atacante.forca > defensor.defesa) {
         defensor.vida -= (atacante.forca - defensor.defesa);
     };
+
+    return defensor;
 };
 
 
