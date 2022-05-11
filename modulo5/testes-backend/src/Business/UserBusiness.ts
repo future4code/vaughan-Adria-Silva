@@ -6,7 +6,6 @@ import { CustomError } from "../Errors/CustomError"
 
 export class UserBusiness {
 
-
     constructor(
         private userDatabase: UserDatabase,
         private idGenerator: IdGenerator,
@@ -25,6 +24,7 @@ export class UserBusiness {
           id: user[0].id,
           name: user[0].name,
           email: user[0].email,
+          password: user[0].password,
           role: user[0].role,
         };
     };
